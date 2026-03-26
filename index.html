@@ -21,130 +21,169 @@
             -webkit-tap-highlight-color: transparent; 
         }
 
-        /* === 2. 게임 화면 컨테이너 === */
+        /* === 2. 게임 화면 컨테이너 (강당용 대화면 지원 max-width: 1920px 확장) === */
         #game-console { 
             position: relative; width: 100vw; height: 100vh; height: 100dvh; 
+            max-width: 1920px; /* 대형 스크린 지원 */
             background-color: #2b2b2b; overflow: hidden; display: flex; flex-direction: column; 
             border: 15px solid #000; /* 오락기 화면 같은 굵은 검은색 테두리 추가 */
         }
 
         .slide { 
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-            background-color: #fffaf1; padding: 20px; 
-            display: flex; flex-direction: column; gap: 15px;
+            background-color: #fffaf1; padding: 30px; 
+            display: flex; flex-direction: column; gap: 20px;
             opacity: 0; visibility: hidden; transition: opacity 0.3s; z-index: 0; 
         }
         .slide.active { opacity: 1; visibility: visible; z-index: 10; }
 
-        /* === 3. 타이포그래피 === */
+        /* === 3. 타이포그래피 (강당용 크기업) === */
         .quest-header {
-            background: #2d6a4f; color: #fff; padding: 12px 20px; border-radius: 12px;
-            font-family: 'Black Han Sans', sans-serif; font-size: 28px; text-align: center;
-            box-shadow: 0 5px 0 #1b4332; border: 3px solid #d8f3dc; letter-spacing: 1px;
+            background: #2d6a4f; color: #fff; padding: 15px 30px; border-radius: 15px;
+            font-family: 'Black Han Sans', sans-serif; font-size: 36px; text-align: center;
+            box-shadow: 0 6px 0 #1b4332; border: 4px solid #d8f3dc; letter-spacing: 2px;
             flex-shrink: 0; position: relative; z-index: 5;
         }
-        .quest-tag { color: #ffb703; margin-right: 10px; }
+        .quest-tag { color: #ffb703; margin-right: 15px; }
+
+        h1, h2, h3 { font-family: 'Do Hyeon', sans-serif; color: #1b4332; font-weight: normal; letter-spacing: 1px; }
+        h1 { font-size: 100px; text-shadow: 3px 5px 0px rgba(0,0,0,0.3); margin-bottom: 20px; line-height: 1.2;}
+        h2 { font-size: 65px; margin-bottom: 25px; border-bottom: 5px dashed #d8f3dc; padding-bottom: 10px; display: inline-block; }
+        h3 { font-size: 46px; margin-bottom: 20px; }
+        p, li { font-size: 30px; color: #2d6a4f; line-height: 1.6; font-weight: 700; margin-bottom: 20px; }
+        .highlight { color: #d90429; }
+
+        .top-logo { background-color: rgba(255, 255, 255, 0.95); padding: 15px 40px; border-radius: 100px; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.4); display: inline-block; }
+        .top-logo img { height: 60px; width: auto; display: block; }
 
         /* === 4. 상단 미션/연출 화면 (Scene View) === */
         .scene-view {
-            flex: 1; border-radius: 15px; border: 5px solid #2b2b2b; overflow: hidden; 
-            position: relative; min-height: 200px; background: linear-gradient(135deg, #74c69d, #52b788);
-            display: flex; justify-content: center; align-items: center; box-shadow: inset 0 0 20px rgba(0,0,0,0.3);
+            flex: 1; border-radius: 20px; border: 6px solid #2b2b2b; overflow: hidden; 
+            position: relative; min-height: 250px; background: linear-gradient(135deg, #74c69d, #52b788);
+            display: flex; justify-content: center; align-items: center; box-shadow: inset 0 0 30px rgba(0,0,0,0.3);
         }
         .scene-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; opacity: 0.9; }
         .scene-content { position: relative; z-index: 2; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;}
         
-        .floating-item { position: absolute; filter: drop-shadow(3px 5px 5px rgba(0,0,0,0.5)); animation: float 3s ease-in-out infinite; }
+        .floating-item { position: absolute; filter: drop-shadow(4px 6px 8px rgba(0,0,0,0.5)); animation: float 3s ease-in-out infinite; }
 
         /* === 5. 하단 RPG 대화창 (Dialog Box) === */
-        .rpg-ui-container { display: flex; align-items: flex-end; position: relative; flex-shrink: 0; margin-top: 10px; }
-        .rpg-character { width: 140px; flex-shrink: 0; z-index: 5; margin-right: -20px; margin-bottom: -5px; }
-        .rpg-character img { width: 100%; display: block; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.4)); }
+        .rpg-ui-container { display: flex; align-items: flex-end; position: relative; flex-shrink: 0; margin-top: 15px; }
+        .rpg-character { width: 180px; flex-shrink: 0; z-index: 5; margin-right: -25px; margin-bottom: -5px; }
+        .rpg-character img { width: 100%; display: block; filter: drop-shadow(0 8px 15px rgba(0,0,0,0.4)); }
         
         .rpg-dialogue {
-            flex: 1; background: rgba(0, 0, 0, 0.85); border: 4px solid #fff; border-radius: 20px; 
-            padding: 25px 25px 20px 35px; color: #fff; box-shadow: 0 10px 20px rgba(0,0,0,0.5); z-index: 1;
-            min-height: 180px; display: flex; flex-direction: column; justify-content: center;
+            flex: 1; background: rgba(0, 0, 0, 0.85); border: 5px solid #fff; border-radius: 25px; 
+            padding: 35px 30px 25px 40px; color: #fff; box-shadow: 0 15px 30px rgba(0,0,0,0.5); z-index: 1;
+            min-height: 220px; display: flex; flex-direction: column; justify-content: center;
         }
         .speaker-name {
-            background: #ffb703; color: #000; display: inline-block; padding: 6px 20px; 
-            border-radius: 12px; font-family: 'Black Han Sans', sans-serif; font-size: 22px; 
-            position: absolute; top: -20px; left: 140px; border: 3px solid #fff; z-index: 6;
+            background: #ffb703; color: #000; display: inline-block; padding: 8px 25px; 
+            border-radius: 15px; font-family: 'Black Han Sans', sans-serif; font-size: 28px; 
+            position: absolute; top: -25px; left: 160px; border: 4px solid #fff; z-index: 6;
         }
-        .dialogue-text { font-size: 24px; line-height: 1.5; margin-bottom: 15px; color: #f8f9fa; }
+        .dialogue-text { font-size: 32px; line-height: 1.6; margin-bottom: 20px; color: #f8f9fa; }
         .dialogue-text .highlight { color: #ffb703; font-weight: bold; }
 
         /* === 6. 아케이드 버튼 === */
-        .btn-group { display: flex; gap: 12px; flex-wrap: wrap; justify-content: flex-start; }
+        .btn-group { display: flex; gap: 15px; flex-wrap: wrap; justify-content: flex-start; }
         .btn-group.center { justify-content: center; }
         .game-btn {
-            background-color: #ffb703; color: #1b4332; padding: 12px 24px; font-size: 24px; 
-            border-radius: 12px; border: 3px solid #fff; cursor: pointer; 
-            box-shadow: 0 6px 0 #bc6c25; transition: all 0.1s; display: inline-flex; align-items: center; justify-content: center;
+            background-color: #ffb703; color: #1b4332; padding: 15px 30px; font-size: 30px; 
+            border-radius: 15px; border: 4px solid #fff; cursor: pointer; 
+            box-shadow: 0 8px 0 #bc6c25; transition: all 0.1s; display: inline-flex; align-items: center; justify-content: center;
         }
-        .game-btn:active { transform: translateY(6px); box-shadow: 0 0 0 #bc6c25; }
-        .game-btn i { margin-right: 8px; }
-        .action-btn { background-color: #4cc9f0; color: #fff; box-shadow: 0 6px 0 #0077b6; } .action-btn:active { box-shadow: 0 0 0 #0077b6; transform: translateY(6px); }
-        .success-btn { background-color: #74c69d; color: #fff; box-shadow: 0 6px 0 #2d6a4f; } .success-btn:active { box-shadow: 0 0 0 #2d6a4f; transform: translateY(6px); }
+        .game-btn:active { transform: translateY(8px); box-shadow: 0 0 0 #bc6c25; }
+        .game-btn i { margin-right: 10px; }
+        .action-btn { background-color: #4cc9f0; color: #fff; box-shadow: 0 8px 0 #0077b6; } .action-btn:active { box-shadow: 0 0 0 #0077b6; transform: translateY(8px); }
+        .success-btn { background-color: #74c69d; color: #fff; box-shadow: 0 8px 0 #2d6a4f; } .success-btn:active { box-shadow: 0 0 0 #2d6a4f; transform: translateY(8px); }
 
         /* === 7. 모달 & 시스템 메시지 === */
         .modal-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.85); display: flex; justify-content: center; align-items: center; z-index: 100; visibility: hidden; opacity: 0; transition: all 0.2s; }
         .modal-overlay.show { visibility: visible; opacity: 1; }
-        .modal-content { background-color: #2b2b2b; padding: 30px; border-radius: 20px; border: 5px solid #ffb703; text-align: center; width: 90%; max-width: 500px; transform: scale(0.8); transition: transform 0.2s; color: #fff; }
+        .modal-content { background-color: #2b2b2b; padding: 40px; border-radius: 25px; border: 6px solid #ffb703; text-align: center; width: 90%; max-width: 600px; transform: scale(0.8); transition: transform 0.2s; color: #fff; }
         .modal-overlay.show .modal-content { transform: scale(1); }
-        .modal-content h3 { font-size: 34px; margin-bottom: 25px; line-height: 1.4; font-family: 'Black Han Sans', sans-serif; }
-        .modal-btn-group { display: flex; gap: 15px; justify-content: center; }
+        .modal-content h3 { font-size: 46px; margin-bottom: 35px; line-height: 1.4; font-family: 'Black Han Sans', sans-serif; }
+        .modal-btn-group { display: flex; gap: 20px; justify-content: center; }
         
-        #toast { position: absolute; top: 20px; left: 50%; transform: translateX(-50%); background-color: #d90429; color: #fff; padding: 15px 30px; border-radius: 50px; font-size: 24px; font-family: 'Black Han Sans', sans-serif; box-shadow: 0 10px 20px rgba(0,0,0,0.5); z-index: 100; visibility: hidden; opacity: 0; transition: opacity 0.3s; border: 3px solid #fff; width: max-content; }
+        .btn-yes { background-color: #74c69d; color: #fff; box-shadow: 0 8px 0 #2d6a4f; } .btn-yes:active { box-shadow: 0 0 0 #2d6a4f; transform: translateY(8px); }
+        .btn-no { background-color: #e5e5e5; color: #7f7f7f; box-shadow: 0 8px 0 #cccccc; } .btn-no:active { box-shadow: 0 0 0 #cccccc; transform: translateY(8px); }
+
+        #toast { position: absolute; top: 30px; left: 50%; transform: translateX(-50%); background-color: #d90429; color: #fff; padding: 20px 40px; border-radius: 50px; font-size: 30px; font-family: 'Black Han Sans', sans-serif; box-shadow: 0 15px 30px rgba(0,0,0,0.5); z-index: 100; visibility: hidden; opacity: 0; transition: opacity 0.3s; border: 4px solid #fff; width: max-content; }
         #toast.show { visibility: visible; opacity: 1; }
         #toast.info { background-color: #4cc9f0; color: #fff; } 
         
-        #progress-bar { position: absolute; bottom: 0; left: 0; height: 8px; background-color: #74c69d; width: 0%; transition: width 0.3s ease; z-index: 50; }
+        #progress-bar { position: absolute; bottom: 0; left: 0; height: 12px; background-color: #74c69d; width: 0%; transition: width 0.3s ease; z-index: 50; }
 
         /* === 8. 애니메이션 === */
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-        @keyframes bounce-char { 0%, 100% { transform: translateY(0); } 40% { transform: translateY(-20px); } 60% { transform: translateY(-10px); } }
-        @keyframes shake-error { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-10px); } 40%, 80% { transform: translateX(10px); } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        @keyframes bounce-char { 0%, 100% { transform: translateY(0); } 40% { transform: translateY(-25px); } 60% { transform: translateY(-12px); } }
+        @keyframes shake-error { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-12px); } 40%, 80% { transform: translateX(12px); } }
         .anim-idle { animation: float 3s ease-in-out infinite; } .anim-cheer { animation: bounce-char 1s ease-in-out infinite; } .anim-error { animation: shake-error 0.4s !important; }
         .shake-screen { animation: shake-error 0.4s; }
 
         /* === 타이틀 & 엔딩 슬라이드 전용 스타일 === */
         .full-bg-slide { padding: 0; border: none; justify-content: center; align-items: center; background: #1b4332; }
-        .full-bg-slide .scene-bg { z-index: 0; opacity: 0.6; }
-        .title-logo { position: absolute; top: 30px; left: 30px; background: rgba(255,255,255,0.9); padding: 10px 20px; border-radius: 30px; z-index: 5; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
-        .title-logo img { height: 40px; }
-        .title-text { position: relative; z-index: 5; color: #fff; text-align: center; text-shadow: 2px 4px 0 #000; font-family: 'Black Han Sans', sans-serif; font-size: 70px; line-height: 1.1; margin: 20px 0; }
-        .title-top-right { position: absolute; top: 40px; right: 60px; z-index: 5; color: #fff; text-align: right; text-shadow: 3px 5px 0 #000; font-family: 'Black Han Sans', sans-serif; font-size: 80px; line-height: 1.2; }
-        .title-char { position: relative; z-index: 5; width: 250px; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.8)); }
-
+        .full-bg-slide .scene-bg { z-index: 0; opacity: 0.7; }
+        .title-logo { position: absolute; top: 40px; left: 50px; background: rgba(255,255,255,0.9); padding: 15px 30px; border-radius: 40px; z-index: 5; box-shadow: 0 8px 20px rgba(0,0,0,0.5); }
+        .title-logo img { height: 60px; }
+        
+        /* 첫 화면 타이틀과 우측 컨트롤 패널 레이아웃 */
+        .title-top-right { position: absolute; top: 60px; right: 80px; z-index: 5; color: #fff; text-align: right; text-shadow: 4px 6px 0 #000; font-family: 'Black Han Sans', sans-serif; font-size: 100px; line-height: 1.2; margin: 0;}
+        .title-right-panel { position: absolute; right: 80px; top: 45%; transform: translateY(-20%); display: flex; flex-direction: column; align-items: center; gap: 20px; z-index: 10; }
+        
+        .title-char { width: 280px; filter: drop-shadow(0 15px 30px rgba(0,0,0,0.8)); margin-bottom: 10px;}
+        .group-name-input { padding: 18px 25px; font-size: 32px; border-radius: 15px; border: 5px solid #ffb703; font-family: 'Do Hyeon', sans-serif; text-align: center; width: 420px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); outline: none; background: rgba(255,255,255,0.95); color: #1b4332; transition: all 0.2s;}
+        .group-name-input:focus { border-color: #74c69d; transform: scale(1.02); }
+        .group-name-input::placeholder { color: #aaa; }
+        
         /* === 특수 연출 (자물쇠, 퍼즐 단어 등) === */
-        .intro-lock { font-size: 60px; color: #ffb703; text-shadow: 0 5px 10px #000; }
-        .puzzle-word { background: rgba(255,255,255,0.9); padding: 10px 30px; border-radius: 15px; font-family: 'Black Han Sans', sans-serif; font-size: 40px; color: #1b4332; letter-spacing: 20px; border: 4px solid #ffb703; box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+        .intro-lock { font-size: 80px; color: #ffb703; text-shadow: 0 8px 15px #000; }
+        .puzzle-word { background: rgba(255,255,255,0.95); padding: 15px 40px; border-radius: 20px; font-family: 'Black Han Sans', sans-serif; font-size: 55px; color: #1b4332; letter-spacing: 25px; border: 5px solid #ffb703; box-shadow: 0 15px 30px rgba(0,0,0,0.5); }
+
+        /* === 7. 레이아웃 그리드 === */
+        .content-grid { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto 1fr; gap: 20px 50px; width: 100%; flex: 1; align-items: center; }
+        .text-section { grid-column: 1; grid-row: 1; } .btn-section { grid-column: 1; grid-row: 2; align-self: start; } .image-section { grid-column: 2; grid-row: 1 / span 2; display: flex; align-items: center; height: 100%;}
+        .slide-alt .text-section { grid-column: 2; } .slide-alt .btn-section { grid-column: 2; } .slide-alt .image-section { grid-column: 1; }
+        
+        .rules-container { display: flex; gap: 50px; flex: 1; align-items: center; justify-content: center;} 
+        .rule-box { flex: 1; text-align: center; max-width: 350px;} 
+        .rule-box i { font-size: 90px; color: #ffb703; margin-bottom: 25px; }
+
+        /* 교육용 슬라이드 (1단 레이아웃) */
+        .edu-layout { display: flex; flex-direction: row; gap: 50px; align-items: center; justify-content: center; flex: 1; background: #e9edc9; border-radius: 25px; padding: 50px; border: 5px solid #ccd5ae; }
+        .edu-text { flex: 2; } .edu-char { flex: 1; display: flex; justify-content: center; }
 
         /* === 모바일 대응 (RPG 화면 꽉 채우기) === */
         @media (max-width: 800px) {
             body { padding: 0; background: #000; }
             #game-console { border: 6px solid #000; border-radius: 0; height: 100dvh; max-width: none; aspect-ratio: auto; }
             .slide { padding: 15px; gap: 10px; }
-            .quest-header { font-size: 22px; padding: 10px; border-width: 2px; }
+            .quest-header { font-size: 24px; padding: 10px 15px; border-width: 2px; }
             
-            .rpg-character { width: 100px; margin-right: -15px; }
+            .rpg-character { width: 110px; margin-right: -15px; }
             .rpg-dialogue { padding: 25px 15px 15px 20px; border-width: 3px; min-height: 150px; }
-            .speaker-name { font-size: 18px; top: -15px; left: 100px; padding: 4px 15px; border-width: 2px; }
-            .dialogue-text { font-size: 18px; margin-bottom: 10px; }
+            .speaker-name { font-size: 18px; top: -15px; left: 110px; padding: 4px 15px; border-width: 2px; }
+            .dialogue-text { font-size: 20px; margin-bottom: 10px; }
             
-            .game-btn { font-size: 18px; padding: 10px 15px; border-width: 2px; }
+            .game-btn { font-size: 20px; padding: 12px 20px; border-width: 2px; }
             .btn-group { gap: 8px; }
             
-            .title-text { font-size: 50px; } .title-top-right { top: 20px; right: 20px; font-size: 40px; } .title-char { width: 180px; }
+            .title-top-right { position: relative; top: auto; right: auto; text-align: center; font-size: 50px; margin-top: 60px; text-shadow: 2px 3px 0 #000;} 
+            .title-right-panel { position: relative; right: auto; top: auto; transform: none; width: 100%; margin-top: 20px; }
+            .title-char { width: 180px; }
+            .group-name-input { width: 90%; font-size: 22px; padding: 12px 20px; border-width: 3px; }
             .title-logo { top: 15px; left: 15px; padding: 8px 15px; } .title-logo img { height: 30px; }
             
-            .scene-view { min-height: 150px; }
-            .floating-item.fa-magnifying-glass { font-size: 40px !important; }
-            .puzzle-word { font-size: 30px; letter-spacing: 10px; padding: 10px 20px; }
+            .scene-view { min-height: 160px; border-width: 4px;}
+            .floating-item.fa-magnifying-glass { font-size: 50px !important; }
+            .puzzle-word { font-size: 30px; letter-spacing: 10px; padding: 10px 20px; border-width: 3px;}
             
-            .modal-content { padding: 25px 15px; } .modal-content h3 { font-size: 26px; }
-            #toast { font-size: 18px; padding: 12px 20px; top: 10px; }
+            .modal-content { padding: 25px 15px; border-width: 4px;} .modal-content h3 { font-size: 26px; }
+            #toast { font-size: 20px; padding: 12px 20px; top: 15px; }
+            h2 { font-size: 36px; margin-bottom: 15px; } h3 { font-size: 26px; margin-bottom: 10px; } p, li { font-size: 20px; margin-bottom: 10px; }
+            .rule-box i { font-size: 50px; margin-bottom: 15px; }
+            .edu-layout { flex-direction: column; padding: 20px; gap: 20px; } .edu-text { order: 2; } .edu-char { order: 1; }
         }
     </style>
 </head>
@@ -166,18 +205,18 @@
         <!-- 알림창 -->
         <div id="toast"><i class="fa-solid fa-triangle-exclamation"></i> 앗, 틀렸어요!</div>
 
-        <!-- 슬라이드 1: 타이틀 화면 -->
+        <!-- 슬라이드 1: 타이틀 화면 (디자인 전면 개편) -->
         <div class="slide full-bg-slide active" id="slide1">
-            <!-- onerror 꿀팁 적용: 사용자가 이름 변경 안 했을 때를 대비한 이중 코드 -->
             <div class="title-logo"><img src="logo_jangseong.png" onerror="this.src='50436.png'" alt="로고"></div>
             <img class="scene-bg" src="bg_door_closed.jpg" onerror="this.style.display='none'">
             
             <h1 class="title-top-right">비밀의 숲<br><span style="color:#ffb703;">5가지 자물쇠</span></h1>
             
-            <img class="title-char anim-cheer" src="character_fowi.png" onerror="this.src='50588.png'" alt="캐릭터">
-            
-            <div style="position:relative; z-index:5; margin-top:20px;">
-                <button class="game-btn success-btn" style="font-size:30px; padding:15px 40px;" onclick="goTo('slide2')"><i class="fa-solid fa-play"></i> 모험 시작하기</button>
+            <!-- 우측 중앙 컨트롤 패널 (캐릭터 + 단체이름 입력 + 시작버튼) -->
+            <div class="title-right-panel">
+                <img class="title-char anim-cheer" src="character_fowi.png" onerror="this.src='50588.png'" alt="캐릭터">
+                <input type="text" class="group-name-input" id="teamNameInput" placeholder="탐험대 이름 입력 (선택)">
+                <button class="game-btn success-btn" style="font-size: 36px; padding: 20px 50px; width: 100%;" onclick="goTo('slide2')"><i class="fa-solid fa-play"></i> 모험 시작하기</button>
             </div>
         </div>
 
@@ -185,10 +224,10 @@
         <div class="slide" id="slide2">
             <div class="quest-header"><span class="quest-tag">튜토리얼</span> 탐험가 규칙</div>
             <div class="scene-view">
-                <div class="scene-content" style="flex-direction:row; gap:30px; flex-wrap:wrap;">
-                    <div style="text-align:center;"><i class="fa-solid fa-magnifying-glass intro-lock"></i><p style="color:#fff; margin-top:10px; text-shadow:0 2px 5px #000;">눈 크게 뜨기</p></div>
-                    <div style="text-align:center;"><i class="fa-solid fa-handshake-angle intro-lock" style="color:#74c69d;"></i><p style="color:#fff; margin-top:10px; text-shadow:0 2px 5px #000;">함께 돕기</p></div>
-                    <div style="text-align:center;"><i class="fa-solid fa-bullhorn intro-lock" style="color:#4cc9f0;"></i><p style="color:#fff; margin-top:10px; text-shadow:0 2px 5px #000;">정답 외치기</p></div>
+                <div class="scene-content" style="flex-direction:row; gap:50px; flex-wrap:wrap;">
+                    <div style="text-align:center;"><i class="fa-solid fa-magnifying-glass intro-lock"></i><p style="color:#fff; margin-top:15px; text-shadow:0 2px 5px #000; font-size: 36px;">눈 크게 뜨기</p></div>
+                    <div style="text-align:center;"><i class="fa-solid fa-handshake-angle intro-lock" style="color:#74c69d;"></i><p style="color:#fff; margin-top:15px; text-shadow:0 2px 5px #000; font-size: 36px;">함께 돕기</p></div>
+                    <div style="text-align:center;"><i class="fa-solid fa-bullhorn intro-lock" style="color:#4cc9f0;"></i><p style="color:#fff; margin-top:15px; text-shadow:0 2px 5px #000; font-size: 36px;">정답 외치기</p></div>
                 </div>
             </div>
             <div class="rpg-ui-container">
@@ -206,8 +245,8 @@
             <div class="quest-header"><span class="quest-tag">준비운동</span> 팀 이름 정하기</div>
             <div class="scene-view" style="background: linear-gradient(135deg, #0077b6, #023e8a);">
                 <div class="scene-content">
-                    <i class="fa-solid fa-users-viewfinder" style="font-size:80px; color:#fff; margin-bottom:15px; filter:drop-shadow(0 5px 10px #000);"></i>
-                    <p style="color:#fff; font-size:24px; text-shadow:0 2px 5px #000;">예시: 도토리 구조대, 무적 다람쥐, 솔방울 탐험대 등</p>
+                    <i class="fa-solid fa-users-viewfinder" style="font-size:120px; color:#fff; margin-bottom:20px; filter:drop-shadow(0 5px 10px #000);"></i>
+                    <p style="color:#fff; font-size:36px; text-shadow:0 2px 5px #000;">예시: 도토리 구조대, 무적 다람쥐, 솔방울 탐험대 등</p>
                 </div>
             </div>
             <div class="rpg-ui-container">
@@ -224,7 +263,7 @@
         <div class="slide" id="slide4">
             <div class="quest-header"><span class="quest-tag">1번 방</span> 나무의 일기장</div>
             <div class="scene-view">
-                <i class="fa-solid fa-circle-question floating-item" style="font-size:120px; color:#fff;"></i>
+                <i class="fa-solid fa-circle-question floating-item" style="font-size:150px; color:#fff;"></i>
             </div>
             <div class="rpg-ui-container">
                 <div class="rpg-character"><img src="character_fowi.png" onerror="this.src='50588.png'" class="anim-think"></div>
@@ -243,9 +282,9 @@
         <div class="slide" id="slide5">
             <div class="quest-header"><span class="quest-tag">지식 획득</span> 나이테의 비밀</div>
             <div class="scene-view" style="background: linear-gradient(135deg, #bc6c25, #dda15e);">
-                <div class="scene-content" style="padding:20px;">
-                    <i class="fa-solid fa-book-open" style="font-size:60px; color:#fff; margin-bottom:10px;"></i>
-                    <p style="color:#fff; font-size:20px; text-shadow:0 2px 4px #000; line-height:1.4;">봄, 여름(따뜻) ➔ 쑥쑥 자람 (넓은 띠)<br>가을, 겨울(추움) ➔ 천천히 자람 (좁은 띠)</p>
+                <div class="scene-content" style="padding:30px;">
+                    <i class="fa-solid fa-book-open" style="font-size:90px; color:#fff; margin-bottom:20px;"></i>
+                    <p style="color:#fff; font-size:32px; text-shadow:0 2px 4px #000; line-height:1.5;">봄, 여름(따뜻) ➔ 쑥쑥 자람 (넓은 띠)<br>가을, 겨울(추움) ➔ 천천히 자람 (좁은 띠)</p>
                 </div>
             </div>
             <div class="rpg-ui-container">
@@ -263,8 +302,8 @@
             <div class="quest-header"><span class="quest-tag">1번 방 미션</span> 일기장 해독하기</div>
             <div class="scene-view">
                 <img class="scene-bg" src="bg_tree_ring.jpg" onerror="this.style.display='none'">
-                <i class="fa-solid fa-magnifying-glass floating-item" style="font-size:70px; color:#fff; top:20%; left:20%;"></i>
-                <i class="fa-solid fa-cloud-sun-rain floating-item" style="font-size:60px; color:#ffb703; top:15%; right:20%;"></i>
+                <i class="fa-solid fa-magnifying-glass floating-item" style="font-size:100px; color:#fff; top:20%; left:20%;"></i>
+                <i class="fa-solid fa-cloud-sun-rain floating-item" style="font-size:90px; color:#ffb703; top:15%; right:20%;"></i>
             </div>
             <div class="rpg-ui-container">
                 <div class="rpg-character"><img src="character_fowi.png" onerror="this.src='50588.png'" class="anim-think"></div>
@@ -284,7 +323,7 @@
         <div class="slide" id="slide7">
             <div class="quest-header" style="background:#ffb703; color:#000;"><span class="quest-tag" style="color:#d90429;">CLEAR!</span> 첫 번째 자물쇠 해제!</div>
             <div class="scene-view" style="background: linear-gradient(135deg, #d8f3dc, #b7e4c7);">
-                <i class="fa-solid fa-unlock-keyhole floating-item" style="font-size:120px; color:#ffb703;"></i>
+                <i class="fa-solid fa-unlock-keyhole floating-item" style="font-size:150px; color:#ffb703;"></i>
             </div>
             <div class="rpg-ui-container">
                 <div class="rpg-character"><img src="character_fowi.png" onerror="this.src='50588.png'" class="anim-cheer"></div>
@@ -300,9 +339,9 @@
         <div class="slide" id="slide8">
             <div class="quest-header"><span class="quest-tag">지식 획득</span> 숲의 투명 방패</div>
             <div class="scene-view" style="background: linear-gradient(135deg, #a8dadc, #457b9d);">
-                <div class="scene-content" style="padding:20px;">
-                    <i class="fa-solid fa-shield-halved" style="font-size:70px; color:#fff; margin-bottom:10px;"></i>
-                    <p style="color:#fff; font-size:20px; text-shadow:0 2px 4px #000; line-height:1.4;">식물은 상처를 입으면 나쁜 균을 물리치기 위해<br>특별한 <strong>마법의 향기</strong>를 뿜어내요.</p>
+                <div class="scene-content" style="padding:30px;">
+                    <i class="fa-solid fa-shield-halved" style="font-size:100px; color:#fff; margin-bottom:20px;"></i>
+                    <p style="color:#fff; font-size:32px; text-shadow:0 2px 4px #000; line-height:1.5;">식물은 상처를 입으면 나쁜 균을 물리치기 위해<br>특별한 <strong>마법의 향기</strong>를 뿜어내요.</p>
                 </div>
             </div>
             <div class="rpg-ui-container">
@@ -340,7 +379,7 @@
         <div class="slide" id="slide10">
             <div class="quest-header" style="background:#ffb703; color:#000;"><span class="quest-tag" style="color:#d90429;">CLEAR!</span> 두 번째 자물쇠 해제!</div>
             <div class="scene-view" style="background: linear-gradient(135deg, #d8f3dc, #b7e4c7);">
-                <i class="fa-solid fa-lungs floating-item" style="font-size:100px; color:#2a9d8f;"></i>
+                <i class="fa-solid fa-lungs floating-item" style="font-size:150px; color:#2a9d8f;"></i>
             </div>
             <div class="rpg-ui-container">
                 <div class="rpg-character"><img src="character_fowi.png" onerror="this.src='50588.png'" class="anim-cheer"></div>
@@ -356,9 +395,9 @@
         <div class="slide" id="slide11">
             <div class="quest-header"><span class="quest-tag">지식 획득</span> 숲속의 농부들</div>
             <div class="scene-view" style="background: linear-gradient(135deg, #ffecd1, #e5989b);">
-                <div class="scene-content" style="padding:20px;">
-                    <i class="fa-solid fa-dove" style="font-size:70px; color:#b56576; margin-bottom:10px;"></i>
-                    <p style="color:#1b263b; font-size:20px; text-shadow:0 2px 4px #fff; line-height:1.4;">새들은 벌레를 잡아 나무를 치료하는 <strong>'의사'</strong>이자,<br>씨앗을 먹고 멀리 똥을 누어 숲을 넓히는 <strong>'농부'</strong>랍니다.</p>
+                <div class="scene-content" style="padding:30px;">
+                    <i class="fa-solid fa-dove" style="font-size:100px; color:#b56576; margin-bottom:20px;"></i>
+                    <p style="color:#1b263b; font-size:32px; text-shadow:0 2px 4px #fff; line-height:1.5;">새들은 벌레를 잡아 나무를 치료하는 <strong>'의사'</strong>이자,<br>씨앗을 먹고 멀리 똥을 누어 숲을 넓히는 <strong>'농부'</strong>랍니다.</p>
                 </div>
             </div>
             <div class="rpg-ui-container">
@@ -377,9 +416,9 @@
             <div class="scene-view">
                 <img class="scene-bg" src="bg_forest_birds.jpg" onerror="this.style.display='none'">
                 <div class="btn-group center" style="position:relative; z-index:5;">
-                    <button class="game-btn action-btn" onclick="playSound('sound_sparrow.mp3', '🎵 짹짹! 짹짹짹!')"><i class="fa-solid fa-volume-high"></i> 1번 소리</button>
-                    <button class="game-btn action-btn" onclick="playSound('sound_woodpecker.mp3', '🎵 따다다다닥! 탁탁탁!')"><i class="fa-solid fa-volume-high"></i> 2번 소리</button>
-                    <button class="game-btn action-btn" onclick="playSound('sound_cuckoo.mp3', '🎵 뻐꾹! 뻐꾹!')"><i class="fa-solid fa-volume-high"></i> 3번 소리</button>
+                    <button class="game-btn action-btn" onclick="playSound('sound_sparrow.mp3', '🎵 짹짹! 짹짹짹!')"><i class="fa-solid fa-volume-high"></i> 1번 소리 듣기</button>
+                    <button class="game-btn action-btn" onclick="playSound('sound_woodpecker.mp3', '🎵 따다다다닥! 탁탁탁!')"><i class="fa-solid fa-volume-high"></i> 2번 소리 듣기</button>
+                    <button class="game-btn action-btn" onclick="playSound('sound_cuckoo.mp3', '🎵 뻐꾹! 뻐꾹!')"><i class="fa-solid fa-volume-high"></i> 3번 소리 듣기</button>
                 </div>
             </div>
             <div class="rpg-ui-container">
@@ -400,7 +439,7 @@
         <div class="slide" id="slide13">
             <div class="quest-header" style="background:#ffb703; color:#000;"><span class="quest-tag" style="color:#d90429;">CLEAR!</span> 세 번째 자물쇠 해제!</div>
             <div class="scene-view" style="background: linear-gradient(135deg, #f4a261, #e76f51);">
-                <i class="fa-solid fa-feather-pointed floating-item" style="font-size:100px; color:#fff;"></i>
+                <i class="fa-solid fa-feather-pointed floating-item" style="font-size:150px; color:#fff;"></i>
             </div>
             <div class="rpg-ui-container">
                 <div class="rpg-character"><img src="character_fowi.png" onerror="this.src='50588.png'" class="anim-cheer"></div>
@@ -416,9 +455,9 @@
         <div class="slide" id="slide14">
             <div class="quest-header"><span class="quest-tag">지식 획득</span> 땅속의 인터넷</div>
             <div class="scene-view" style="background: linear-gradient(135deg, #dda15e, #bc6c25);">
-                <div class="scene-content" style="padding:20px;">
-                    <i class="fa-solid fa-network-wired" style="font-size:70px; color:#fff; margin-bottom:10px;"></i>
-                    <p style="color:#fff; font-size:20px; text-shadow:0 2px 4px #000; line-height:1.4;">나무들은 <strong>'균근(버섯 뿌리)'</strong>이라는 하얀 실을 통해 연결되어 서로 영양분을 나누고 위험 신호를 보내요.</p>
+                <div class="scene-content" style="padding:30px;">
+                    <i class="fa-solid fa-network-wired" style="font-size:100px; color:#fff; margin-bottom:20px;"></i>
+                    <p style="color:#fff; font-size:32px; text-shadow:0 2px 4px #000; line-height:1.5;">나무들은 <strong>'균근(버섯 뿌리)'</strong>이라는 하얀 실을 통해 연결되어 서로 영양분을 나누고 위험 신호를 보내요.</p>
                 </div>
             </div>
             <div class="rpg-ui-container">
@@ -436,8 +475,8 @@
             <div class="quest-header"><span class="quest-tag">4번 방 미션</span> 땅속 마을 우체부</div>
             <div class="scene-view">
                 <img class="scene-bg" src="bg_mycelium.jpg" onerror="this.style.display='none'">
-                <div class="floating-item" style="top:15%; left:10%; background:rgba(255,255,255,0.9); padding:5px 15px; border-radius:15px; font-family:'Black Han Sans'; font-size:20px; color:#1b4332;">🌳 엄마 나무</div>
-                <div class="floating-item" style="bottom:15%; right:10%; background:rgba(255,255,255,0.9); padding:5px 15px; border-radius:15px; font-family:'Black Han Sans'; font-size:20px; color:#1b4332;">🌱 아기 나무</div>
+                <div class="floating-item" style="top:15%; left:10%; background:rgba(255,255,255,0.9); padding:10px 25px; border-radius:20px; font-family:'Black Han Sans'; font-size:28px; color:#1b4332;">🌳 엄마 나무</div>
+                <div class="floating-item" style="bottom:15%; right:10%; background:rgba(255,255,255,0.9); padding:10px 25px; border-radius:20px; font-family:'Black Han Sans'; font-size:28px; color:#1b4332;">🌱 아기 나무</div>
             </div>
             <div class="rpg-ui-container">
                 <div class="rpg-character"><img src="character_fowi.png" onerror="this.src='50588.png'" class="anim-think"></div>
@@ -457,7 +496,7 @@
         <div class="slide" id="slide16">
             <div class="quest-header" style="background:#ffb703; color:#000;"><span class="quest-tag" style="color:#d90429;">CLEAR!</span> 네 번째 자물쇠 해제!</div>
             <div class="scene-view" style="background: linear-gradient(135deg, #fefae0, #faedcd);">
-                <i class="fa-solid fa-bolt floating-item" style="font-size:100px; color:#bc6c25;"></i>
+                <i class="fa-solid fa-bolt floating-item" style="font-size:150px; color:#bc6c25;"></i>
             </div>
             <div class="rpg-ui-container">
                 <div class="rpg-character"><img src="character_fowi.png" onerror="this.src='50588.png'" class="anim-cheer"></div>
@@ -473,9 +512,9 @@
         <div class="slide" id="slide17">
             <div class="quest-header"><span class="quest-tag">지식 획득</span> 기후위기와 숲</div>
             <div class="scene-view" style="background: linear-gradient(135deg, #adb5bd, #6c757d);">
-                <div class="scene-content" style="padding:20px;">
-                    <i class="fa-solid fa-temperature-arrow-up" style="font-size:70px; color:#d90429; margin-bottom:10px;"></i>
-                    <p style="color:#fff; font-size:20px; text-shadow:0 2px 4px #000; line-height:1.4;">자동차와 공장에서 나온 <strong>'이산화탄소'</strong>가 지구를 뜨겁게 만들어요. 다행히 숲의 나무들은 이 나쁜 가스를 마시고 맑은 산소를 뿜어준답니다!</p>
+                <div class="scene-content" style="padding:30px;">
+                    <i class="fa-solid fa-temperature-arrow-up" style="font-size:100px; color:#d90429; margin-bottom:20px;"></i>
+                    <p style="color:#fff; font-size:32px; text-shadow:0 2px 4px #000; line-height:1.5;">자동차와 공장에서 나온 <strong>'이산화탄소'</strong>가 지구를 뜨겁게 만들어요. 다행히 숲의 나무들은 이 나쁜 가스를 마시고 맑은 산소를 뿜어준답니다!</p>
                 </div>
             </div>
             <div class="rpg-ui-container">
@@ -493,8 +532,8 @@
             <div class="quest-header"><span class="quest-tag">5번 방 미션</span> 숲이 아파요! (그림 픽처)</div>
             <div class="scene-view">
                 <img class="scene-bg" src="bg_carbon_monster.jpg" onerror="this.style.display='none'">
-                <i class="fa-solid fa-smog floating-item" style="top:25%; left:25%; font-size:80px; color:#555;"></i>
-                <i class="fa-solid fa-temperature-arrow-up floating-item" style="top:50%; right:25%; font-size:80px; color:#d90429;"></i>
+                <i class="fa-solid fa-smog floating-item" style="top:25%; left:25%; font-size:100px; color:#555;"></i>
+                <i class="fa-solid fa-temperature-arrow-up floating-item" style="top:50%; right:25%; font-size:100px; color:#d90429;"></i>
             </div>
             <div class="rpg-ui-container">
                 <div class="rpg-character"><img src="character_fowi.png" onerror="this.src='50588.png'" class="anim-think"></div>
@@ -514,7 +553,7 @@
         <div class="slide" id="slide19">
             <div class="quest-header" style="background:#ffb703; color:#000;"><span class="quest-tag" style="color:#d90429;">CLEAR!</span> 몬스터 제압!</div>
             <div class="scene-view" style="background: linear-gradient(135deg, #d8f3dc, #74c69d);">
-                <i class="fa-solid fa-tree floating-item" style="font-size:100px; color:#1b4332;"></i>
+                <i class="fa-solid fa-tree floating-item" style="font-size:150px; color:#1b4332;"></i>
             </div>
             <div class="rpg-ui-container">
                 <div class="rpg-character"><img src="character_fowi.png" onerror="this.src='50588.png'" class="anim-cheer"></div>
@@ -528,18 +567,18 @@
 
         <!-- 슬라이드 20: 오프라인 미션 -->
         <div class="slide full-bg-slide" id="slide20">
-            <div class="quest-header" style="position:absolute; top:20px; z-index:10;"><span class="quest-tag">최종 보스</span> 포이의 마지막 부탁</div>
-            <div style="display:flex; flex-direction:column; align-items:center; max-width:800px; margin: 0 auto; padding:20px; z-index:5;">
-                <img src="character_fowi.png" onerror="this.src='50588.png'" class="anim-idle" style="width:150px; margin-bottom:15px;">
+            <div class="quest-header" style="position:absolute; top:30px; z-index:10;"><span class="quest-tag">최종 보스</span> 포이의 마지막 부탁</div>
+            <div style="display:flex; flex-direction:column; align-items:center; max-width:1000px; margin: 0 auto; padding:30px; z-index:5;">
+                <img src="character_fowi.png" onerror="this.src='50588.png'" class="anim-idle" style="width:200px; margin-bottom:20px;">
                 <div class="rpg-dialogue" style="border-color:#ffb703; width:100%; text-align:center; min-height:auto;">
                     <p class="dialogue-text" style="margin-bottom:0;">탐험대 여러분, 마지막 <span class="highlight">'황금 자물쇠'</span>는 버튼이 아니라,<br>여러분이 직접 <span class="highlight">'나만의 치유 나무'</span>를 예쁘게 그려주어야만 열려요!</p>
                 </div>
                 
-                <div style="background-color:rgba(0,0,0,0.6); padding:20px; border-radius:20px; border:2px dashed #ffb703; margin:20px 0;">
-                    <p style="color:#ffb703; font-size:24px; margin:0; text-align:center;"><i class="fa-solid fa-palette"></i> 오프라인 미션: 종이에 예쁜 나무 그리기! (20분)</p>
+                <div style="background-color:rgba(0,0,0,0.6); padding:30px; border-radius:20px; border:3px dashed #ffb703; margin:30px 0;">
+                    <p style="color:#ffb703; font-size:32px; margin:0; text-align:center;"><i class="fa-solid fa-palette"></i> 오프라인 미션: 종이에 예쁜 나무 그리기! (20분)</p>
                 </div>
                 
-                <button class="game-btn success-btn" style="font-size: 24px; padding: 15px 30px;" onclick="selectAnswer('완성된 그림 들어 올리기', true, 'slide21')"><i class="fa-solid fa-lock"></i> 다 그렸다면? 황금 자물쇠 열기</button>
+                <button class="game-btn success-btn" style="font-size: 32px; padding: 20px 40px;" onclick="selectAnswer('완성된 그림 들어 올리기', true, 'slide21')"><i class="fa-solid fa-lock"></i> 다 그렸다면? 황금 자물쇠 열기</button>
             </div>
         </div>
 
@@ -547,22 +586,15 @@
         <div class="slide full-bg-slide" id="slide21">
             <img class="scene-bg" src="bg_door_opened.jpg" onerror="this.style.display='none'">
             
-            <div style="display:flex; justify-content:center; gap:20px; position:relative; z-index:5; margin-bottom:10px;">
-                <i class="fa-solid fa-lock-open intro-lock anim-idle" style="color:#d8f3dc;"></i>
-                <i class="fa-solid fa-lock-open intro-lock anim-idle" style="color:#d8f3dc; animation-delay:0.5s;"></i>
-                <i class="fa-solid fa-lock-open intro-lock anim-idle" style="color:#d8f3dc; animation-delay:1s;"></i>
-                <i class="fa-solid fa-lock-open intro-lock anim-idle" style="color:#d8f3dc; animation-delay:1.5s;"></i>
+            <h1 class="title-text" style="font-size:90px; margin-top:50px;">숲의 문이 열렸습니다!</h1>
+            <img class="title-char anim-cheer" src="character_fowi.png" onerror="this.src='50588.png'" alt="포이 캐릭터" style="width: 320px; margin-top:20px;">
+            
+            <div class="rpg-dialogue" style="z-index:5; width:90%; max-width:900px; margin-top:30px; min-height:auto; text-align:center; padding:30px;">
+                <p class="dialogue-text" style="margin-bottom:0;">여러분이 그려준 예쁜 나무들 덕분에 숲이 다시 맑은 공기를 되찾았어!<br>나와 함께 탐험해 주셔서 정말 고마워! 다 함께 <span class="highlight" style="font-size: 42px;">"숲아, 사랑해!"</span></p>
             </div>
             
-            <h1 class="title-text" style="font-size:55px;">숲의 문이 열렸습니다!</h1>
-            <img class="title-char anim-cheer" src="character_fowi.png" onerror="this.src='50588.png'" alt="포이 캐릭터">
-            
-            <div class="rpg-dialogue" style="z-index:5; width:90%; max-width:700px; margin-top:20px; min-height:auto; text-align:center; padding:20px;">
-                <p class="dialogue-text" style="margin-bottom:0;">여러분이 그려준 예쁜 나무들 덕분에 숲이 다시 맑은 공기를 되찾았어!<br>나와 함께 탐험해 주셔서 정말 고마워! 다 함께 <span class="highlight">"숲아, 사랑해!"</span></p>
-            </div>
-            
-            <div style="position:relative; z-index:5; margin-top:20px;">
-                <button class="game-btn" style="font-size: 20px; padding: 10px 20px;" onclick="goTo('slide1')"><i class="fa-solid fa-rotate-right"></i> 처음으로 돌아가기</button>
+            <div style="position:relative; z-index:5; margin-top:30px;">
+                <button class="game-btn" style="font-size: 26px; padding: 15px 30px;" onclick="goTo('slide1')"><i class="fa-solid fa-rotate-right"></i> 처음으로 돌아가기</button>
             </div>
         </div>
 
@@ -588,7 +620,7 @@
             pendingActionArg = actionArg; pendingIsCorrect = isCorrect;
             const modal = document.getElementById('confirm-modal');
             const confirmText = document.getElementById('confirm-text');
-            confirmText.innerHTML = `<span style="color:#ffb703; font-family:'Black Han Sans'; font-size:40px;">[${buttonText}]</span><br>정답으로 결정할까요?`;
+            confirmText.innerHTML = `<span style="color:#ffb703; font-family:'Black Han Sans'; font-size:55px;">[${buttonText}]</span><br>정답으로 결정할까요?`;
             modal.classList.add('show');
         }
 
