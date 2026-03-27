@@ -71,14 +71,14 @@
         .rpg-dialogue {
             flex: 1; background: rgba(0, 0, 0, 0.85); border: 5px solid #fff; border-radius: 25px; 
             padding: 35px 30px 25px 40px; color: #fff; box-shadow: 0 15px 30px rgba(0,0,0,0.5); z-index: 1;
-            min-height: 220px; display: flex; flex-direction: column; justify-content: center;
+            min-height: 220px; display: flex; flex-direction: column; justify-content: space-between;
         }
         .speaker-name {
             background: #ffb703; color: #000; display: inline-block; padding: 8px 25px; 
             border-radius: 15px; font-family: 'Black Han Sans', sans-serif; font-size: 28px; 
             position: absolute; top: -25px; left: 160px; border: 4px solid #fff; z-index: 6;
         }
-        .dialogue-text { font-size: 32px; line-height: 1.6; margin-bottom: 20px; color: #f8f9fa; }
+        .dialogue-text { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; font-size: 32px; line-height: 1.6; margin-bottom: 15px; color: #f8f9fa; }
         .dialogue-text .highlight { color: #ffb703; font-weight: bold; }
 
         /* === 6. 아케이드 버튼 === */
@@ -117,8 +117,8 @@
         .btn-yes { background-color: #74c69d; color: #fff; box-shadow: 0 8px 0 #2d6a4f; } .btn-yes:active { box-shadow: 0 0 0 #2d6a4f; transform: translateY(8px); }
         .btn-no { background-color: #e5e5e5; color: #7f7f7f; box-shadow: 0 8px 0 #cccccc; } .btn-no:active { box-shadow: 0 0 0 #cccccc; transform: translateY(8px); }
 
-        #toast { position: absolute; top: 30px; left: 50%; transform: translateX(-50%); background-color: #d90429; color: #fff; padding: 20px 40px; border-radius: 50px; font-size: 30px; font-family: 'Black Han Sans', sans-serif; box-shadow: 0 15px 30px rgba(0,0,0,0.5); z-index: 300; visibility: hidden; opacity: 0; transition: opacity 0.3s; border: 4px solid #fff; width: max-content; }
-        #toast.show { visibility: visible; opacity: 1; }
+        #toast { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); background-color: #d90429; color: #fff; padding: 30px 50px; border-radius: 50px; font-size: 40px; font-family: 'Black Han Sans', sans-serif; box-shadow: 0 20px 50px rgba(0,0,0,0.8); z-index: 2000; visibility: hidden; opacity: 0; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 6px solid #fff; width: 90%; max-width: 800px; text-align: center; line-height: 1.4; }
+        #toast.show { visibility: visible; opacity: 1; transform: translate(-50%, -50%) scale(1); }
         #toast.info { background-color: #4cc9f0; color: #fff; } 
         
         #progress-bar { position: absolute; bottom: 0; left: 0; height: 12px; background-color: #74c69d; width: 0%; transition: width 0.3s ease; z-index: 50; }
@@ -126,7 +126,8 @@
         /* === 8. 타이틀 화면 전용 레이아웃 === */
         .full-bg-slide { padding: 0; border: none; justify-content: center; align-items: center; background: #1b4332; }
         .full-bg-slide .scene-bg { z-index: 0; opacity: 0.7; }
-        .title-logo { position: absolute; top: 30px; left: 40px; background: rgba(255,255,255,0.9); padding: 15px 30px; border-radius: 40px; z-index: 5; box-shadow: 0 8px 20px rgba(0,0,0,0.5); }
+        .title-logo { position: absolute; top: 30px; left: 40px; background: rgba(255,255,255,0.9); padding: 10px 20px; border-radius: 30px; z-index: 5; box-shadow: 0 8px 20px rgba(0,0,0,0.5); }
+        .title-logo img { height: 40px; width: auto; display: block; }
         
         /* 우측 상단 타이틀 & 우측 중앙 패널 */
         .title-top-right { position: absolute; top: 100px; right: 80px; z-index: 5; color: #fff; text-align: right; text-shadow: 4px 6px 0 #000; font-family: 'Black Han Sans', sans-serif; font-size: 100px; line-height: 1.2; margin: 0;}
@@ -173,7 +174,7 @@
             .game-btn { font-size: 20px; padding: 12px 20px; border-width: 2px; }
             
             #roadmap-btn { top: 10px; right: 10px; font-size: 16px; padding: 8px 12px; border-width: 2px; }
-            .title-logo { top: 10px; left: 10px; padding: 8px 15px; } .title-logo img { height: 30px; }
+            .title-logo { top: 10px; left: 10px; padding: 8px 15px; } .title-logo img { height: 25px; }
             .title-top-right { position: relative; top: auto; right: auto; text-align: center; font-size: 50px; margin-top: 50px; text-shadow: 2px 3px 0 #000;} 
             .title-right-panel { position: relative; right: auto; top: auto; transform: none; width: 100%; margin-top: 10px; gap: 10px; }
             .title-char { width: 160px; margin-bottom: 0; }
@@ -192,7 +193,7 @@
             h2 { font-size: 36px; margin-bottom: 15px; } h3 { font-size: 26px; margin-bottom: 10px; } p, li { font-size: 18px; margin-bottom: 10px; }
             
             .modal-content { padding: 25px 15px; border-width: 4px;} .modal-content h3 { font-size: 26px; }
-            #toast { font-size: 20px; padding: 12px 20px; top: 15px; border-width: 2px;}
+            #toast { font-size: 26px; padding: 20px 30px; border-width: 4px; }
         }
     </style>
 </head>
@@ -682,17 +683,22 @@
 
         function cancelAnswer() { document.getElementById('confirm-modal').classList.remove('show'); }
 
-        // 오답 처리 로직
         function wrongAction(message) {
             const activeSlide = document.querySelector('.slide.active');
             const gameConsole = document.getElementById('game-console');
             gameConsole.classList.remove('shake-screen'); void gameConsole.offsetWidth; gameConsole.classList.add('shake-screen');
             const activeChar = activeSlide.querySelector('.rpg-character img, .char-large img, .title-char');
             if(activeChar) { activeChar.classList.add('anim-error'); setTimeout(() => { activeChar.classList.remove('anim-error'); }, 400); }
+            
+            // 캐릭터의 대화창 내용도 오답 멘트로 즉시 변경시켜주는 게임 로직 추가!
+            const dialogueEl = activeSlide.querySelector('.dialogue-text');
+            if(dialogueEl) {
+                dialogueEl.innerHTML = `<span style="color:#ffb703;">앗, 틀렸어!</span><br>${message}`;
+            }
+
             showToast(`<i class="fa-solid fa-triangle-exclamation"></i> ${message}`, 'error');
         }
 
-        // 오디오 재생/정지 로직
         let currentAudio = null;
         function playSound(filename, toastMessage) {
             if(currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; }
