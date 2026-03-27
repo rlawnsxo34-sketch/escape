@@ -640,10 +640,12 @@
         // 모달창 토글 제어
         function toggleRoadmap() {
             const modal = document.getElementById('roadmap-modal');
-            if (modal.classList.contains('show')) {
-                modal.classList.remove('show');
-            } else {
-                modal.classList.add('show');
+            if (modal) {
+                if (modal.classList.contains('show')) {
+                    modal.classList.remove('show');
+                } else {
+                    modal.classList.add('show');
+                }
             }
         }
 
@@ -656,13 +658,23 @@
         // 화면 이동 공통 로직
         function goTo(slideId) {
             stopSound(); // 화면 이동 시 재생 중인 소리가 있으면 자동 정지
+            
             const slides = document.querySelectorAll('.slide');
             slides.forEach(slide => slide.classList.remove('active'));
+            
             const targetSlide = document.getElementById(slideId);
-            if(targetSlide) { targetSlide.classList.add('active'); }
-            const slideNumber = parseInt(slideId.replace('slide', ''));
-            const progressPercentage = ((slideNumber - 1) / (totalSlides - 1)) * 100;
-            document.getElementById('progress-bar').style.width = progressPercentage + '%';
+            if(targetSlide) { 
+                targetSlide.classList.add('active'); 
+                targetSlide.scrollTop = 0; 
+            }
+            
+            const slideNumberStr = slideId.replace('slide', '');
+            const slideNumber = parseInt(slideNumberStr, 10);
+            if (!isNaN(slideNumber)) {
+                const progressPercentage = ((slideNumber - 1) / (totalSlides - 1)) * 100;
+                const progressBar = document.getElementById('progress-bar');
+                if (progressBar) progressBar.style.width = progressPercentage + '%';
+            }
         }
 
         // 정답 확인 모달 로직
@@ -672,28 +684,48 @@
             pendingActionArg = actionArg; pendingIsCorrect = isCorrect;
             const modal = document.getElementById('confirm-modal');
             const confirmText = document.getElementById('confirm-text');
-            confirmText.innerHTML = `<span style="color:#ffb703; font-family:'Black Han Sans'; font-size:55px;">[${buttonText}]</span><br>정답으로 결정할까요?`;
-            modal.classList.add('show');
+            if (confirmText) {
+                confirmText.innerHTML = `<span style="color:#ffb703; font-family:'Black Han Sans'; font-size:55px;">[${buttonText}]</span><br>정답으로 결정할까요?`;
+            }
+            if (modal) modal.classList.add('show');
         }
 
         function proceedAnswer() {
-            const modal = document.getElementById('confirm-modal'); modal.classList.remove('show'); 
-            if(pendingIsCorrect) { goTo(pendingActionArg); } else { wrongAction(pendingActionArg); }
+            const modal = document.getElementById('confirm-modal'); 
+            if (modal) modal.classList.remove('show'); 
+            if(pendingIsCorrect) { 
+                goTo(pendingActionArg); 
+            } else { 
+                wrongAction(pendingActionArg); 
+            }
         }
 
-        function cancelAnswer() { document.getElementById('confirm-modal').classList.remove('show'); }
+        function cancelAnswer() { 
+            const modal = document.getElementById('confirm-modal');
+            if (modal) modal.classList.remove('show'); 
+        }
 
         function wrongAction(message) {
-            const activeSlide = document.querySelector('.slide.active');
             const gameConsole = document.getElementById('game-console');
-            gameConsole.classList.remove('shake-screen'); void gameConsole.offsetWidth; gameConsole.classList.add('shake-screen');
-            const activeChar = activeSlide.querySelector('.rpg-character img, .char-large img, .title-char');
-            if(activeChar) { activeChar.classList.add('anim-error'); setTimeout(() => { activeChar.classList.remove('anim-error'); }, 400); }
+            if (gameConsole) {
+                gameConsole.classList.remove('shake-screen'); 
+                void gameConsole.offsetWidth; 
+                gameConsole.classList.add('shake-screen');
+            }
             
-            // 캐릭터의 대화창 내용도 오답 멘트로 즉시 변경시켜주는 게임 로직 추가!
-            const dialogueEl = activeSlide.querySelector('.dialogue-text');
-            if(dialogueEl) {
-                dialogueEl.innerHTML = `<span style="color:#ffb703;">앗, 틀렸어!</span><br>${message}`;
+            const activeSlide = document.querySelector('.slide.active');
+            if (activeSlide) {
+                const activeChar = activeSlide.querySelector('.rpg-character img, .char-large img, .title-char');
+                if(activeChar) { 
+                    activeChar.classList.add('anim-error'); 
+                    setTimeout(() => { if (activeChar) activeChar.classList.remove('anim-error'); }, 400); 
+                }
+                
+                // 캐릭터의 대화창 내용도 오답 멘트로 즉시 변경시켜주는 게임 로직 추가!
+                const dialogueEl = activeSlide.querySelector('.dialogue-text');
+                if(dialogueEl) {
+                    dialogueEl.innerHTML = `<span style="color:#ffb703;">앗, 틀렸어!</span><br>${message}`;
+                }
             }
 
             showToast(`<i class="fa-solid fa-triangle-exclamation"></i> ${message}`, 'error');
@@ -720,11 +752,20 @@
 
         let toastTimeout;
         function showToast(message, type) {
-            const toast = document.getElementById('toast'); clearTimeout(toastTimeout);
+            const toast = document.getElementById('toast'); 
+            if (!toast) return;
+            
+            clearTimeout(toastTimeout);
             toast.innerHTML = message;
-            if(type === 'info') toast.classList.add('info'); else toast.classList.remove('info');
+            
+            if(type === 'info') {
+                toast.classList.add('info'); 
+            } else {
+                toast.classList.remove('info');
+            }
+            
             toast.classList.add('show');
-            toastTimeout = setTimeout(() => { toast.classList.remove('show'); }, 3000);
+            toastTimeout = setTimeout(() => { if(toast) toast.classList.remove('show'); }, 3000);
         }
     </script>
 </body>
