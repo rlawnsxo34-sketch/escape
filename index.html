@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>비밀의 숲, 5가지 자물쇠 - 국립장성숲체원</title>
     
-    <!-- 게임 감성을 위한 구글 폰트 (블랙한산스, 주아체) -->
+    <!-- 게임 감성을 위한 구글 폰트 (블랙한산스, 도현, 주아체) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Jua&display=swap" rel="stylesheet">
@@ -118,6 +118,7 @@
         .btn-yes { background-color: #74c69d; color: #fff; box-shadow: 0 8px 0 #2d6a4f; } .btn-yes:active { box-shadow: 0 0 0 #2d6a4f; transform: translateY(8px); }
         .btn-no { background-color: #e5e5e5; color: #7f7f7f; box-shadow: 0 8px 0 #cccccc; } .btn-no:active { box-shadow: 0 0 0 #cccccc; transform: translateY(8px); }
 
+        /* 정중앙에 튀어나오는 오답 토스트 */
         #toast { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); background-color: #d90429; color: #fff; padding: 30px 50px; border-radius: 50px; font-size: 40px; font-family: 'Black Han Sans', sans-serif; box-shadow: 0 20px 50px rgba(0,0,0,0.8); z-index: 2000; visibility: hidden; opacity: 0; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 6px solid #fff; width: 90%; max-width: 800px; text-align: center; line-height: 1.4; }
         #toast.show { visibility: visible; opacity: 1; transform: translate(-50%, -50%) scale(1); }
         #toast.info { background-color: #4cc9f0; color: #fff; } 
@@ -151,9 +152,13 @@
         .edu-layout { display: flex; flex-direction: row; gap: 50px; align-items: center; justify-content: center; flex: 1; background: #e9edc9; border-radius: 25px; padding: 50px; border: 5px solid #ccd5ae; }
         .edu-text { flex: 2; } .edu-char { flex: 1; display: flex; justify-content: center; }
 
-        .puzzle-word { background: rgba(255,255,255,0.95); padding: 15px 40px; border-radius: 20px; font-family: 'Black Han Sans', sans-serif; font-size: 55px; color: #1b4332; letter-spacing: 25px; border: 5px solid #ffb703; box-shadow: 0 15px 30px rgba(0,0,0,0.5); }
+        .puzzle-word { background: rgba(255,255,255,0.95); padding: 15px 40px; border-radius: 20px; font-family: 'Black Han Sans', sans-serif; font-size: 55px; color: #1b4332; letter-spacing: 25px; border: 5px solid #ffb703; box-shadow: 0 15px 30px rgba(0,0,0,0.5); margin-bottom: 10px; }
         .hidden-letter { position: absolute; font-family: 'Do Hyeon', sans-serif; font-size: 65px; color: rgba(255, 255, 255, 0.95); text-shadow: 0 0 15px #081c15, 0 0 5px #081c15; animation: float 4s ease-in-out infinite alternate; }
         
+        /* 1번 방 불탄 흔적 아이콘 */
+        .pattern-icon { position: absolute; font-size: 80px; color: #fff; animation: float 3s ease-in-out infinite; z-index: 4; }
+        .pattern-charred { top: 32%; left: 43%; color: #d90429; text-shadow: 0 0 15px #000; animation-delay: 0.5s; }
+
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
         @keyframes bounce-char { 0%, 100% { transform: translateY(0); } 40% { transform: translateY(-25px); } 60% { transform: translateY(-12px); } }
         @keyframes shake-error { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-12px); } 40%, 80% { transform: translateX(12px); } }
@@ -186,6 +191,7 @@
             .scene-view { min-height: 160px; border-width: 4px;}
             .puzzle-word { font-size: 30px; letter-spacing: 10px; padding: 10px 20px; border-width: 3px;}
             .hidden-letter { font-size: 40px; }
+            .pattern-icon { font-size: 50px; }
             
             .rules-container { flex-direction: column; gap: 20px; padding-bottom: 30px; }
             .rule-box i { font-size: 50px; margin-bottom: 10px; }
@@ -194,7 +200,7 @@
             h2 { font-size: 36px; margin-bottom: 15px; } h3 { font-size: 26px; margin-bottom: 10px; } p, li { font-size: 18px; margin-bottom: 10px; }
             
             .modal-content { padding: 25px 15px; border-width: 4px;} .modal-content h3 { font-size: 26px; }
-            #toast { font-size: 26px; padding: 20px 30px; border-width: 4px; }
+            #toast { font-size: 24px; padding: 15px 25px; border-width: 4px; }
         }
     </style>
 </head>
@@ -232,7 +238,7 @@
         </div>
     </div>
 
-    <!-- 알림창 -->
+    <!-- 알림창 (정중앙 팝업) -->
     <div id="toast"><i class="fa-solid fa-triangle-exclamation"></i> 앗, 틀렸어요!</div>
 
     <div id="slide-deck">
@@ -247,7 +253,6 @@
             
             <div class="title-right-panel">
                 <img class="title-char anim-cheer" src="character_fowi.png" onerror="this.src='50588.png'" alt="캐릭터">
-                <!-- 안내문구 탐험단으로 변경 -->
                 <input type="text" class="group-name-input" id="teamNameInput" placeholder="탐험단 이름 입력 (선택)">
                 <button class="game-btn success-btn" style="font-size: 36px; padding: 20px 50px; width: 100%;" onclick="goTo('slide2')"><i class="fa-solid fa-play"></i> 모험 시작하기</button>
             </div>
@@ -330,23 +335,26 @@
             </div>
         </div>
 
-        <!-- 슬라이드 6: 1번 방 문제 -->
+        <!-- 슬라이드 6: 1번 방 문제 (패턴 매칭 적용) -->
         <div class="slide" id="slide6">
             <div class="quest-header"><span class="quest-tag">1번 방 미션</span> 일기장 해독하기</div>
-            <div class="scene-view">
+            <div class="content-grid">
+                <div class="text-section guide-layout" style="display:none;"></div> <!-- 레이아웃 맞춤용 빈 공간 제거 후, RPG UI 유지 -->
+            </div>
+            <div class="scene-view" style="min-height: 350px;">
                 <img class="scene-bg" src="bg_tree_ring.jpg" onerror="this.style.display='none'">
-                <i class="fa-solid fa-magnifying-glass floating-item" style="font-size:100px; color:#fff; top:20%; left:20%;"></i>
-                <i class="fa-solid fa-cloud-sun-rain floating-item" style="font-size:90px; color:#ffb703; top:15%; right:20%;"></i>
+                <!-- 나이테 위 불탄 흔적 아이콘 힌트 -->
+                <i class="fa-solid fa-fire pattern-icon pattern-charred"></i> 
             </div>
             <div class="rpg-ui-container">
                 <div class="rpg-character"><img src="character_fowi.png" onerror="this.src='50588.png'" class="anim-think"></div>
                 <div class="rpg-dialogue">
                     <div class="speaker-name">포이</div>
-                    <p class="dialogue-text">화면의 나이테를 세어봐. <span class="highlight">선이 가장 좁고 까맣게 탄 자국이 있는 곳</span>은 나무가 몇 살 때일까?</p>
+                    <p class="dialogue-text">화면 속 나이테를 세어보지 않아도 괜찮아! <span class="highlight">'가장 좁고 까맣게 탄 흔적'</span>이 있는 곳을 눈으로 찾아볼까? 그곳에 불탄 흔적 아이콘이 생겼어! 자, 그렇다면, <span class="highlight">그 시기(아이콘이 있는 곳)</span>는 나무가 몇 살 때일까?</p>
                     <div class="btn-group">
-                        <button class="game-btn" onclick="selectAnswer('5살', false, '5번째 줄은 간격이 아주 넓어! 따뜻했던 해인가봐.')">5살</button>
-                        <button class="game-btn" onclick="selectAnswer('8살', true, 'slide7')">8살</button>
-                        <button class="game-btn" onclick="selectAnswer('10살', false, '까맣게 탄 곳을 찾아봐!')">10살</button>
+                        <button class="game-btn" onclick="selectAnswer('A시기 (5살)', false, 'A시기(5번째 나이테)는 나이테가 아주 넓어! 추운 해는 아니야.')">A시기 (5살)</button>
+                        <button class="game-btn" onclick="selectAnswer('B시기 (8살)', true, 'slide7')">B시기 (8살)</button>
+                        <button class="game-btn" onclick="selectAnswer('C시기 (10살)', false, 'C시기는 나무의 가장 바깥쪽이야. 불탄 흔적을 찾아봐!')">C시기 (10살)</button>
                     </div>
                 </div>
             </div>
@@ -362,7 +370,7 @@
                 <div class="rpg-character"><img src="character_fowi.png" onerror="this.src='50588.png'" class="anim-cheer"></div>
                 <div class="rpg-dialogue">
                     <div class="speaker-name">포이</div>
-                    <p class="dialogue-text">정답이야! 나이테를 보면 옛날 숲에 불이 났는지, 가뭄이 왔었는지 알 수 있지. 대단한걸?</p>
+                    <p class="dialogue-text">정답이야! 나이테 패턴을 보면 옛날 숲에 불이 났는지, 가뭄이 왔었는지 알 수 있지. 대단한걸?</p>
                     <div class="btn-group"><button class="game-btn success-btn" onclick="goTo('slide8')"><i class="fa-solid fa-arrow-right"></i> 2번 방으로 이동</button></div>
                 </div>
             </div>
@@ -387,7 +395,7 @@
             </div>
         </div>
 
-        <!-- 슬라이드 9: 2번 방 문제 (4글자 보기 초성 맞춤) -->
+        <!-- 슬라이드 9: 2번 방 문제 -->
         <div class="slide" id="slide9">
             <div class="quest-header"><span class="quest-tag">2번 방 미션</span> 투명 보디가드</div>
             <div class="scene-view">
@@ -443,7 +451,7 @@
             </div>
         </div>
 
-        <!-- 슬라이드 12: 3번 방 문제 (멈추기 기능 포함) -->
+        <!-- 슬라이드 12: 3번 방 문제 -->
         <div class="slide" id="slide12">
             <div class="quest-header"><span class="quest-tag">3번 방 미션</span> 음악회 숨바꼭질</div>
             <div class="scene-view">
@@ -452,7 +460,7 @@
                     <button class="game-btn action-btn" onclick="playSound('sound_sparrow.mp3', '🎵 짹짹! 짹짹짹!')"><i class="fa-solid fa-volume-high"></i> 1번 소리 듣기</button>
                     <button class="game-btn action-btn" onclick="playSound('sound_woodpecker.mp3', '🎵 따다다다닥! 탁탁탁!')"><i class="fa-solid fa-volume-high"></i> 2번 소리 듣기</button>
                     <button class="game-btn action-btn" onclick="playSound('sound_cuckoo.mp3', '🎵 뻐꾹! 뻐꾹!')"><i class="fa-solid fa-volume-high"></i> 3번 소리 듣기</button>
-                    <button class="game-btn stop-btn" onclick="stopSound()"><i class="fa-solid fa-stop"></i> 멈추기</button>
+                    <button class="game-btn stop-btn" onclick="stopSound(true)"><i class="fa-solid fa-stop"></i> 멈추기</button>
                 </div>
             </div>
             <div class="rpg-ui-container">
@@ -661,7 +669,9 @@
             stopSound(false); // 화면 이동 시 재생 중인 소리가 있으면 알림창 없이 자동 정지
             
             const slides = document.querySelectorAll('.slide');
-            slides.forEach(slide => slide.classList.remove('active'));
+            if (slides) {
+                slides.forEach(slide => slide.classList.remove('active'));
+            }
             
             const targetSlide = document.getElementById(slideId);
             if(targetSlide) { 
@@ -706,12 +716,12 @@
             if (modal) modal.classList.remove('show'); 
         }
 
-        // 오답 처리 로직
+        // 오답 처리 로직 (안전 검사 강화)
         function wrongAction(message) {
             const gameConsole = document.getElementById('game-console');
             if (gameConsole) {
                 gameConsole.classList.remove('shake-screen'); 
-                void gameConsole.offsetWidth; 
+                void gameConsole.offsetWidth; // 리플로우 강제 (애니메이션 재시작)
                 gameConsole.classList.add('shake-screen');
             }
             
@@ -723,7 +733,7 @@
                     setTimeout(() => { if (activeChar) activeChar.classList.remove('anim-error'); }, 400); 
                 }
                 
-                // 캐릭터의 대화창 내용도 오답 멘트로 즉시 변경시켜주는 게임 로직 추가!
+                // 캐릭터의 대화창 내용도 오답 멘트로 즉시 변경
                 const dialogueEl = activeSlide.querySelector('.dialogue-text');
                 if(dialogueEl) {
                     dialogueEl.innerHTML = `<span style="color:#ffb703;">앗, 틀렸어!</span><br>${message}`;
@@ -749,7 +759,7 @@
                 if (showToastMsg) {
                     showInfo('🔇 소리를 멈췄습니다.');
                 }
-                currentAudio = null; // 오디오 변수 완전 초기화
+                currentAudio = null;
             }
         }
 
