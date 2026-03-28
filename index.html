@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -224,7 +225,7 @@
         <div class="modal-content">
             <h3 id="confirm-text"><span style="color:#ffb703;">선택한 답</span><br>정답으로 결정할까요?</h3>
             <div class="modal-btn-group">
-                <!-- 네 왼쪽, 아니요 오른쪽으로 배치 수정 -->
+                <!-- 네 왼쪽, 아니요 오른쪽으로 배치 -->
                 <button class="game-btn btn-yes" onclick="proceedAnswer()"><i class="fa-solid fa-check"></i> 네!</button>
                 <button class="game-btn btn-no" onclick="cancelAnswer()"><i class="fa-solid fa-xmark"></i> 아니요</button>
             </div>
@@ -237,7 +238,7 @@
     <div id="slide-deck">
         <div id="progress-bar"></div>
 
-        <!-- 슬라이드 1: 타이틀 (우측 상단 타이틀, 우측 중앙 컨트롤 패널 적용) -->
+        <!-- 슬라이드 1: 타이틀 -->
         <div class="slide full-bg-slide active" id="slide1">
             <div class="title-logo"><img src="logo_jangseong.png" onerror="this.src='50436.png'" alt="로고"></div>
             <img class="scene-bg" src="bg_door_closed.jpg" onerror="this.style.display='none'">
@@ -285,7 +286,7 @@
                 <div class="rpg-character"><img src="character_fowi.png" onerror="this.src='50588.png'" class="anim-idle"></div>
                 <div class="rpg-dialogue">
                     <div class="speaker-name">포이</div>
-                    <p class="dialogue-text">본격적인 탐험 전에, 우리가 함께할 멋진 <span class="highlight">탐험대 이름</span>을 지어보자! 씩씩한 팀 구호도 잊지 마!</p>
+                    <p class="dialogue-text">본격적인 탐험 전에, 우리가 함께할 멋진 <span class="highlight">탐험단 이름</span>을 지어보자! 씩씩한 팀 구호도 잊지 마!</p>
                     <div class="btn-group"><button class="game-btn success-btn" onclick="goTo('slide4')"><i class="fa-solid fa-door-open"></i> 1번 방으로 출발!</button></div>
                 </div>
             </div>
@@ -386,7 +387,7 @@
             </div>
         </div>
 
-        <!-- 슬라이드 9: 2번 방 문제 (4글자 보기 수정) -->
+        <!-- 슬라이드 9: 2번 방 문제 (4글자 보기 초성 맞춤) -->
         <div class="slide" id="slide9">
             <div class="quest-header"><span class="quest-tag">2번 방 미션</span> 투명 보디가드</div>
             <div class="scene-view">
@@ -657,7 +658,7 @@
 
         // 화면 이동 공통 로직
         function goTo(slideId) {
-            stopSound(); // 화면 이동 시 재생 중인 소리가 있으면 자동 정지
+            stopSound(false); // 화면 이동 시 재생 중인 소리가 있으면 알림창 없이 자동 정지
             
             const slides = document.querySelectorAll('.slide');
             slides.forEach(slide => slide.classList.remove('active'));
@@ -705,6 +706,7 @@
             if (modal) modal.classList.remove('show'); 
         }
 
+        // 오답 처리 로직
         function wrongAction(message) {
             const gameConsole = document.getElementById('game-console');
             if (gameConsole) {
@@ -731,6 +733,7 @@
             showToast(`<i class="fa-solid fa-triangle-exclamation"></i> ${message}`, 'error');
         }
 
+        // 오디오 재생/정지 로직
         let currentAudio = null;
         function playSound(filename, toastMessage) {
             if(currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; }
@@ -739,11 +742,14 @@
             showInfo(toastMessage);
         }
 
-        function stopSound() {
+        function stopSound(showToastMsg = true) {
             if(currentAudio) { 
                 currentAudio.pause(); 
                 currentAudio.currentTime = 0; 
-                showInfo('🔇 소리를 멈췄습니다.');
+                if (showToastMsg) {
+                    showInfo('🔇 소리를 멈췄습니다.');
+                }
+                currentAudio = null; // 오디오 변수 완전 초기화
             }
         }
 
@@ -770,3 +776,6 @@
     </script>
 </body>
 </html>
+
+
+```
