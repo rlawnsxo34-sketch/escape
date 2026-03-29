@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -6,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>비밀의 숲, 5가지 자물쇠 - 국립장성숲체원</title>
     
-    <!-- 게임 감성을 위한 구글 폰트 (블랙한산스, 도현, 주아체) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Jua&display=swap" rel="stylesheet">
@@ -22,7 +20,7 @@
             -webkit-tap-highlight-color: transparent; 
         }
 
-        /* === 2. 게임 화면 컨테이너 === */
+        /* === 2. 게임 화면 컨테이너 (대화면 1920px 지원, 오락기풍 테두리) === */
         #game-console { 
             position: relative; width: 100vw; height: 100vh; height: 100dvh; max-width: 1920px;
             background-color: #2b2b2b; overflow: hidden; display: flex; flex-direction: column; 
@@ -34,10 +32,12 @@
             background-color: #fffaf1; padding: 30px; 
             display: flex; flex-direction: column; gap: 20px;
             opacity: 0; visibility: hidden; transition: opacity 0.3s; z-index: 0; 
+            /* 모바일 환경 대응: 화면이 좁을 경우 스크롤 허용 */
             overflow-y: auto; overflow-x: hidden;
         }
         .slide.active { opacity: 1; visibility: visible; z-index: 10; }
         
+        /* 스크롤바 디자인 */
         .slide::-webkit-scrollbar { width: 8px; }
         .slide::-webkit-scrollbar-thumb { background-color: #74c69d; border-radius: 10px; }
 
@@ -57,10 +57,14 @@
         .top-logo { background-color: rgba(255, 255, 255, 0.95); padding: 15px 40px; border-radius: 100px; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.4); display: inline-block; }
         .top-logo img { height: 60px; width: auto; display: block; }
 
-        .icon-huge { font-size: 150px; } .icon-large { font-size: 100px; } .icon-medium { font-size: 80px; }
-        .text-huge { font-size: 90px; } .text-large { font-size: 42px; }
+        /* === 반응형 크기 유틸리티 클래스 === */
+        .icon-huge { font-size: 150px; }
+        .icon-large { font-size: 100px; }
+        .icon-medium { font-size: 80px; }
+        .text-huge { font-size: 90px; }
+        .text-large { font-size: 42px; }
 
-        /* === 4. 상단 미션/연출 화면 === */
+        /* === 4. 상단 미션/연출 화면 (Scene View) === */
         .scene-view {
             flex: 1; border-radius: 20px; border: 6px solid #2b2b2b; overflow: hidden; 
             position: relative; min-height: 250px; background: linear-gradient(135deg, #74c69d, #52b788);
@@ -70,7 +74,7 @@
         .scene-content { position: relative; z-index: 2; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px;}
         .floating-item { position: absolute; filter: drop-shadow(4px 6px 8px rgba(0,0,0,0.5)); animation: float 3s ease-in-out infinite; z-index: 3;}
 
-        /* === 5. 하단 RPG 대화창 === */
+        /* === 5. 하단 RPG 대화창 (Dialog Box) === */
         .rpg-ui-container { display: flex; align-items: flex-end; position: relative; flex-shrink: 0; margin-top: 10px; }
         .rpg-character { width: 180px; flex-shrink: 0; z-index: 5; margin-right: -25px; margin-bottom: -5px; }
         .rpg-character img { width: 100%; display: block; filter: drop-shadow(0 8px 15px rgba(0,0,0,0.4)); }
@@ -126,6 +130,7 @@
         .btn-yes { background-color: #74c69d; color: #fff; box-shadow: 0 8px 0 #2d6a4f; } .btn-yes:active { box-shadow: 0 0 0 #2d6a4f; transform: translateY(8px); }
         .btn-no { background-color: #e5e5e5; color: #7f7f7f; box-shadow: 0 8px 0 #cccccc; } .btn-no:active { box-shadow: 0 0 0 #cccccc; transform: translateY(8px); }
 
+        /* 정중앙 오답 토스트 */
         #toast { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); background-color: #d90429; color: #fff; padding: 30px 50px; border-radius: 50px; font-size: 40px; font-family: 'Black Han Sans', sans-serif; box-shadow: 0 20px 50px rgba(0,0,0,0.8); z-index: 2000; visibility: hidden; opacity: 0; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 6px solid #fff; width: 90%; max-width: 800px; text-align: center; line-height: 1.4; }
         #toast.show { visibility: visible; opacity: 1; transform: translate(-50%, -50%) scale(1); }
         #toast.info { background-color: #4cc9f0; color: #fff; } 
@@ -151,7 +156,7 @@
         .maze-label { background:rgba(255,255,255,0.9); padding:10px 25px; border-radius:20px; font-family:'Black Han Sans'; font-size:28px; color:#1b4332; }
         .offline-box { background-color:rgba(0,0,0,0.6); padding:30px; border-radius:20px; border:3px dashed #ffb703; margin:30px 0; width: 100%; text-align: center; }
         
-        /* 🔥 1번 방 불탄 흔적 아이콘: 업로드된 이미지(50792.png) 흉터 위치에 맞춤 */
+        /* 🔥 1번 방 불탄 흔적 아이콘 (우측 하단 흉터 위치) */
         .pattern-icon { position: absolute; font-size: 80px; color: #fff; animation: float 3s ease-in-out infinite; z-index: 4; }
         .pattern-charred { top: 56%; left: 63%; color: #d90429; text-shadow: 0 0 15px #000; animation-delay: 0.5s; }
 
@@ -331,7 +336,6 @@
             <div class="quest-header"><span class="quest-tag">1번 방 미션</span> 일기장 해독하기</div>
             <div class="scene-view">
                 <img class="scene-bg" src="bg_tree_ring.png" onerror="this.style.display='none'">
-                <!-- 🔥 불탄 흔적 좌표 수정: 50792.png 의 실제 흉터 위치(우측 하단)로 이동! -->
                 <i class="fa-solid fa-fire pattern-icon pattern-charred"></i> 
             </div>
             <div class="rpg-ui-container">
@@ -497,7 +501,7 @@
             <div class="scene-view">
                 <img class="scene-bg" src="bg_mycelium.png" onerror="this.style.display='none'">
                 <div class="floating-item maze-label" style="top:15%; left:10%;">🌳 엄마 나무</div>
-                <div class="floating-item maze-label" style="bottom:15%; right:10%;">🌱 아기 나무</div>
+                <div class="floating-item maze-label" style="top:15%; right:10%;">🌱 아기 나무</div>
             </div>
             <div class="rpg-ui-container">
                 <div class="rpg-character"><img src="character_fowi.png" onerror="this.src='50588.png'" class="anim-think"></div>
@@ -507,7 +511,7 @@
                     <div class="btn-group">
                         <button class="game-btn" onclick="selectAnswer('1번 길', false, '앗, 1번 길은 막혀버렸어!')">1번 길</button>
                         <button class="game-btn" onclick="selectAnswer('2번 길', true, 'slide16')">2번 길</button>
-                        <button class="game-btn" onclick="selectAnswer('3번 길', false, '3번 길은 다른 곳으로 연결되어 있어!')">3번 길</button>
+                        <button class="game-btn" onclick="selectAnswer('3번 길', false, '3번 길은 두더지 굴로 빠졌어!')">3번 길</button>
                     </div>
                 </div>
             </div>
@@ -615,7 +619,6 @@
 
     </div>
 
-    <!-- 스크립트 로직 -->
     <script>
         const totalSlides = 21; 
 
@@ -625,6 +628,7 @@
             sfx.play().catch(e => console.log("효과음 파일이 없습니다: " + filename));
         }
 
+        // 모달창 토글 제어
         function toggleRoadmap() {
             const modal = document.getElementById('roadmap-modal');
             if (modal) {
@@ -636,11 +640,13 @@
             }
         }
 
+        // 스테이지 맵에서 이동
         function goToFromMap(slideId) {
             toggleRoadmap();
             goTo(slideId);
         }
 
+        // 화면 이동 공통 로직
         function goTo(slideId) {
             stopSound(false); 
             
@@ -664,6 +670,7 @@
             }
         }
 
+        // 정답 확인 모달 로직
         let pendingActionArg = null; let pendingIsCorrect = false;
 
         function selectAnswer(buttonText, isCorrect, actionArg) {
@@ -696,6 +703,7 @@
             if (modal) modal.classList.remove('show'); 
         }
 
+        // 오답 처리 로직
         function wrongAction(message) {
             const gameConsole = document.getElementById('game-console');
             if (gameConsole) {
@@ -721,6 +729,7 @@
             showToast(`<i class="fa-solid fa-triangle-exclamation"></i> ${message}`, 'error');
         }
 
+        // 오디오 재생/정지 로직
         let currentAudio = null;
         function playSound(filename, toastMessage) {
             if(currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; }
@@ -740,6 +749,7 @@
             }
         }
 
+        // 토스트 알림창 로직
         function showInfo(message) { showToast(message, 'info'); }
 
         let toastTimeout;
@@ -762,6 +772,3 @@
     </script>
 </body>
 </html>
-
-
-```
