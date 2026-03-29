@@ -22,7 +22,7 @@
             -webkit-tap-highlight-color: transparent; 
         }
 
-        /* === 2. 게임 화면 컨테이너 === */
+        /* === 2. 게임 화면 컨테이너 (대화면 1920px 지원, 오락기풍 테두리) === */
         #game-console { 
             position: relative; width: 100vw; height: 100vh; height: 100dvh; max-width: 1920px;
             background-color: #2b2b2b; overflow: hidden; display: flex; flex-direction: column; 
@@ -277,7 +277,8 @@
         <!-- 슬라이드 1: 타이틀 -->
         <div class="slide full-bg-slide active" id="slide1">
             <div class="title-logo"><img src="logo_jangseong.png" onerror="this.src='50436.png'" alt="로고"></div>
-            <img class="scene-bg" src="bg_door_closed.jpg" onerror="this.style.display='none'">
+            <!-- 이미지 확장자 .png 로 변경 완료 -->
+            <img class="scene-bg" src="bg_door_closed.png" onerror="this.style.display='none'">
             
             <h1 class="title-top-right">비밀의 숲<br><span style="color:#ffb703;">5가지 자물쇠</span></h1>
             
@@ -369,7 +370,8 @@
         <div class="slide" id="slide6">
             <div class="quest-header"><span class="quest-tag">1번 방 미션</span> 일기장 해독하기</div>
             <div class="scene-view">
-                <img class="scene-bg" src="bg_tree_ring.jpg" onerror="this.style.display='none'">
+                <!-- 이미지 확장자 .png 로 변경 완료 -->
+                <img class="scene-bg" src="bg_tree_ring.png" onerror="this.style.display='none'">
                 <!-- 나이테 위 불탄 흔적 아이콘 힌트 -->
                 <i class="fa-solid fa-fire pattern-icon pattern-charred"></i> 
             </div>
@@ -426,7 +428,8 @@
         <div class="slide" id="slide9">
             <div class="quest-header"><span class="quest-tag">2번 방 미션</span> 투명 보디가드</div>
             <div class="scene-view">
-                <img class="scene-bg" src="bg_phytoncide.jpg" onerror="this.style.display='none'">
+                <!-- 이미지 확장자 .png 로 변경 완료 -->
+                <img class="scene-bg" src="bg_phytoncide.png" onerror="this.style.display='none'">
                 <div class="puzzle-word floating-item">ㅍ ㅌ ㅊ ㄷ</div>
             </div>
             <div class="rpg-ui-container">
@@ -478,11 +481,12 @@
             </div>
         </div>
 
-        <!-- 슬라이드 12: 3번 방 문제 (모바일 바둑판 버튼 배열) -->
+        <!-- 슬라이드 12: 3번 방 문제 -->
         <div class="slide" id="slide12">
             <div class="quest-header"><span class="quest-tag">3번 방 미션</span> 음악회 숨바꼭질</div>
             <div class="scene-view">
-                <img class="scene-bg" src="bg_forest_birds.jpg" onerror="this.style.display='none'">
+                <!-- 이미지 확장자 .png 로 변경 완료 -->
+                <img class="scene-bg" src="bg_forest_birds.png" onerror="this.style.display='none'">
                 <div class="audio-btn-group" style="position:relative; z-index:5;">
                     <button class="game-btn action-btn" onclick="playSound('sound_sparrow.mp3', '🎵 짹짹! 짹짹짹!')"><i class="fa-solid fa-volume-high"></i> 1번 듣기</button>
                     <button class="game-btn action-btn" onclick="playSound('sound_woodpecker.mp3', '🎵 따다다다닥! 탁탁탁!')"><i class="fa-solid fa-volume-high"></i> 2번 듣기</button>
@@ -543,7 +547,8 @@
         <div class="slide" id="slide15">
             <div class="quest-header"><span class="quest-tag">4번 방 미션</span> 땅속 마을 우체부</div>
             <div class="scene-view">
-                <img class="scene-bg" src="bg_mycelium.jpg" onerror="this.style.display='none'">
+                <!-- 이미지 확장자 .png 로 변경 완료 -->
+                <img class="scene-bg" src="bg_mycelium.png" onerror="this.style.display='none'">
                 <div class="floating-item maze-label" style="top:15%; left:10%;">🌳 엄마 나무</div>
                 <div class="floating-item maze-label" style="bottom:15%; right:10%;">🌱 아기 나무</div>
             </div>
@@ -600,7 +605,8 @@
         <div class="slide" id="slide18">
             <div class="quest-header"><span class="quest-tag">5번 방 미션</span> 숲이 아파요! (그림 픽처)</div>
             <div class="scene-view">
-                <img class="scene-bg" src="bg_carbon_monster.jpg" onerror="this.style.display='none'">
+                <!-- 이미지 확장자 .png 로 변경 완료 -->
+                <img class="scene-bg" src="bg_carbon_monster.png" onerror="this.style.display='none'">
                 <i class="fa-solid fa-smog floating-item icon-large" style="top:25%; left:25%; color:#555;"></i>
                 <i class="fa-solid fa-temperature-arrow-up floating-item icon-large" style="top:50%; right:25%; color:#d90429;"></i>
             </div>
@@ -653,7 +659,8 @@
 
         <!-- 슬라이드 21: 마무리 -->
         <div class="slide full-bg-slide" id="slide21">
-            <img class="scene-bg" src="bg_door_opened.jpg" onerror="this.style.display='none'">
+            <!-- 이미지 확장자 .png 로 변경 완료 -->
+            <img class="scene-bg" src="bg_door_opened.png" onerror="this.style.display='none'">
             
             <h1 class="title-top-right" style="position:relative; top:auto; right:auto; margin-top:30px;">숲의 문이 열렸습니다!</h1>
             <img class="title-char anim-cheer" src="character_fowi.png" onerror="this.src='50588.png'" alt="포이 캐릭터" style="margin-top:10px;">
