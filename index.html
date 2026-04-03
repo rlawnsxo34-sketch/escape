@@ -21,7 +21,7 @@
             -webkit-tap-highlight-color: transparent; 
         }
 
-        /* === 2. 게임 화면 컨테이너 === */
+        /* === 2. 게임 화면 컨테이너 (대화면 1920px 지원, 오락기풍 테두리) === */
         #game-console { 
             position: relative; width: 100vw; height: 100vh; height: 100dvh; max-width: 1920px;
             background-color: #2b2b2b; overflow: hidden; display: flex; flex-direction: column; 
@@ -33,10 +33,12 @@
             background-color: #fffaf1; padding: 25px 30px; 
             display: flex; flex-direction: column; gap: 15px;
             opacity: 0; visibility: hidden; transition: opacity 0.3s; z-index: 0; 
+            /* 모바일 환경 대응: 화면이 좁을 경우 스크롤 허용 */
             overflow-y: auto; overflow-x: hidden;
         }
         .slide.active { opacity: 1; visibility: visible; z-index: 10; }
         
+        /* 스크롤바 디자인 */
         .slide::-webkit-scrollbar { width: 8px; }
         .slide::-webkit-scrollbar-thumb { background-color: #74c69d; border-radius: 10px; }
 
@@ -69,6 +71,30 @@
         .scene-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; opacity: 0.9; }
         .scene-content { position: relative; z-index: 2; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px;}
         .floating-item { position: absolute; filter: drop-shadow(4px 6px 8px rgba(0,0,0,0.5)); animation: float 3s ease-in-out infinite; z-index: 3;}
+
+        /* === 📚 교육용 칠판 (이론 설명 확장) === */
+        .edu-board {
+            background-color: rgba(0, 0, 0, 0.75);
+            border: 4px solid #ffb703;
+            border-radius: 15px;
+            padding: 30px 40px;
+            text-align: left;
+            width: 90%;
+            max-width: 1200px;
+            max-height: 90%;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            z-index: 5;
+            position: relative;
+        }
+        .edu-board::-webkit-scrollbar { width: 8px; }
+        .edu-board::-webkit-scrollbar-thumb { background-color: #ffb703; border-radius: 10px; }
+        
+        .edu-board h4 { font-family: 'Do Hyeon', sans-serif; color: #ffb703; font-size: 42px; margin-bottom: 20px; border-bottom: 3px dashed #74c69d; padding-bottom: 12px; text-shadow: 2px 2px 4px #000;}
+        .edu-board ul { list-style-type: none; padding-left: 0; }
+        .edu-board li { font-family: 'Jua', sans-serif; font-size: 28px; color: #fff; margin-bottom: 18px; line-height: 1.5; text-shadow: 1px 1px 3px #000;}
+        .edu-board li i { color: #74c69d; margin-right: 12px; font-size: 24px; }
+        .edu-board .highlight-text { color: #4cc9f0; font-weight: bold; }
 
         /* === 5. 하단 RPG 대화창 (캐릭터 크기 확장) === */
         .rpg-ui-container { display: flex; align-items: flex-end; position: relative; flex-shrink: 0; margin-top: 10px; }
@@ -180,6 +206,12 @@
             h2 { font-size: 28px; margin-bottom: 12px; border-bottom-width: 2px; } p { font-size: 16px; margin-bottom: 8px; }
 
             .scene-view { flex: 1; height: auto; min-height: 45vh; border-width: 3px; border-radius: 12px; }
+
+            /* 교육용 보드 모바일 최적화 */
+            .edu-board { padding: 15px; border-width: 3px; border-radius: 12px; width: 95%; max-height: 95%; }
+            .edu-board h4 { font-size: 26px; margin-bottom: 12px; padding-bottom: 8px; }
+            .edu-board li { font-size: 17px; margin-bottom: 12px; line-height: 1.4; }
+            .edu-board li i { font-size: 15px; margin-right: 8px; }
 
             /* 하단 말풍선 사이즈 대폭 축소 및 캐릭터 확대 */
             .rpg-ui-container { margin-top: auto; padding-top: 5px; }
@@ -326,13 +358,21 @@
             </div>
         </div>
 
-        <!-- 슬라이드 5: 1번 방 교육 -->
+        <!-- 슬라이드 5: 1번 방 교육 (이론 설명 대폭 확장) -->
         <div class="slide" id="slide5">
             <div class="quest-header"><span class="quest-tag">지식 획득</span> 나이테의 비밀</div>
-            <div class="scene-view" style="background: linear-gradient(135deg, #bc6c25, #dda15e);">
-                <div class="scene-content">
-                    <i class="fa-solid fa-book-open icon-large" style="color:#fff; margin-bottom:15px;"></i>
-                    <p style="color:#fff; text-shadow:0 2px 4px #000; line-height:1.4;">따뜻할 땐 ➔ 쑥쑥 자람 (넓은 띠)<br>추울 땐 ➔ 천천히 자람 (좁은 띠)</p>
+            <div class="scene-view">
+                <img class="scene-bg" src="bg_tree_ring.png" onerror="this.style.display='none'" style="filter: blur(4px) brightness(0.6);">
+                
+                <!-- 확장된 교육용 홀로그램 보드 -->
+                <div class="edu-board">
+                    <h4>📖 숲의 역사책, 나이테</h4>
+                    <ul>
+                        <li><i class="fa-solid fa-seedling"></i> 나무는 1년에 하나씩 줄기 안쪽(형성층)에 새로운 테를 만들어요.</li>
+                        <li><i class="fa-solid fa-sun"></i> <span class="highlight-text">봄과 여름</span>에는 따뜻하고 비가 많이 와서 세포가 쑥쑥 자라 테가 넓고 연해요.</li>
+                        <li><i class="fa-solid fa-snowflake"></i> <span class="highlight-text">가을과 겨울</span>에는 춥고 건조해서 천천히 단단하게 자라 테가 좁고 진해요.</li>
+                        <li><i class="fa-solid fa-magnifying-glass-chart"></i> 이 나이테를 연구하면 수백 년 전 숲에 언제 가뭄이 들었는지, 산불이나 병해충이 있었는지 등 <span class="highlight-text">과거 기후와 환경의 역사</span>를 알 수 있답니다!</li>
+                    </ul>
                 </div>
             </div>
             <div class="rpg-ui-container">
@@ -356,7 +396,7 @@
                 <div class="rpg-character"><img src="character_fowi.png" onerror="this.src='50588.png'" class="anim-think"></div>
                 <div class="rpg-dialogue">
                     <div class="speaker-name">포이</div>
-                    <p class="dialogue-text">가장 좁고 불탄 흔적 위에 <i class="fa-solid fa-fire" style="color:#d90429;"></i> 아이콘이 떴어! <span class="highlight">그 시기</span>는 나무가 몇 살 때일까?</p>
+                    <p class="dialogue-text">가장 좁고 불탄 흔적 위에 <i class="fa-solid fa-fire" style="color:#d90429;"></i> 아이콘이 떴어! <span class="highlight">그 시기</span>는 언제일까?</p>
                     <div class="answer-btn-group">
                         <button class="game-btn" onclick="selectAnswer('A (5살)', false, 'A시기(5번째 나이테)는 넓고 건강해! 추운 해는 아니야.')">A (5살)</button>
                         <button class="game-btn" onclick="selectAnswer('B (8살)', true, 'slide7')">B (8살)</button>
@@ -382,20 +422,27 @@
             </div>
         </div>
 
-        <!-- 슬라이드 8: 2번 방 교육 -->
+        <!-- 슬라이드 8: 2번 방 교육 (이론 설명 대폭 확장) -->
         <div class="slide" id="slide8">
             <div class="quest-header"><span class="quest-tag">지식 획득</span> 숲의 투명 방패</div>
             <div class="scene-view" style="background: linear-gradient(135deg, #a8dadc, #457b9d);">
-                <div class="scene-content">
-                    <i class="fa-solid fa-shield-halved icon-large" style="color:#fff; margin-bottom:10px;"></i>
-                    <p style="color:#fff; text-shadow:0 2px 4px #000; line-height:1.4;">식물은 상처를 입으면 나쁜 균을 물리치려고<br>특별한 <strong>마법의 향기</strong>를 뿜어내요.</p>
+                <img class="scene-bg" src="bg_phytoncide.png" onerror="this.style.display='none'" style="filter: blur(4px) brightness(0.6);">
+                
+                <div class="edu-board">
+                    <h4 style="color:#a8dadc; border-bottom-color:#4cc9f0;">🛡️ 천연 항균 물질, 피톤치드</h4>
+                    <ul>
+                        <li><i class="fa-solid fa-shield-virus" style="color:#4cc9f0;"></i> 도망칠 수 없는 식물이 해충, 세균, 곰팡이로부터 자신을 보호하기 위해 뿜어내는 <span class="highlight-text">투명한 방어 물질</span>이에요.</li>
+                        <li><i class="fa-solid fa-flask" style="color:#4cc9f0;"></i> '식물(Phyto)'과 '죽이다(Cide)'라는 단어가 합쳐진 이름이랍니다.</li>
+                        <li><i class="fa-solid fa-tree" style="color:#4cc9f0;"></i> 숲에서 나는 상쾌한 향기의 정체! 특히 <span class="highlight-text">편백나무나 소나무 같은 침엽수</span>가 잎을 통해 가장 많이 내뿜어요.</li>
+                        <li><i class="fa-solid fa-heart-pulse" style="color:#4cc9f0;"></i> 사람이 마시면 스트레스가 줄고, 심폐 기능이 좋아지며, 병과 싸우는 <span class="highlight-text">면역력(NK세포)이 크게 높아지는 치유 효과</span>가 있어요.</li>
+                    </ul>
                 </div>
             </div>
             <div class="rpg-ui-container">
                 <div class="rpg-character"><img src="character_fowi.png" onerror="this.src='50588.png'" class="anim-idle"></div>
                 <div class="rpg-dialogue">
                     <div class="speaker-name">포이</div>
-                    <p class="dialogue-text">도망칠 수 없는 식물의 무기지! 이 향기는 사람의 <span class="highlight">면역력</span>도 높여준대.</p>
+                    <p class="dialogue-text">식물들의 훌륭한 방패이자 사람들을 건강하게 해주는 이 물질! 숲의 향기 이름을 맞춰볼까?</p>
                     <div class="btn-group"><button class="game-btn" style="width:100%;" onclick="goTo('slide9')"><i class="fa-solid fa-arrow-right"></i> 방패 이름 맞히기</button></div>
                 </div>
             </div>
@@ -438,20 +485,27 @@
             </div>
         </div>
 
-        <!-- 슬라이드 11: 3번 방 교육 -->
+        <!-- 슬라이드 11: 3번 방 교육 (이론 설명 대폭 확장) -->
         <div class="slide" id="slide11">
             <div class="quest-header"><span class="quest-tag">지식 획득</span> 숲속의 농부들</div>
             <div class="scene-view" style="background: linear-gradient(135deg, #ffecd1, #e5989b);">
-                <div class="scene-content">
-                    <i class="fa-solid fa-dove icon-large" style="color:#b56576; margin-bottom:10px;"></i>
-                    <p style="color:#1b263b; text-shadow:0 2px 4px #fff; line-height:1.4;">새들은 벌레를 잡는 <strong>'의사'</strong>이자,<br>씨앗을 멀리 퍼뜨리는 <strong>'농부'</strong>랍니다.</p>
+                <img class="scene-bg" src="bg_forest_birds.png" onerror="this.style.display='none'" style="filter: blur(4px) brightness(0.6);">
+                
+                <div class="edu-board">
+                    <h4 style="color:#ffb703; border-bottom-color:#e5989b;">🕊️ 숲을 가꾸는 단짝, 새</h4>
+                    <ul>
+                        <li><i class="fa-solid fa-handshake-angle" style="color:#e5989b;"></i> 숲과 새는 떼려야 뗄 수 없는 <span class="highlight-text" style="color:#ffb703;">'공생 관계'</span>예요. 숲은 새에게 집과 먹이를 제공하죠.</li>
+                        <li><i class="fa-solid fa-stethoscope" style="color:#e5989b;"></i> 나뭇잎이나 줄기를 갉아먹는 해충(애벌레)을 잡아먹어 나무가 병들지 않게 지켜주는 <span class="highlight-text" style="color:#ffb703;">'숲속의 의사'</span> 역할을 해요.</li>
+                        <li><i class="fa-solid fa-seedling" style="color:#e5989b;"></i> 식물의 열매를 먹고 멀리 날아가 똥을 누면, 그 속의 씨앗이 싹을 틔워 숲이 점점 넓어지게 돕는 <span class="highlight-text" style="color:#ffb703;">'숲속의 농부'</span> 역할도 한답니다!</li>
+                        <li><i class="fa-solid fa-house-chimney-window" style="color:#e5989b;"></i> 딱따구리가 나무를 쪼아 만든 구멍은 나중에 다른 소동물들의 훌륭한 집이 되기도 해요.</li>
+                    </ul>
                 </div>
             </div>
             <div class="rpg-ui-container">
                 <div class="rpg-character"><img src="character_fowi.png" onerror="this.src='50588.png'" class="anim-idle"></div>
                 <div class="rpg-dialogue">
                     <div class="speaker-name">포이</div>
-                    <p class="dialogue-text">새들은 숲을 지키는 단짝 친구들이지. 어떤 새가 숨어있는지 소리로 찾아볼까?</p>
+                    <p class="dialogue-text">새들은 노래만 부르는 게 아니었어! 숲을 지키는 소중한 친구들이지. 어떤 새가 숨어있는지 소리로 찾아볼까?</p>
                     <div class="btn-group"><button class="game-btn" style="width:100%;" onclick="goTo('slide12')"><i class="fa-solid fa-arrow-right"></i> 새소리 맞히기</button></div>
                 </div>
             </div>
@@ -473,7 +527,7 @@
                 <div class="rpg-character"><img src="character_fowi.png" onerror="this.src='50588.png'" class="anim-think"></div>
                 <div class="rpg-dialogue">
                     <div class="speaker-name">포이</div>
-                    <p class="dialogue-text">위의 파란 버튼을 눌러 들어봐! 나무속 벌레를 먹고 구멍을 내주는 <span class="highlight">'딱따구리'</span>는 몇 번일까?</p>
+                    <p class="dialogue-text">파란 버튼을 눌러 들어봐! 나무속 벌레를 먹고 구멍을 내주는 <span class="highlight">'딱따구리'</span>는 몇 번일까?</p>
                     <div class="answer-btn-group">
                         <button class="game-btn" onclick="selectAnswer('1번', false, '1번은 귀여운 참새 소리야!')">1번</button>
                         <button class="game-btn" onclick="selectAnswer('2번', true, 'slide13')">2번</button>
@@ -499,20 +553,27 @@
             </div>
         </div>
 
-        <!-- 슬라이드 14: 4번 방 교육 -->
+        <!-- 슬라이드 14: 4번 방 교육 (이론 설명 대폭 확장) -->
         <div class="slide" id="slide14">
             <div class="quest-header"><span class="quest-tag">지식 획득</span> 땅속의 인터넷</div>
             <div class="scene-view" style="background: linear-gradient(135deg, #dda15e, #bc6c25);">
-                <div class="scene-content">
-                    <i class="fa-solid fa-network-wired icon-large" style="color:#fff; margin-bottom:10px;"></i>
-                    <p style="color:#fff; text-shadow:0 2px 4px #000; line-height:1.4;">나무들은 <strong>'균근(버섯 뿌리)'</strong>이라는 하얀 실을 통해 영양분을 나누고 신호를 보내요.</p>
+                <img class="scene-bg" src="bg_mycelium.png" onerror="this.style.display='none'" style="filter: blur(4px) brightness(0.5);">
+                
+                <div class="edu-board">
+                    <h4 style="color:#74c69d; border-bottom-color:#ffb703;">🍄 땅속의 경이로운 우체부 (Wood Wide Web)</h4>
+                    <ul>
+                        <li><i class="fa-solid fa-network-wired" style="color:#ffb703;"></i> 땅속에는 식물의 뿌리와 공생하는 <span class="highlight-text" style="color:#74c69d;">'균근(버섯의 뿌리)'</span>이 하얀 실처럼 숲 전체를 뒤덮고 있어요.</li>
+                        <li><i class="fa-solid fa-wifi" style="color:#ffb703;"></i> 이 거대한 연결망은 사람들의 '인터넷망'처럼 수많은 나무의 뿌리를 하나로 연결해 서로 소통하게 만들어요.</li>
+                        <li><i class="fa-solid fa-truck-fast" style="color:#ffb703;"></i> 햇빛을 잘 받는 <span class="highlight-text" style="color:#74c69d;">큰 엄마 나무(Mother Tree)</span>는 이 연결망을 통해 그늘진 곳의 아기 나무들에게 몰래 영양분을 배달해 줘요!</li>
+                        <li><i class="fa-solid fa-bell" style="color:#ffb703;"></i> 한쪽 숲에서 해충이 공격하면 화학 신호를 보내 다른 나무들이 방어 물질을 준비하도록 돕는 완벽한 경보 시스템이기도 해요.</li>
+                    </ul>
                 </div>
             </div>
             <div class="rpg-ui-container">
                 <div class="rpg-character"><img src="character_fowi.png" onerror="this.src='50588.png'" class="anim-idle"></div>
                 <div class="rpg-dialogue">
                     <div class="speaker-name">포이</div>
-                    <p class="dialogue-text">버섯 우체부들이 땅속에서 인터넷처럼 다 연결해주고 있었지. 미로를 통해 배달을 도와줄래?</p>
+                    <p class="dialogue-text">나무들은 땅속 인터넷으로 다 연결되어 있었지. 우리가 이 길을 따라 영양분 배달을 도와줄래?</p>
                     <div class="btn-group"><button class="game-btn" style="width:100%;" onclick="goTo('slide15')"><i class="fa-solid fa-arrow-right"></i> 균근 미로 찾기</button></div>
                 </div>
             </div>
@@ -530,11 +591,11 @@
                 <div class="rpg-character"><img src="character_fowi.png" onerror="this.src='50588.png'" class="anim-think"></div>
                 <div class="rpg-dialogue">
                     <div class="speaker-name">포이</div>
-                    <p class="dialogue-text">눈으로 미로를 따라가 볼까? <span class="highlight">어느 길</span>이 아기 나무에게 안전하게 영양분을 배달할 수 있을까?</p>
+                    <p class="dialogue-text">눈으로 파란 미로를 따라가 볼까? <span class="highlight">어느 길</span>이 아기 나무에게 안전하게 영양분을 배달할 수 있을까?</p>
                     <div class="answer-btn-group">
-                        <button class="game-btn" onclick="selectAnswer('1번 길', false, '앗, 1번 길은 돌멩이에 막혀버렸어!')">1번 길</button>
+                        <button class="game-btn" onclick="selectAnswer('1번 길', false, '앗, 맨 위쪽 1번 길은 큰 돌멩이에 막혀버렸어!')">1번 길</button>
                         <button class="game-btn" onclick="selectAnswer('2번 길', true, 'slide16')">2번 길</button>
-                        <button class="game-btn" onclick="selectAnswer('3번 길', false, '3번 길은 두더지 굴로 빠졌어!')">3번 길</button>
+                        <button class="game-btn" onclick="selectAnswer('3번 길', false, '맨 아래 3번 길은 깜깜한 두더지 굴로 빠졌어!')">3번 길</button>
                     </div>
                 </div>
             </div>
@@ -556,13 +617,20 @@
             </div>
         </div>
 
-        <!-- 슬라이드 17: 5번 방 교육 -->
+        <!-- 슬라이드 17: 5번 방 교육 (이론 설명 대폭 확장) -->
         <div class="slide" id="slide17">
             <div class="quest-header"><span class="quest-tag">지식 획득</span> 기후위기와 숲</div>
             <div class="scene-view" style="background: linear-gradient(135deg, #adb5bd, #6c757d);">
-                <div class="scene-content">
-                    <i class="fa-solid fa-temperature-arrow-up icon-large" style="color:#d90429; margin-bottom:10px;"></i>
-                    <p style="color:#fff; text-shadow:0 2px 4px #000; line-height:1.4;">공장에서 나온 <strong>'이산화탄소'</strong>가 지구를 뜨겁게 해요. 나무들은 이 나쁜 가스를 마시고 산소를 뿜어준답니다!</p>
+                <img class="scene-bg" src="bg_carbon_monster.png" onerror="this.style.display='none'" style="filter: blur(4px) brightness(0.4);">
+                
+                <div class="edu-board">
+                    <h4 style="color:#4cc9f0; border-bottom-color:#d90429;">🌍 기후위기와 숲의 방패</h4>
+                    <ul>
+                        <li><i class="fa-solid fa-smog" style="color:#d90429;"></i> 공장, 자동차에서 나오는 <span class="highlight-text" style="color:#4cc9f0;">온실가스(이산화탄소)</span>가 지구를 비닐하우스처럼 덮어 지구의 체온을 뜨겁게 만들고 있어요.</li>
+                        <li><i class="fa-solid fa-leaf" style="color:#d90429;"></i> 숲의 나무들은 나쁜 이산화탄소를 들이마시고, 광합성을 통해 맑은 산소를 뿜어주는 공기청정기 역할을 합니다.</li>
+                        <li><i class="fa-solid fa-box-open" style="color:#d90429;"></i> 나무는 빨아들인 탄소를 자신의 몸통과 흙 속에 수백 년 동안 단단하게 가둬두는 <span class="highlight-text" style="color:#4cc9f0;">'거대한 탄소 통조림'</span>이에요.</li>
+                        <li><i class="fa-solid fa-earth-americas" style="color:#d90429;"></i> 숲을 보호하고 건강하게 가꾸는 것이 열이 펄펄 나는 지구를 시원하게 식혀주는 가장 강력한 방법이랍니다!</li>
+                    </ul>
                 </div>
             </div>
             <div class="rpg-ui-container">
@@ -587,7 +655,7 @@
                 <div class="rpg-character"><img src="character_fowi.png" onerror="this.src='50588.png'" class="anim-think"></div>
                 <div class="rpg-dialogue">
                     <div class="speaker-name">포이</div>
-                    <p class="dialogue-text">큰일이야! 이산화탄소 몬스터들을 가장 잘 흡수해 줄 <span class="highlight">최고의 자원 카드</span>는 무엇일까?</p>
+                    <p class="dialogue-text">큰일이야! 이산화탄소 몬스터들을 흡수해 지구를 식혀 줄 <span class="highlight">최고의 자원 카드</span>는 무엇일까?</p>
                     <div class="answer-btn-group">
                         <button class="game-btn" onclick="selectAnswer('플라스틱', false, '플라스틱은 썩지 않아서 자연을 아프게 해!')">플라스틱</button>
                         <button class="game-btn" onclick="selectAnswer('건강한 숲', true, 'slide19')">건강한 숲</button>
