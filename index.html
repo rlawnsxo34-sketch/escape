@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
-        /* === 1. 기본 리셋 및 배경 === */
+        /* === 1. 기본 리셋 및 폰트 세팅 === */
         * { box-sizing: border-box; margin: 0; padding: 0; word-break: keep-all; font-family: 'Noto Sans KR', sans-serif; }
         body { 
             background: linear-gradient(135deg, #1b4332, #081c15); 
@@ -22,7 +22,6 @@
             -webkit-tap-highlight-color: transparent; 
         }
 
-        /* 폰트 디자인 분리 */
         .quest-header, .speaker-name, .puzzle-word, .maze-label, .confirm-answer-text, .path-marker { font-family: 'Black Han Sans', sans-serif; }
         h1, h2, h3, .group-name-input, .click-to-start, .edu-board h4 { font-family: 'Do Hyeon', sans-serif; }
         
@@ -117,9 +116,10 @@
 
         /* === 6. 아케이드 버튼 === */
         .btn-group { display: flex; gap: 15px; flex-wrap: wrap; justify-content: flex-start; }
-        
         .answer-btn-group { display: flex; flex-direction: row; flex-wrap: nowrap; gap: 10px; width: 100%; }
-        .answer-btn-group .game-btn { flex: 1; padding: 12px 10px; font-size: 28px; }
+        
+        /* 💡 가독성을 위해 정답 보기 버튼 폰트를 얇게(500) 조정 */
+        .answer-btn-group .game-btn { flex: 1; padding: 12px 10px; font-size: 26px; font-weight: 500; }
         
         .game-btn {
             background-color: #ffb703; color: #1b4332; padding: 15px 30px; font-size: 30px; 
@@ -163,7 +163,7 @@
         
         #progress-bar { position: absolute; bottom: 0; left: 0; height: 12px; background-color: #74c69d; width: 0%; transition: width 0.3s ease; z-index: 50; }
 
-        /* === 8. 타이틀 화면 === */
+        /* === 8. 타이틀 화면 전용 레이아웃 === */
         .full-bg-slide { padding: 0; border: none; justify-content: center; align-items: center; background: #1b4332; }
         .full-bg-slide .scene-bg { z-index: 0; opacity: 0.7; }
         
@@ -173,7 +173,6 @@
         .entering-door { transform: scale(1.8) !important; opacity: 0 !important; transition: transform 0.8s ease-in, opacity 0.8s ease-in; }
 
         .title-logo { position: absolute; top: 30px; left: 40px; background: rgba(255,255,255,0.9); padding: 10px 20px; border-radius: 30px; z-index: 15; box-shadow: 0 8px 20px rgba(0,0,0,0.5); }
-        
         .title-top-right { position: absolute; top: 100px; right: 80px; z-index: 5; color: #fff; text-align: right; text-shadow: 4px 6px 0 #000; font-size: 100px; line-height: 1.2; margin: 0; pointer-events: none;}
         .title-right-panel { position: absolute; right: 80px; top: 50%; transform: translateY(-20%); display: flex; flex-direction: column; align-items: center; gap: 20px; z-index: 10; width: 420px; max-width: 90%; }
         
@@ -193,9 +192,20 @@
         .pattern-icon { position: absolute; font-size: 80px; color: #fff; animation: float 3s ease-in-out infinite; z-index: 4; }
         .pattern-charred { top: 56%; left: 63%; color: #d90429; text-shadow: 0 0 15px #000; animation-delay: 0.5s; }
 
-        /* 자원 카드 예시 갤러리 */
+        /* 카드 이미지 갤러리 CSS */
         .card-gallery { display: flex; justify-content: center; gap: 20px; margin-top: 15px; }
-        .card-example { width: 180px; height: 260px; border-radius: 15px; border: 4px solid #fff; box-shadow: 0 10px 20px rgba(0,0,0,0.5); object-fit: cover; background: #ffb703; display:flex; justify-content:center; align-items:center; font-size: 20px; color: #1b4332; font-weight: bold;}
+        .card-example {
+            width: 180px; height: 260px; border-radius: 15px; border: 4px solid #fff; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5); background-color: #ffb703; 
+            display:flex; justify-content:center; align-items:flex-end; padding-bottom: 15px;
+            font-size: 20px; color: #1b4332; font-weight: bold;
+            background-size: cover; background-position: center; position: relative; overflow: hidden;
+        }
+        .card-text { background: rgba(255,255,255,0.9); padding: 5px 15px; border-radius: 10px; z-index: 2; font-family: 'Black Han Sans', sans-serif;}
+        .card-example::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.5) 100%); z-index: 1;
+        }
 
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
         @keyframes bounce-char { 0%, 100% { transform: translateY(0); } 40% { transform: translateY(-25px); } 60% { transform: translateY(-12px); } }
@@ -203,7 +213,7 @@
         .anim-idle { animation: float 3s ease-in-out infinite; } .anim-cheer { animation: bounce-char 1s ease-in-out infinite; } .anim-error { animation: shake-error 0.4s !important; } .anim-think { animation: float 4s ease-in-out infinite alternate; }
         .shake-screen { animation: shake-error 0.4s; }
 
-        /* === 10. 아케이드 맵 이동 애니메이션 (9개 노드) === */
+        /* === 10. 아케이드 맵 이동 애니메이션 (10개 노드 0~9) === */
         #map-transition-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: linear-gradient(135deg, rgba(8, 28, 21, 0.95), rgba(27, 67, 50, 0.95)); 
@@ -217,7 +227,7 @@
         .map-scroll-wrapper::-webkit-scrollbar-thumb { background-color: #ffb703; border-radius: 10px; }
 
         .map-container {
-            position: relative; width: 1200px; height: 120px; 
+            position: relative; width: 1300px; height: 120px; 
             display: flex; align-items: center; justify-content: space-between; margin: 0 auto;
         }
         .map-line {
@@ -276,7 +286,7 @@
             .game-btn { font-size: 18px; padding: 12px 15px; border-width: 3px; width: 100%; border-radius: 10px; }
             
             .answer-btn-group { flex-direction: row; gap: 6px; }
-            .answer-btn-group .game-btn { padding: 8px 4px; font-size: 16px; letter-spacing: -0.5px; }
+            .answer-btn-group .game-btn { padding: 8px 4px; font-size: 15px; font-weight: 500; letter-spacing: -0.5px; }
 
             .audio-btn-group { position: relative; bottom: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 10px;}
             .audio-btn-group .game-btn { font-size: 14px; padding: 10px 5px; }
@@ -303,12 +313,12 @@
             .confirm-answer-text { font-size: 32px; }
             #toast { font-size: 20px; padding: 15px 25px; border-width: 4px; width: 85%; border-radius: 20px; }
             #toast.info { font-size: 18px; padding: 10px 20px; } 
-            
-            .glitch-text { font-size: 45px; }
-            .card-example { width: 100px; height: 140px; font-size: 14px; }
 
-            /* 맵 애니메이션 모바일 (가로 스크롤 영역 확보) */
-            .map-container { width: 900px; }
+            .glitch-text { font-size: 45px; }
+            .card-example { width: 100px; height: 140px; font-size: 13px; border-width: 2px; padding-bottom: 5px;}
+            .card-text { padding: 3px 8px; border-radius: 5px; }
+
+            .map-container { width: 1000px; }
             .map-node { width: 50px; height: 50px; font-size: 24px; border-width: 3px; }
             .node-label { top: 60px; font-size: 16px; width: 80px; }
             #map-fowi { width: 80px !important; }
@@ -335,7 +345,7 @@
                 <button class="game-btn" style="text-align: left;" onclick="goToFromMap('slide21')">💧 5번 방: 녹색 댐</button>
                 <button class="game-btn" style="text-align: left;" onclick="goToFromMap('slide24')">🍂 6번 방: 숲의 마법사</button>
                 <button class="game-btn" style="text-align: left;" onclick="goToFromMap('slide27')">🔥 7번 방: 숲이 아파요!</button>
-                <button class="game-btn" style="text-align: left;" onclick="goToFromMap('slide30')">✨ 마지막 미션 (그림 들어올리기)</button>
+                <button class="game-btn" style="text-align: left;" onclick="goToFromMap('slide30')">✨ 마지막 미션</button>
             </div>
             <button class="game-btn btn-no" style="margin-top: 15px; width:100%;" onclick="toggleRoadmap()"><i class="fa-solid fa-xmark"></i> 닫기</button>
         </div>
@@ -352,7 +362,7 @@
         </div>
     </div>
 
-    <!-- 아케이드 맵 이동 애니메이션 오버레이 (총 9개 노드) -->
+    <!-- 아케이드 맵 이동 애니메이션 오버레이 (총 10개 노드 0~9) -->
     <div id="map-transition-overlay" class="modal-overlay">
         <h2 style="color: #ffb703; font-family: 'Do Hyeon', sans-serif; margin-bottom: 20px; font-size: 65px; text-shadow: 2px 4px 0 #000; border-bottom: none;"><i class="fa-solid fa-location-dot"></i> 다음 장소로 이동 중...</h2>
         
@@ -364,10 +374,11 @@
                 <div class="map-node" id="node-2">2<span class="node-label">2번 방</span></div>
                 <div class="map-node" id="node-3">3<span class="node-label">3번 방</span></div>
                 <div class="map-node" id="node-4">4<span class="node-label">4번 방</span></div>
-                <div class="map-node" id="node-5">5<span class="node-label">5번 방</span></div>
-                <div class="map-node" id="node-6">6<span class="node-label">6번 방</span></div>
-                <div class="map-node" id="node-7">7<span class="node-label">7번 방</span></div>
-                <div class="map-node" id="node-8"><i class="fa-solid fa-star"></i><span class="node-label">도착</span></div>
+                <div class="map-node" id="node-5" style="border-color:#d90429;"><i class="fa-solid fa-skull" style="color:#d90429;"></i><span class="node-label" style="color:#d90429;">보스</span></div>
+                <div class="map-node" id="node-6">5<span class="node-label">5번 방</span></div>
+                <div class="map-node" id="node-7">6<span class="node-label">6번 방</span></div>
+                <div class="map-node" id="node-8">7<span class="node-label">7번 방</span></div>
+                <div class="map-node" id="node-9"><i class="fa-solid fa-star"></i><span class="node-label">도착</span></div>
 
                 <img src="character_fowi.png" onerror="this.src='50588.png'" id="map-fowi">
             </div>
@@ -433,7 +444,7 @@
                 <div class="rpg-dialogue">
                     <div class="speaker-name">포이</div>
                     <p class="dialogue-text">본격적인 탐험 전에, 우리가 함께할 멋진 <span class="highlight">탐험단 이름</span>을 지어보자! 씩씩한 팀 구호도 잊지 마!</p>
-                    <div class="btn-group"><button class="game-btn success-btn" style="width:100%;" onclick="showMapTransition(0, 1, 'slide4')"><i class="fa-solid fa-door-open"></i> 1번 방으로 출발!</button></div>
+                    <div class="btn-group"><button class="game-btn" style="width:100%;" onclick="showMapTransition(0, 1, 'slide4')"><i class="fa-solid fa-door-open"></i> 1번 방으로 출발!</button></div>
                 </div>
             </div>
         </div>
@@ -451,7 +462,7 @@
                     <p class="dialogue-text"><span class="highlight">"나무는 더울 때보다 추울 때 더 쑥쑥 자란다?"</span> 맞으면 O, 틀리면 X를 골라줘!</p>
                     <div class="answer-btn-group">
                         <button class="game-btn" onclick="selectAnswer('O (맞다)', false, '추울 때는 땅이 얼어서 밥(물)을 못 먹고 잘 자라지 못해!')">O (맞다)</button>
-                        <button class="game-btn action-btn" onclick="selectAnswer('X (틀리다)', true, 'slide5')">X (틀리다)</button>
+                        <button class="game-btn" onclick="selectAnswer('X (틀리다)', true, 'slide5')">X (틀리다)</button>
                     </div>
                 </div>
             </div>
@@ -516,7 +527,7 @@
                 <div class="rpg-dialogue">
                     <div class="speaker-name">포이</div>
                     <p class="dialogue-text">정답! 나이테 패턴을 보면 옛날 숲에<br>무슨 일이 있었는지 알 수 있지. 대단한걸?</p>
-                    <div class="btn-group"><button class="game-btn success-btn" style="width:100%;" onclick="showMapTransition(1, 2, 'slide8')"><i class="fa-solid fa-arrow-right"></i> 2번 방으로 이동</button></div>
+                    <div class="btn-group"><button class="game-btn" style="width:100%;" onclick="showMapTransition(1, 2, 'slide8')"><i class="fa-solid fa-arrow-right"></i> 2번 방으로 이동</button></div>
                 </div>
             </div>
         </div>
@@ -577,7 +588,7 @@
                 <div class="rpg-dialogue">
                     <div class="speaker-name">포이</div>
                     <p class="dialogue-text">좋았어! 날 따라 상쾌한 호흡을 해보자.<br>팔을 뻗고 코로 깊게 (스으읍~) 입으로 (후아~)</p>
-                    <div class="btn-group"><button class="game-btn success-btn" style="width:100%;" onclick="showMapTransition(2, 3, 'slide11')"><i class="fa-solid fa-music"></i> 호흡 완료! 3번 방으로</button></div>
+                    <div class="btn-group"><button class="game-btn" style="width:100%;" onclick="showMapTransition(2, 3, 'slide11')"><i class="fa-solid fa-music"></i> 호흡 완료! 3번 방으로</button></div>
                 </div>
             </div>
         </div>
@@ -600,7 +611,7 @@
                 <div class="rpg-character"><img src="character_fowi.png" onerror="this.src='50588.png'" class="anim-idle"></div>
                 <div class="rpg-dialogue">
                     <div class="speaker-name">포이</div>
-                    <p class="dialogue-text">새들은 숲을 지키는 단짝 친구들이지. 어떤 새가 숨어있는지 소리로 찾아볼까?</p>
+                    <p class="dialogue-text">새들은 숲을 지키는 소중한 친구들이지. 어떤 새가 숨어있는지 소리로 찾아볼까?</p>
                     <div class="btn-group"><button class="game-btn" style="width:100%;" onclick="goTo('slide12')"><i class="fa-solid fa-arrow-right"></i> 새소리 맞히기</button></div>
                 </div>
             </div>
@@ -622,7 +633,7 @@
                 <div class="rpg-character"><img src="character_fowi.png" onerror="this.src='50588.png'" class="anim-think"></div>
                 <div class="rpg-dialogue">
                     <div class="speaker-name">포이</div>
-                    <p class="dialogue-text">이미지 아래의 버튼을 눌러 들어봐! 나무속 벌레를 먹고 구멍을 내주는 <span class="highlight">'딱따구리'</span>는 몇 번일까?</p>
+                    <p class="dialogue-text">이미지 아래의 버튼을 눌러 들어봐! 나무에 구멍을 내서 집을 만들어주는 <span class="highlight">'딱따구리'</span>는 몇 번일까?</p>
                     <div class="answer-btn-group">
                         <button class="game-btn" onclick="selectAnswer('1번', false, '1번은 귀여운 참새 소리야!')">1번</button>
                         <button class="game-btn" onclick="selectAnswer('2번', true, 'slide13')">2번</button>
@@ -643,12 +654,12 @@
                 <div class="rpg-dialogue">
                     <div class="speaker-name">포이</div>
                     <p class="dialogue-text">딱따구리 발견! 이제 하늘에서 땅속으로<br>비밀을 파헤치러 4번 방으로 가보자!</p>
-                    <div class="btn-group"><button class="game-btn success-btn" style="width:100%;" onclick="showMapTransition(3, 4, 'slide14')"><i class="fa-solid fa-arrow-right"></i> 4번 방으로!</button></div>
+                    <div class="btn-group"><button class="game-btn" style="width:100%;" onclick="showMapTransition(3, 4, 'slide14')"><i class="fa-solid fa-arrow-right"></i> 4번 방으로!</button></div>
                 </div>
             </div>
         </div>
 
-        <!-- 슬라이드 14: 4번 방 교육 (어려운 '균근' 단어 버섯뿌리로 교체) -->
+        <!-- 슬라이드 14: 4번 방 교육 (균근 -> 버섯 실로 대체) -->
         <div class="slide" id="slide14">
             <div class="quest-header"><span class="quest-tag">지식 획득</span> 땅속의 인터넷</div>
             <div class="scene-view" style="background: linear-gradient(135deg, #dda15e, #bc6c25);">
@@ -656,9 +667,9 @@
                 <div class="edu-board">
                     <h4 style="color:#74c69d; border-bottom-color:#ffb703;">🍄 땅속의 경이로운 우체부</h4>
                     <ul>
-                        <li><i class="fa-solid fa-network-wired" style="color:#ffb703;"></i> <span>땅속에는 나무의 뿌리와 짝꿍인 <span class="highlight-text" style="color:#74c69d;">'하얀 버섯 실(균사)'</span>이 숲 전체를 넓게 덮고 있어요.</span></li>
+                        <li><i class="fa-solid fa-network-wired" style="color:#ffb703;"></i> <span>땅속에는 식물 뿌리의 짝꿍인 <span class="highlight-text" style="color:#74c69d;">'하얀 버섯 실(균사)'</span>이 숲 전체를 덮고 있어요.</span></li>
                         <li><i class="fa-solid fa-wifi" style="color:#ffb703;"></i> <span>이 버섯 뿌리망은 인터넷처럼 수많은 나무를 하나로 연결해 소통하게 해요.</span></li>
-                        <li><i class="fa-solid fa-truck-fast" style="color:#ffb703;"></i> <span>큰 엄마 나무는 이 버섯 뿌리 길을 통해 작은 아기 나무들에게 <span class="highlight-text" style="color:#74c69d;">영양분을 배달</span>해 주죠!</span></li>
+                        <li><i class="fa-solid fa-truck-fast" style="color:#ffb703;"></i> <span>큰 엄마 나무는 이 길을 통해 작은 아기 나무들에게 <span class="highlight-text" style="color:#74c69d;">영양분을 배달</span>해 주죠!</span></li>
                     </ul>
                 </div>
             </div>
@@ -677,8 +688,10 @@
             <div class="quest-header"><span class="quest-tag">4번 방 미션</span> 땅속 마을 우체부</div>
             <div class="scene-view">
                 <img class="scene-bg" src="bg_mycelium.png" onerror="this.style.display='none'" style="object-fit: fill; width: 100%; height: 100%; background-color: #1b2f22;">
+                
                 <div class="floating-item maze-label" style="top:15%; left:5%;">🌳 엄마 나무</div>
                 <div class="floating-item maze-label" style="top:15%; right:5%;">🌱 아기 나무</div>
+                
                 <div class="floating-item path-marker" style="top:28%; left:30%;">1번 길</div>
                 <div class="floating-item path-marker" style="top:50%; left:30%;">2번 길</div>
                 <div class="floating-item path-marker" style="top:72%; left:30%;">3번 길</div>
@@ -687,7 +700,7 @@
                 <div class="rpg-character"><img src="character_fowi.png" onerror="this.src='50588.png'" class="anim-think"></div>
                 <div class="rpg-dialogue">
                     <div class="speaker-name">포이</div>
-                    <p class="dialogue-text">눈으로 파란색 버섯 실을 따라가 볼까? <span class="highlight">어느 길</span>이 아기 나무에게 영양분을 배달할 수 있을까?</p>
+                    <p class="dialogue-text">눈으로 파란색 버섯 실을 따라가 볼까? <span class="highlight">어느 길</span>이 아기 나무에게 안전하게 배달할 수 있을까?</p>
                     <div class="answer-btn-group">
                         <button class="game-btn" onclick="selectAnswer('1번 길', false, '앗, 1번 길은 돌멩이에 막혀버렸어!')">1번 길</button>
                         <button class="game-btn" onclick="selectAnswer('2번 길', true, 'slide16')">2번 길</button>
@@ -697,7 +710,7 @@
             </div>
         </div>
 
-        <!-- 슬라이드 16: 4번 방 성공 (이후 맵 이동 없이 바로 보스 경고로 넘어감) -->
+        <!-- 슬라이드 16: 4번 방 성공 -->
         <div class="slide success-slide" id="slide16">
             <div class="quest-header" style="background:#ffb703; color:#000;"><span class="quest-tag" style="color:#d90429;">CLEAR!</span> 네 번째 자물쇠 해제!</div>
             <div class="scene-view" style="background: linear-gradient(135deg, #fefae0, #faedcd);">
@@ -707,24 +720,20 @@
                 <div class="rpg-character success-char"><img src="character_fowi.png" onerror="this.src='50588.png'" class="anim-cheer"></div>
                 <div class="rpg-dialogue">
                     <div class="speaker-name">포이</div>
-                    <p class="dialogue-text">배달 완료! 숲은 이렇게 서로 돕고 살아가지.<br>자, 이제 다음으로... 앗?! 무슨 일이지?</p>
-                    <div class="btn-group"><button class="game-btn boss-btn" style="width:100%;" onclick="goTo('slide17')"><i class="fa-solid fa-triangle-exclamation"></i> 경고: 이상 현상 감지!</button></div>
+                    <p class="dialogue-text">배달 완료! 숲은 이렇게 서로 돕고 살아가지.<br>자, 영양분을 전달했으니 다음으로... 앗?!</p>
+                    <div class="btn-group"><button class="game-btn boss-btn" style="width:100%;" onclick="showMapTransition(4, 5, 'slide17')"><i class="fa-solid fa-triangle-exclamation"></i> 경고: 이상 현상 감지!</button></div>
                 </div>
             </div>
         </div>
 
-        <!-- ============================================== -->
-        <!-- 신규 추가 구역: 중간 보스 -> 자원카드 만들기 -> 5번 방 -> 6번 방 -->
-        <!-- ============================================== -->
-        
-        <!-- 슬라이드 17: 중간 보스 출현 (아이콘 겹침 제거, 화면 글리치 효과) -->
+        <!-- 슬라이드 17: 중간 보스 출현 (겹침 해결 및 글리치 효과) -->
         <div class="slide" id="slide17">
-            <div class="warning-overlay"></div> <!-- 붉은 경고 레이어 -->
+            <div class="warning-overlay"></div>
             <div class="quest-header" style="background:#d90429;"><span class="quest-tag" style="color:#fff;">위기 발생!</span> 가뭄 몬스터의 습격!</div>
             <div class="scene-view">
                 <img class="scene-bg" src="bg_drought_monster.png" onerror="this.style.display='none'">
-                <!-- 중첩 아이콘 대신 글리치 텍스트 배치 -->
-                <div class="scene-content"><h2 class="glitch-text">WARNING</h2></div>
+                <!-- 중첩 아이콘 대신 글리치 텍스트로 위기감 표현 -->
+                <div class="scene-content"><h2 class="glitch-text">WARNING!</h2></div>
             </div>
             <div class="rpg-ui-container">
                 <div class="rpg-character boss-char"><img src="character_fowi.png" onerror="this.src='50588.png'" class="anim-error"></div>
@@ -750,7 +759,7 @@
                     <p class="dialogue-text">비를 스펀지처럼 듬뿍 머금었다가, 가물 때 계곡으로<br>조금씩 물을 흘려보내는 숲의 능력을 무엇이라 할까?</p>
                     <div class="answer-btn-group">
                         <button class="game-btn" onclick="selectAnswer('철근 댐', false, '철근으로 물을 잡을 순 없어!')">철근 댐</button>
-                        <button class="game-btn action-btn" onclick="selectAnswer('녹색 댐', true, 'slide19')">녹색 댐</button>
+                        <button class="game-btn" onclick="selectAnswer('녹색 댐', true, 'slide19')">녹색 댐</button>
                         <button class="game-btn" onclick="selectAnswer('플라스틱 댐', false, '플라스틱은 환경을 파괴해!')">플라스틱 댐</button>
                     </div>
                 </div>
@@ -767,28 +776,34 @@
                 <div class="rpg-character success-char"><img src="character_fowi.png" onerror="this.src='50588.png'" class="anim-cheer"></div>
                 <div class="rpg-dialogue">
                     <div class="speaker-name">포이</div>
-                    <p class="dialogue-text">가뭄 몬스터를 물리쳤어! 이제 더 큰 위험에 대비해<br>우리를 지켜줄 <span class="highlight">나만의 '자원 카드'</span>를 만들어보자!</p>
-                    <div class="btn-group"><button class="game-btn success-btn" style="width:100%;" onclick="goTo('slide20')"><i class="fa-solid fa-wand-magic-sparkles"></i> 특별 활동 안내 보기</button></div>
+                    <p class="dialogue-text">가뭄 몬스터를 물리쳤어! 이제 더 큰 위험에 대비해<br>우리를 지켜줄 <span class="highlight">나만의 '수호자 카드'</span>를 만들어보자!</p>
+                    <div class="btn-group"><button class="game-btn" style="width:100%;" onclick="goTo('slide20')"><i class="fa-solid fa-wand-magic-sparkles"></i> 특별 활동 안내 보기</button></div>
                 </div>
             </div>
         </div>
 
-        <!-- 슬라이드 20: 오프라인 활동 안내 (자원 카드 만들기 - 창의력 유도 버전) -->
+        <!-- 슬라이드 20: 오프라인 활동 안내 (상상력 유도 버전) -->
         <div class="slide full-bg-slide" id="slide20">
-            <div class="quest-header">🃏 특별 미션: 나만의 숲 수호 카드 만들기!</div>
+            <div class="quest-header">🃏 특별 미션: 나만의 숲 수호자 카드 만들기!</div>
             <div style="display:flex; flex-direction:column; align-items:center; width:95%; max-width:1100px; padding:10px; z-index:5;">
                 <div class="offline-box" style="background: rgba(0,0,0,0.8); margin: 10px 0; padding: 20px;">
-                    <p style="color:#fff; text-align:left; font-size:26px; line-height: 1.4;"><span style="color:#ffb703; font-weight: bold;">"내 카드가 숲을 구한다!"</span><br>동물, 식물, 곤충, 바람, 흙 등 나의 상상력을 더해 <span class="highlight-text" style="color:#74c69d;">나만의 개성 있는 숲의 수호자 카드</span>를 만들어보세요! 카드에 수호자의 멋진 모습과 특별한 능력, 파워 점수를 적어주세요.</p>
+                    <p style="color:#fff; text-align:left; font-size:26px; line-height: 1.4;"><span style="color:#ffb703; font-weight: bold;">"내 카드가 숲을 구한다!"</span><br>동물, 식물, 곤충, 바람, 흙 등 나의 상상력을 더해 <span class="highlight-text" style="color:#74c69d;">나만의 개성 있는 숲의 수호자 카드</span>를 그려보세요! 카드에 수호자의 멋진 모습과 특별한 능력, 파워 점수(공격/방어)를 적어주세요.</p>
                 </div>
                 
-                <!-- 자원 카드 예시 이미지 표시 영역 (실제 준비된 예시 이미지가 있다면 파일명을 바꿔주세요) -->
+                <!-- 카드 갤러리 예시 -->
                 <div class="card-gallery">
-                    <div class="card-example"><i class="fa-solid fa-leaf"></i> 초록바람 요정</div>
-                    <div class="card-example" style="background: #4cc9f0; color: #fff;"><i class="fa-solid fa-droplet"></i> 물방울 요정</div>
-                    <div class="card-example" style="background: #e76f51; color: #fff;"><i class="fa-solid fa-seedling"></i> 도토리 기사</div>
+                    <div class="card-example" style="background-color: #74c69d; background-image: url('card_wind.png');">
+                        <div class="card-text">초록바람 요정</div>
+                    </div>
+                    <div class="card-example" style="background-color: #4cc9f0; background-image: url('card_water.png');">
+                        <div class="card-text">물방울 기사</div>
+                    </div>
+                    <div class="card-example" style="background-color: #e76f51; background-image: url('card_acorn.png');">
+                        <div class="card-text">도토리 법사</div>
+                    </div>
                 </div>
                 
-                <button class="game-btn success-btn" style="width:100%; font-size:30px; padding:15px; margin-top: 15px;" onclick="showMapTransition(4, 5, 'slide21')"><i class="fa-solid fa-check"></i> 카드 완성! 모험 계속하기</button>
+                <button class="game-btn" style="width:100%; font-size:30px; padding:15px; margin-top: 15px;" onclick="showMapTransition(5, 6, 'slide21')"><i class="fa-solid fa-check"></i> 카드 완성! 모험 계속하기</button>
             </div>
         </div>
 
@@ -827,11 +842,11 @@
                 <div class="rpg-character"><img src="character_fowi.png" onerror="this.src='50588.png'" class="anim-think"></div>
                 <div class="rpg-dialogue">
                     <div class="speaker-name">포이</div>
-                    <p class="dialogue-text">비가 억수같이 쏟아지는 날이야. <span class="highlight">빗물을 가장 많이, 그리고 맑게</span> 저장할 수 있는 땅은 어디일까?</p>
+                    <p class="dialogue-text">비가 억수같이 쏟아지는 날이야. <span class="highlight">물을 가장 많이, 그리고 깨끗하게</span> 저장할 수 있는 땅은 어디일까?</p>
                     <div class="answer-btn-group">
-                        <button class="game-btn" style="font-size:24px;" onclick="selectAnswer('1. 민둥산', false, '나무가 없으면 흙탕물이 쏟아져 내려와!')">1. 민둥산</button>
-                        <button class="game-btn" style="font-size:24px;" onclick="selectAnswer('2. 아스팔트', false, '아스팔트는 물을 흡수하지 못해 홍수가 나!')">2. 아스팔트 도로</button>
-                        <button class="game-btn" style="font-size:24px;" onclick="selectAnswer('3. 울창한 숲', true, 'slide23')">3. 낙엽 덮인 숲</button>
+                        <button class="game-btn" onclick="selectAnswer('민둥산', false, '나무가 없으면 흙탕물이 쏟아져 내려와!')">1. 민둥산</button>
+                        <button class="game-btn" onclick="selectAnswer('아스팔트', false, '아스팔트는 물을 흡수 못 해 홍수가 나!')">2. 아스팔트</button>
+                        <button class="game-btn" onclick="selectAnswer('울창한 숲', true, 'slide23')">3. 낙엽 덮인 숲</button>
                     </div>
                 </div>
             </div>
@@ -848,12 +863,12 @@
                 <div class="rpg-dialogue">
                     <div class="speaker-name">포이</div>
                     <p class="dialogue-text">정답! 울창한 숲의 흙은 스펀지 같아서<br>맑은 물을 듬뿍 저장하지. 다음 방으로 고고!</p>
-                    <div class="btn-group"><button class="game-btn success-btn" style="width:100%;" onclick="showMapTransition(5, 6, 'slide24')"><i class="fa-solid fa-arrow-right"></i> 6번 방으로 이동</button></div>
+                    <div class="btn-group"><button class="game-btn" style="width:100%;" onclick="showMapTransition(6, 7, 'slide24')"><i class="fa-solid fa-arrow-right"></i> 6번 방으로 이동</button></div>
                 </div>
             </div>
         </div>
 
-        <!-- 슬라이드 24: 6번 방 교육 (분해자) -->
+        <!-- 슬라이드 24: 6번 방 교육 -->
         <div class="slide" id="slide24">
             <div class="quest-header"><span class="quest-tag">지식 획득</span> 숲을 청소하는 마법사들</div>
             <div class="scene-view" style="background: linear-gradient(135deg, #bc6c25, #9c6644);">
@@ -892,7 +907,7 @@
                     <div class="answer-btn-group">
                         <button class="game-btn" onclick="selectAnswer('지렁이', true, 'slide26')">지렁이</button>
                         <button class="game-btn" onclick="selectAnswer('매미', false, '매미는 나무즙을 먹고 살아!')">매미</button>
-                        <button class="game-btn" onclick="selectAnswer('개구리', false, '개구리는 벌레를 잡아먹지 흙을 먹지 않아!')">개구리</button>
+                        <button class="game-btn" onclick="selectAnswer('개구리', false, '개구리는 흙을 먹지 않아!')">개구리</button>
                     </div>
                 </div>
             </div>
@@ -909,7 +924,7 @@
                 <div class="rpg-dialogue">
                     <div class="speaker-name">포이</div>
                     <p class="dialogue-text">맞아! 지렁이는 흙 속의 위대한 농부야.<br>이제 드디어 7번 방, 마지막 위기만 남았어!</p>
-                    <div class="btn-group"><button class="game-btn success-btn" style="width:100%;" onclick="showMapTransition(6, 7, 'slide27')"><i class="fa-solid fa-arrow-right"></i> 마지막 7번 방으로!</button></div>
+                    <div class="btn-group"><button class="game-btn" style="width:100%;" onclick="showMapTransition(7, 8, 'slide27')"><i class="fa-solid fa-arrow-right"></i> 마지막 7번 방으로!</button></div>
                 </div>
             </div>
         </div>
@@ -920,11 +935,11 @@
             <div class="scene-view" style="background: linear-gradient(135deg, #adb5bd, #6c757d);">
                 <img class="scene-bg" src="bg_carbon_monster.png" onerror="this.style.display='none'" style="filter: blur(4px) brightness(0.4);">
                 <div class="edu-board">
-                    <h4 style="color:#4cc9f0; border-bottom-color:#d90429;">🌍 기후위기와 숲의 방패</h4>
+                    <h4 style="color:#4cc9f0; border-bottom-color:#d90429;">🌍 열이 나는 지구를 식히는 법</h4>
                     <ul>
                         <li><i class="fa-solid fa-smog" style="color:#d90429;"></i> <span>공장, 자동차에서 나오는 온실가스(이산화탄소)가 지구를 뜨겁게 해요.</span></li>
                         <li><i class="fa-solid fa-leaf" style="color:#d90429;"></i> <span>숲의 나무들은 나쁜 이산화탄소를 마시고 맑은 산소를 뿜어준답니다.</span></li>
-                        <li><i class="fa-solid fa-box-open" style="color:#d90429;"></i> <span>나무는 빨아들인 탄소를 몸통과 흙 속에 수백 년 동안 <span class="highlight-text" style="color:#4cc9f0;">단단하게 가둬둬요!</span></span></li>
+                        <li><i class="fa-solid fa-box-open" style="color:#d90429;"></i> <span>나무는 빨아들인 탄소를 몸통과 흙 속에 <span class="highlight-text" style="color:#4cc9f0;">단단하게 가둬둬요!</span></span></li>
                     </ul>
                 </div>
             </div>
@@ -933,7 +948,7 @@
                 <div class="rpg-dialogue">
                     <div class="speaker-name">포이</div>
                     <p class="dialogue-text">지구가 아파서 여름이 너무 덥지? 우리가 숲을 지켜야 해. 어서 마지막 탄소 몬스터를 잡으러 가자!</p>
-                    <div class="btn-group"><button class="game-btn action-btn" style="width:100%;" onclick="goTo('slide28')"><i class="fa-solid fa-arrow-right"></i> 최종 몬스터 잡으러 가기</button></div>
+                    <div class="btn-group"><button class="game-btn" style="width:100%;" onclick="goTo('slide28')"><i class="fa-solid fa-arrow-right"></i> 최종 몬스터 잡으러 가기</button></div>
                 </div>
             </div>
         </div>
@@ -953,7 +968,7 @@
                     <p class="dialogue-text">큰일이야! 이산화탄소 몬스터들을 가장 잘 흡수해 줄 <span class="highlight">최고의 자원 카드</span>는 무엇일까?</p>
                     <div class="answer-btn-group">
                         <button class="game-btn" onclick="selectAnswer('플라스틱', false, '플라스틱은 썩지 않아서 자연을 아프게 해!')">플라스틱</button>
-                        <button class="game-btn action-btn" onclick="selectAnswer('건강한 숲', true, 'slide29')">건강한 숲</button>
+                        <button class="game-btn" onclick="selectAnswer('건강한 숲', true, 'slide29')">건강한 숲</button>
                         <button class="game-btn" onclick="selectAnswer('스마트폰', false, '스마트폰은 전기를 써서 탄소를 만들어내!')">스마트폰</button>
                     </div>
                 </div>
@@ -970,26 +985,26 @@
                 <div class="rpg-character success-char"><img src="character_fowi.png" onerror="this.src='50588.png'" class="anim-cheer"></div>
                 <div class="rpg-dialogue">
                     <div class="speaker-name">포이</div>
-                    <p class="dialogue-text">해냈어! 건강한 숲이 기후위기를 막는<br>최고의 방패가 돼. 드디어 모든 자물쇠를 열었어!</p>
-                    <div class="btn-group"><button class="game-btn success-btn" style="width:100%;" onclick="showMapTransition(7, 8, 'slide30')"><i class="fa-solid fa-star"></i> 최종 관문으로!</button></div>
+                    <p class="dialogue-text">해냈어! 건강한 숲이 기후위기를 막는<br>최고의 방패가 돼. 7개의 자물쇠를 모두 열었어!</p>
+                    <div class="btn-group"><button class="game-btn" style="width:100%;" onclick="showMapTransition(8, 9, 'slide30')"><i class="fa-solid fa-star"></i> 최종 관문으로!</button></div>
                 </div>
             </div>
         </div>
 
-        <!-- 슬라이드 30: 오프라인 미션 (카드 + 치유 나무) -->
+        <!-- 슬라이드 30: 오프라인 미션 -->
         <div class="slide full-bg-slide" id="slide30">
             <div class="quest-header" style="position:absolute; top:30px; z-index:10;"><span class="quest-tag">최종 보스</span> 포이의 마지막 부탁</div>
-            <div style="display:flex; flex-direction:column; align-items:center; max-width:1100px; margin: 0 auto; padding:20px; z-index:5; width:100%;">
+            <div style="display:flex; flex-direction:column; align-items:center; max-width:1000px; margin: 0 auto; padding:20px; z-index:5; width:100%;">
                 <img src="character_fowi.png" onerror="this.src='50588.png'" class="anim-idle" style="width:220px; margin-bottom:10px; margin-top:60px;">
                 <div class="rpg-dialogue" style="border-color:#ffb703; width:100%; text-align:center; min-height:auto; padding:20px;">
-                    <p class="dialogue-text" style="margin-bottom:0;">대단해! 모든 퀴즈를 풀고 <span class="highlight">7개의 황금 자물쇠</span>를 다 얻었어!<br>이제 아까 만든 <span class="highlight">'자원 카드'</span>와 방금 그린 <span class="highlight">'치유 나무'</span>를 높이 들어 올려 숲의 문을 열자!</p>
+                    <p class="dialogue-text" style="margin-bottom:0;">대단해! 모든 수수께끼를 풀고 <span class="highlight">7개의 황금 자물쇠</span>를 다 얻었어!<br>숲의 문을 활짝 열 마지막 에너지가 필요해. 바로 <span class="highlight">'나만의 치유 나무'</span>야!</p>
                 </div>
                 
                 <div class="offline-box">
                     <p style="color:#ffb703; margin:0;"><i class="fa-solid fa-palette"></i> 오프라인 미션: 종이에 예쁜 나무 그리고 내가 만든 카드와 함께 번쩍 들어 올리기! (20분)</p>
                 </div>
                 
-                <button class="game-btn success-btn" style="width:100%; font-size: 32px; padding: 20px 40px;" onclick="selectAnswer('모두 함께 카드와 그림 들어 올리기!', true, 'slide31')"><i class="fa-solid fa-unlock"></i> 에너지가 모였다! 숲의 문 열기</button>
+                <button class="game-btn" style="width:100%; font-size: 32px; padding: 20px 40px;" onclick="selectAnswer('모두 함께 카드와 그림 들어 올리기!', true, 'slide31')"><i class="fa-solid fa-unlock"></i> 에너지가 모였다! 숲의 문 열기</button>
             </div>
         </div>
 
@@ -1015,6 +1030,7 @@
     <script>
         const totalSlides = 31; // 전체 슬라이드 개수 업데이트
 
+        // 처음 문을 클릭했을 때의 동작 (효과음 없이 바로 이동)
         function enterDoor() {
             const door = document.getElementById('main-door');
             if(door) {
@@ -1023,16 +1039,20 @@
             setTimeout(() => {
                 goTo('slide2');
                 setTimeout(() => {
-                    if(door) door.classList.remove('entering-door');
+                    if(door) {
+                        door.classList.remove('entering-door');
+                    }
                 }, 500);
             }, 600);
         }
 
+        // 효과음 재생 함수
         function playSoundEffect(filename) {
             let sfx = new Audio(filename);
             sfx.play().catch(e => console.log("효과음 파일이 없습니다: " + filename));
         }
 
+        // 우측 상단 스테이지 맵 모달 열기/닫기
         function toggleRoadmap() {
             const modal = document.getElementById('roadmap-modal');
             if (modal) {
@@ -1044,13 +1064,13 @@
             }
         }
 
-        // 로드맵 버튼 클릭시엔 애니메이션 없이 바로 이동
+        // 로드맵 버튼에서 직접 클릭하여 이동 (애니메이션 생략)
         function goToFromMap(slideId) {
             toggleRoadmap();
             goTo(slideId);
         }
 
-        // 화면 이동 공통 로직
+        // 일반적인 화면 전환 함수
         function goTo(slideId) {
             stopSound(false); 
             
@@ -1065,75 +1085,96 @@
                 targetSlide.scrollTop = 0; 
             }
             
+            // 하단 진행바 업데이트
             const slideNumberStr = slideId.replace('slide', '');
             const slideNumber = parseInt(slideNumberStr, 10);
             if (!isNaN(slideNumber)) {
                 const progressPercentage = ((slideNumber - 1) / (totalSlides - 1)) * 100;
                 const progressBar = document.getElementById('progress-bar');
-                if (progressBar) progressBar.style.width = progressPercentage + '%';
+                if (progressBar) {
+                    progressBar.style.width = progressPercentage + '%';
+                }
             }
         }
 
-        // 아케이드 지도 이동 애니메이션 함수 (노드 0번부터 8번까지 총 9개)
+        // 🚀 아케이드 맵 이동 애니메이션 (노드 0~9)
         function showMapTransition(fromNodeIndex, toNodeIndex, targetSlide) {
             stopSound(false);
+            // 맵 이동 시 딩동댕 소리 재생
+            playSoundEffect('ding.wav'); 
             
             const mapOverlay = document.getElementById('map-transition-overlay');
             const fowi = document.getElementById('map-fowi');
             
-            // 방문한 노드 색상 처리
-            for(let i=0; i<=8; i++) {
-                const n = document.getElementById('node-' + i);
-                if(n) {
-                    if (i <= fromNodeIndex) n.classList.add('visited');
-                    else n.classList.remove('visited');
+            // 방문한 노드 색상(노란색) 적용
+            for(let i = 0; i <= 9; i++) {
+                const node = document.getElementById('node-' + i);
+                if(node) {
+                    if (i <= fromNodeIndex) {
+                        node.classList.add('visited');
+                    } else {
+                        node.classList.remove('visited');
+                    }
                 }
             }
 
-            mapOverlay.classList.add('show');
+            if (mapOverlay) {
+                mapOverlay.classList.add('show');
+            }
 
             const startNode = document.getElementById('node-' + fromNodeIndex);
             const endNode = document.getElementById('node-' + toNodeIndex);
             
-            // 캐릭터 시작 위치 즉시 설정
-            fowi.style.transition = 'none';
-            fowi.style.left = startNode.offsetLeft + (startNode.offsetWidth / 2) + 'px';
-            fowi.style.top = startNode.offsetTop + 'px';
-            
-            // 브라우저 렌더링 강제 업데이트
-            void fowi.offsetWidth; 
+            if (startNode && endNode && fowi) {
+                // 애니메이션 없이 출발점에 캐릭터 배치
+                fowi.style.transition = 'none';
+                fowi.style.left = startNode.offsetLeft + (startNode.offsetWidth / 2) + 'px';
+                fowi.style.top = startNode.offsetTop + 'px';
+                
+                // 브라우저 렌더링 강제 업데이트
+                void fowi.offsetWidth; 
 
-            // 부드러운 이동 애니메이션 시작
-            setTimeout(() => {
-                fowi.style.transition = 'left 1.5s cubic-bezier(0.4, 0, 0.2, 1), top 1.5s cubic-bezier(0.4, 0, 0.2, 1)';
-                fowi.style.left = endNode.offsetLeft + (endNode.offsetWidth / 2) + 'px';
-                fowi.style.top = endNode.offsetTop + 'px';
-                endNode.classList.add('visited'); // 도착 노드 활성화
-            }, 100);
+                // 0.1초 뒤 부드럽게 목적지로 날아가는 애니메이션 시작
+                setTimeout(() => {
+                    fowi.style.transition = 'left 1.5s ease-in-out, top 1.5s ease-in-out';
+                    fowi.style.left = endNode.offsetLeft + (endNode.offsetWidth / 2) + 'px';
+                    fowi.style.top = endNode.offsetTop + 'px';
+                    endNode.classList.add('visited'); 
+                }, 100);
+            }
 
-            // 애니메이션이 끝나면 목표 슬라이드로 이동
+            // 날아가는 시간이 끝난 뒤(1.8초) 타겟 슬라이드로 이동
             setTimeout(() => {
-                mapOverlay.classList.remove('show');
+                if (mapOverlay) {
+                    mapOverlay.classList.remove('show');
+                }
                 goTo(targetSlide);
             }, 1800);
         }
 
         // 정답 확인 모달 로직
-        let pendingActionArg = null; let pendingIsCorrect = false;
+        let pendingActionArg = null; 
+        let pendingIsCorrect = false;
 
         function selectAnswer(buttonText, isCorrect, actionArg) {
-            pendingActionArg = actionArg; pendingIsCorrect = isCorrect;
+            pendingActionArg = actionArg; 
+            pendingIsCorrect = isCorrect;
+            
             const modal = document.getElementById('confirm-modal');
             const confirmText = document.getElementById('answer-text-span');
             if (confirmText) {
                 confirmText.innerText = `[${buttonText}]`;
             }
-            if (modal) modal.classList.add('show');
+            if (modal) {
+                modal.classList.add('show');
+            }
         }
 
         function proceedAnswer() {
             const modal = document.getElementById('confirm-modal'); 
-            if (modal) modal.classList.remove('show'); 
+            if (modal) {
+                modal.classList.remove('show'); 
+            }
             
             if(pendingIsCorrect) { 
                 playSoundEffect('ding.wav');
@@ -1146,15 +1187,17 @@
 
         function cancelAnswer() { 
             const modal = document.getElementById('confirm-modal');
-            if (modal) modal.classList.remove('show'); 
+            if (modal) {
+                modal.classList.remove('show'); 
+            }
         }
 
-        // 오답 처리 로직
+        // 오답 시 흔들림 효과 로직
         function wrongAction(message) {
             const gameConsole = document.getElementById('game-console');
             if (gameConsole) {
                 gameConsole.classList.remove('shake-screen'); 
-                void gameConsole.offsetWidth; 
+                void gameConsole.offsetWidth; // 애니메이션 리셋
                 gameConsole.classList.add('shake-screen');
             }
             
@@ -1163,7 +1206,9 @@
                 const activeChar = activeSlide.querySelector('.rpg-character img, .char-large img, .title-char');
                 if(activeChar) { 
                     activeChar.classList.add('anim-error'); 
-                    setTimeout(() => { if (activeChar) activeChar.classList.remove('anim-error'); }, 400); 
+                    setTimeout(() => { 
+                        if (activeChar) activeChar.classList.remove('anim-error'); 
+                    }, 400); 
                 }
                 
                 const dialogueEl = activeSlide.querySelector('.dialogue-text');
@@ -1175,10 +1220,13 @@
             showToast(`<i class="fa-solid fa-triangle-exclamation"></i> ${message}`, 'error');
         }
 
-        // 오디오 재생/정지 로직
+        // 오디오 재생 로직 (3번 방 등)
         let currentAudio = null;
         function playSound(filename, toastMessage) {
-            if(currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; }
+            if(currentAudio) { 
+                currentAudio.pause(); 
+                currentAudio.currentTime = 0; 
+            }
             currentAudio = new Audio(filename);
             currentAudio.play().catch(e => { console.log("오디오 파일 없음: " + filename); });
             showInfo(toastMessage);
@@ -1195,6 +1243,7 @@
             }
         }
 
+        // 하단 토스트 팝업 로직
         function showInfo(message) { showToast(message, 'info'); }
 
         let toastTimeout;
@@ -1212,7 +1261,9 @@
             }
             
             toast.classList.add('show');
-            toastTimeout = setTimeout(() => { if(toast) toast.classList.remove('show'); }, 3000);
+            toastTimeout = setTimeout(() => { 
+                if(toast) toast.classList.remove('show'); 
+            }, 3000);
         }
     </script>
 </body>
