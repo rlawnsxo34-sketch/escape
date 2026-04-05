@@ -303,14 +303,14 @@
     <div id="hint-modal" class="modal-overlay">
         <div class="modal-content">
             <h3 style="color:#ffb703;"><i class="fa-solid fa-lightbulb"></i> 포이의 힌트</h3>
-            <p id="hint-text" style="font-size: 24px; margin-bottom: 20px; font-weight: bold; color: #1b4332;"></p>
+            <p id="hint-text" style="font-size: 24px; margin-bottom: 20px; font-weight: bold; color: #1b4332; line-height:1.4;"></p>
             <div class="modal-btn-group" style="width: 100%;">
                 <button class="game-btn btn-yes" style="width:100%;" onclick="closeHint()"><i class="fa-solid fa-check"></i> 확인</button>
             </div>
         </div>
     </div>
 
-    <!-- 💬 메시지 모달창 (alert 대체) -->
+    <!-- 💬 메시지 모달창 -->
     <div id="message-modal" class="modal-overlay">
         <div class="modal-content">
             <h3 id="message-title" style="color:#d90429;"><i class="fa-solid fa-bell"></i> 알림</h3>
@@ -562,7 +562,7 @@
             </div>
         </div>
 
-        <!-- 슬라이드 17: 중간 보스 -->
+        <!-- 슬라이드 17: 중간 보스 경고 -->
         <div class="slide" id="slide17">
             <div class="warning-overlay"></div>
             <div class="quest-header" style="background:#d90429;"><span class="quest-tag" style="color:#fff;">위기 발생!</span> 가뭄 몬스터의 습격!</div>
@@ -572,9 +572,11 @@
             </div>
             <div class="rpg-ui-container">
                 <div class="rpg-character boss-char"><img src="character_fowi.png" onerror="this.src='50588.png'" class="anim-error"></div>
-                <div class="rpg-dialogue" style="border-color:#d90429;"><div class="speaker-name" style="background:#d90429; color:#fff;">포이</div><p class="dialogue-text">큰일이야! 갑자기 땅이 바짝 마르고 숲이 타들어가고 있어!<br><span class="highlight">가뭄 몬스터</span>를 물리칠 숲의 능력이 필요해!</p>
-                <!-- 여기서 맵 이동 애니메이션 호출 -->
-                <div class="btn-group"><button class="game-btn boss-btn" style="width:100%; background:#d90429; color:#fff; animation:none;" onclick="showMapTransition(4, 5, 'slide18')"><i class="fa-solid fa-khanda"></i> 몬스터 물리치러 가기</button></div></div>
+                <div class="rpg-dialogue" style="border-color:#d90429;">
+                    <div class="speaker-name" style="background:#d90429; color:#fff;">포이</div>
+                    <p class="dialogue-text">큰일이야! 갑자기 땅이 바짝 마르고 숲이 타들어가고 있어!<br><span class="highlight">가뭄 몬스터</span>를 물리칠 숲의 능력이 필요해!</p>
+                    <div class="btn-group"><button class="game-btn boss-btn" style="width:100%; animation:none;" onclick="showMapTransition(4, 5, 'slide18')"><i class="fa-solid fa-khanda"></i> 몬스터 물리치러 가기</button></div>
+                </div>
             </div>
         </div>
 
@@ -585,7 +587,15 @@
             <div class="scene-view"><img class="scene-bg" src="bg_drought_monster.png" onerror="this.style.display='none'"></div>
             <div class="rpg-ui-container">
                 <div class="rpg-character boss-char"><img src="character_fowi.png" onerror="this.src='50588.png'" class="anim-think"></div>
-                <div class="rpg-dialogue"><div class="speaker-name">포이</div><p class="dialogue-text">비를 스펀지처럼 듬뿍 머금었다가, 가물 때 계곡으로<br>조금씩 물을 흘려보내는 숲의 능력을 무엇이라 할까?</p><div class="answer-btn-group"><button class="game-btn" onclick="selectAnswer('철근 댐', false, '철근으로 물을 잡을 순 없어!')">철근 댐</button><button class="game-btn" onclick="selectAnswer('녹색 댐', true, 'slide19')">녹색 댐</button><button class="game-btn" onclick="selectAnswer('플라스틱 댐', false, '플라스틱은 환경을 파괴해!')">플라스틱 댐</button></div></div>
+                <div class="rpg-dialogue">
+                    <div class="speaker-name">포이</div>
+                    <p class="dialogue-text">비를 스펀지처럼 듬뿍 머금었다가, 가물 때 계곡으로<br>조금씩 물을 흘려보내는 숲의 능력을 무엇이라 할까?</p>
+                    <div class="answer-btn-group">
+                        <button class="game-btn" onclick="selectAnswer('철근 댐', false, '철근으로 물을 잡을 순 없어!')">철근 댐</button>
+                        <button class="game-btn" onclick="selectAnswer('녹색 댐', true, 'slide19')">녹색 댐</button>
+                        <button class="game-btn" onclick="selectAnswer('플라스틱 댐', false, '플라스틱은 환경을 파괴해!')">플라스틱 댐</button>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -595,11 +605,15 @@
             <div class="scene-view" style="background: linear-gradient(135deg, #74c69d, #2d6a4f);"><i class="fa-solid fa-trophy floating-item icon-huge" style="color:#ffb703;"></i></div>
             <div class="rpg-ui-container">
                 <div class="rpg-character success-char"><img src="character_fowi.png" onerror="this.src='50588.png'" class="anim-cheer"></div>
-                <div class="rpg-dialogue"><div class="speaker-name">포이</div><p class="dialogue-text">가뭄 몬스터를 물리쳤어! 이제 더 큰 위험에 대비해<br>우리를 지켜줄 <span class="highlight">나만의 '수호자 카드'</span>를 만들어보자!</p><div class="btn-group"><button class="game-btn" style="width:100%; background:#4cc9f0; color:#fff;" onclick="goTo('slide20')"><i class="fa-solid fa-wand-magic-sparkles"></i> 특별 활동 안내 보기</button></div></div>
+                <div class="rpg-dialogue">
+                    <div class="speaker-name">포이</div>
+                    <p class="dialogue-text">가뭄 몬스터를 물리쳤어! 이제 더 큰 위험에 대비해<br>우리를 지켜줄 <span class="highlight">나만의 '수호자 카드'</span>를 만들어보자!</p>
+                    <div class="btn-group"><button class="game-btn success-btn" style="width:100%;" onclick="goTo('slide20')"><i class="fa-solid fa-wand-magic-sparkles"></i> 특별 활동 안내 보기</button></div>
+                </div>
             </div>
         </div>
 
-        <!-- 슬라이드 20: 오프라인 미션 (자원 카드) -->
+        <!-- 슬라이드 20: 오프라인 활동 안내 -->
         <div class="slide full-bg-slide" id="slide20">
             <div class="quest-header">🃏 특별 미션: 나만의 숲 수호자 카드 만들기!</div>
             <div style="display:flex; flex-direction:column; align-items:center; width:95%; max-width:1100px; padding:10px; z-index:5;">
@@ -651,7 +665,7 @@
         <!-- 6번 방 -->
         <div class="slide" id="slide24">
             <div class="quest-header"><span class="quest-tag">지식 획득</span> 숲을 청소하는 마법사들</div>
-            <div class="scene-view">
+            <div class="scene-view" style="background: linear-gradient(135deg, #bc6c25, #9c6644);">
                 <img class="scene-bg" src="bg_soil_earthworm.png" onerror="this.style.display='none'" style="filter: blur(4px) brightness(0.5);">
                 <div class="edu-board">
                     <h4 style="color:#ffb703; border-bottom-color:#e9edc9;">🍂 건강한 흙을 만드는 청소부</h4>
@@ -684,7 +698,7 @@
         <!-- 7번 방 -->
         <div class="slide" id="slide27">
             <div class="quest-header"><span class="quest-tag">지식 획득</span> 기후위기와 숲</div>
-            <div class="scene-view">
+            <div class="scene-view" style="background: linear-gradient(135deg, #adb5bd, #6c757d);">
                 <img class="scene-bg" src="bg_carbon_monster.png" onerror="this.style.display='none'" style="filter: blur(4px) brightness(0.4);">
                 <div class="edu-board">
                     <h4 style="color:#4cc9f0; border-bottom-color:#d90429;">🌍 열이 나는 지구를 식히는 법</h4>
@@ -721,7 +735,7 @@
             <div class="rpg-ui-container"><div class="rpg-character success-char"><img src="character_fowi.png" onerror="this.src='50588.png'" class="anim-cheer"></div><div class="rpg-dialogue"><div class="speaker-name">포이</div><p class="dialogue-text">해냈어! 건강한 숲이 기후위기를 막는<br>최고의 방패가 돼. 7개의 자물쇠를 모두 열었어!</p><div class="btn-group"><button class="game-btn success-btn" style="width:100%;" onclick="showMapTransition(8, 9, 'slide30')"><i class="fa-solid fa-star"></i> 오프라인 미션으로!</button></div></div></div>
         </div>
 
-        <!-- 슬라이드 30: 오프라인 미션 -->
+        <!-- 슬라이드 30: 오프라인 미션 (카드 + 치유 나무) -->
         <div class="slide full-bg-slide" id="slide30">
             <div class="quest-header" style="position:absolute; top:30px; z-index:10;"><span class="quest-tag">오프라인 활동</span> 포이의 마지막 부탁</div>
             <div style="display:flex; flex-direction:column; align-items:center; max-width:1000px; margin: 0 auto; padding:20px; z-index:5; width:100%;">
@@ -729,23 +743,27 @@
                 <div class="rpg-dialogue" style="border-color:#ffb703; width:100%; text-align:center; min-height:auto; padding:20px;">
                     <p class="dialogue-text" style="margin-bottom:0;">대단해! 모든 수수께끼를 풀고 <span class="highlight">7개의 황금 자물쇠</span>를 다 얻었어!<br>숲의 문을 활짝 열기 위해선 마지막 에너지가 필요해. 바로 <span class="highlight">'나만의 치유 나무'</span>야!</p>
                 </div>
+                
                 <div class="offline-box">
                     <p style="color:#ffb703; margin:0;"><i class="fa-solid fa-palette"></i> 오프라인 미션: 종이에 예쁜 치유 나무 그리고, 앞서 만든 수호자 카드와 함께 번쩍 들어 올리기! (10분)</p>
                 </div>
-                <button class="game-btn" style="width:100%; font-size: 32px; padding: 20px 40px; background:#74c69d; color:#fff;" onclick="goTo('slide31')"><i class="fa-solid fa-key"></i> 에너지가 모였다! 마지막 숲의 암호 풀러 가기</button>
+                
+                <button class="game-btn success-btn" style="width:100%; font-size: 32px; padding: 20px 40px;" onclick="goTo('slide31')"><i class="fa-solid fa-key"></i> 에너지가 모였다! 마지막 숲의 암호 풀러 가기</button>
             </div>
         </div>
 
-        <!-- === 🚀 슬라이드 31: 최종 보스 십자말 풀이 === -->
+        <!-- === 🚀 슬라이드 31: 최종 보스 십자말 풀이 (참여형 퀴즈) === -->
         <div class="slide full-bg-slide" id="slide31" style="justify-content: flex-start; padding-top: 20px;">
             <div class="quest-header"><span class="quest-tag">최종 관문</span> 숲의 암호 해독!</div>
             <div style="display:flex; flex-direction:column; align-items:center; width:100%; max-width:1200px; margin:0 auto; z-index:5; overflow-y:auto; padding-bottom: 20px;">
                 
                 <div class="cw-wrap">
+                    <!-- 십자말 풀이 10x10 그리드 -->
                     <div class="cw-grid">
                         <table id="crossword-table" class="cw-table"></table>
                     </div>
                     
+                    <!-- 힌트 상자 -->
                     <div class="cw-clues">
                         <div class="cw-clue-box">
                             <h4><i class="fa-solid fa-arrow-right"></i> 가로 열쇠</h4>
@@ -764,10 +782,13 @@
                 </div>
                 
                 <div class="rpg-ui-container" style="width: 100%; margin-top: 15px;">
-                    <div class="rpg-character" style="width: 120px;"><img src="character_fowi.png" onerror="this.src='50588.png'" class="anim-think"></div>
+                    <!-- 💡 강사님용 숨김 스킵 버튼 (캐릭터 클릭 시 정답 요약 화면으로 바로 패스) -->
+                    <div class="rpg-character" style="width: 120px; cursor: pointer;" onclick="goTo('slide32')" title="시간 부족 시 클릭하여 패스">
+                        <img src="character_fowi.png" onerror="this.src='50588.png'" class="anim-think">
+                    </div>
                     <div class="rpg-dialogue" style="min-height:auto; padding:20px;">
                         <p class="dialogue-text" style="font-size:24px; margin-bottom:15px; line-height: 1.3;">친구들과 힘을 합쳐 빈칸을 채워봐! 배운 내용을 모두 기억해 내면 문이 열릴 거야!</p>
-                        <button class="game-btn" style="width:100%; font-size:28px; background:#ffb703; color:#000;" onclick="checkCrossword()"><i class="fa-solid fa-check-to-slot"></i> 정답 확인하기!</button>
+                        <button class="game-btn" style="width:100%; font-size:28px; background:#ffb703; color:#000;" onclick="checkCrossword()"><i class="fa-solid fa-check-to-slot"></i> 정답 확인하고 숲의 문 열기!</button>
                     </div>
                 </div>
             </div>
@@ -826,7 +847,7 @@
     <script>
         const totalSlides = 33; 
 
-        // === 가로세로 낱말퀴즈 생성 및 검증 로직 ===
+        // === 1. 가로세로 낱말퀴즈 생성 및 검증 로직 ===
         const cwSolutionMap = [
             ['*', '*', '*', '*', '피', '톤', '치', '드', '*', '*'],
             ['*', '*', '*', '*', '*', '*', '*', '*', '*', '*'],
@@ -1023,7 +1044,7 @@
 
         function showMapTransition(fromNodeIndex, toNodeIndex, targetSlide) {
             stopSound(false);
-            playSoundEffect('ding.wav'); 
+            // 💡 맵 이동 시에는 딩동댕 소리를 재생하지 않습니다. (제거 완료)
             
             const mapOverlay = document.getElementById('map-transition-overlay');
             const fowi = document.getElementById('map-fowi');
@@ -1035,6 +1056,7 @@
                     else node.classList.remove('visited');
                 }
             }
+
             if(mapOverlay) mapOverlay.classList.add('show');
 
             const startNode = document.getElementById('node-' + fromNodeIndex);
@@ -1053,6 +1075,7 @@
                     endNode.classList.add('visited'); 
                 }, 100);
             }
+
             setTimeout(() => {
                 if(mapOverlay) mapOverlay.classList.remove('show');
                 goTo(targetSlide);
