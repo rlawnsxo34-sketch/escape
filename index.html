@@ -10,9 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Jua&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <script src="https://www.youtube.com/iframe_api"></script>
+    <!-- 💡 스마트 이미지 에러 핸들러 (png/jpg 자동 스위칭) -->
     <script>
-        // 이미지 에러 핸들러 (png/jpg 자동 스위칭)
         function handleImgErr(img, fallbackSrc) {
             const origSrc = img.getAttribute('src');
             if (!img.dataset.retried) {
@@ -66,9 +65,20 @@
         .top-logo { background-color: rgba(255, 255, 255, 0.95); padding: 15px 40px; border-radius: 100px; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.4); display: inline-block; }
         .top-logo img { height: 60px; width: auto; display: block; }
         #slide1 .title-logo img { height: 90px; }
+
         .icon-huge { font-size: 150px; } .icon-large { font-size: 100px; } .icon-medium { font-size: 80px; }
 
-        /* === 3. 연출 및 칠판 === */
+        /* === 3. 프롤로그 애니메이션 === */
+        .prologue-line { opacity: 0; transform: translateY(20px); animation: fadeUp 1s ease-out forwards; text-align: center;}
+        .prologue-line:nth-child(1) { animation-delay: 0.5s; }
+        .prologue-line:nth-child(2) { animation-delay: 2.5s; }
+        .prologue-line:nth-child(3) { animation-delay: 4.5s; }
+        .prologue-line:nth-child(4) { animation-delay: 6.5s; }
+        .prologue-btn { opacity: 0; animation: fadeIn 1s ease-out forwards; animation-delay: 8s; }
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { to { opacity: 1; } }
+
+        /* === 4. 연출 및 칠판 === */
         .scene-view { flex: 1; border-radius: 20px; border: 6px solid #2b2b2b; overflow: hidden; position: relative; min-height: 250px; background: linear-gradient(135deg, #74c69d, #52b788); display: flex; justify-content: center; align-items: center; box-shadow: inset 0 0 30px rgba(0,0,0,0.3); }
         .scene-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; opacity: 0.9; }
         .scene-content { position: relative; z-index: 2; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px;}
@@ -91,7 +101,7 @@
         .ring-container { position: relative; width: 100%; max-width: 1100px; aspect-ratio: 2.2 / 1; background: #000; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.5); z-index: 2; margin: 0 auto; }
         .ring-container img { width: 100%; height: 100%; object-fit: cover; opacity: 0.95; }
 
-        /* === 4. 하단 RPG 대화창 === */
+        /* === 5. 하단 RPG 대화창 === */
         .rpg-ui-container { display: flex; align-items: flex-end; position: relative; flex-shrink: 0; margin-top: 15px; }
         .rpg-character { width: 230px; flex-shrink: 0; z-index: 5; margin-right: -30px; margin-bottom: -10px; }
         .rpg-character img { width: 100%; display: block; filter: drop-shadow(0 8px 15px rgba(0,0,0,0.4)); }
@@ -103,7 +113,7 @@
         .dialogue-text { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; font-size: 30px; font-weight: 500; line-height: 1.5; margin-bottom: 15px; color: #f8f9fa; }
         .dialogue-text .highlight { color: #ffb703; font-weight: 700; }
 
-        /* === 5. 아케이드 버튼 === */
+        /* === 6. 아케이드 버튼 === */
         .btn-group { display: flex; gap: 15px; flex-wrap: wrap; justify-content: flex-start; }
         .answer-btn-group { display: flex; flex-direction: row; flex-wrap: nowrap; gap: 10px; width: 100%; }
         .answer-btn-group .game-btn { flex: 1; padding: 12px 10px; font-size: 26px; font-weight: 500; }
@@ -119,7 +129,7 @@
         
         .audio-btn-group { position: absolute; bottom: 20px; left: 0; width: 100%; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; z-index: 5;}
 
-        /* === 6. 상단 시스템 버튼 === */
+        /* === 7. 상단 시스템 버튼 === */
         #top-system-btns { position: absolute; top: 25px; right: 30px; z-index: 2500; display: flex; gap: 15px; }
         #bgm-btn { background-color: #74c69d; color: #fff; font-size: 20px; padding: 12px 20px; border-radius: 15px; border: 4px solid #fff; box-shadow: 0 6px 0 #2d6a4f; cursor: pointer; transition: all 0.1s; font-family: 'Noto Sans KR', sans-serif; font-weight: bold;}
         #bgm-btn:active { box-shadow: 0 0 0 #2d6a4f; transform: translateY(6px); }
@@ -265,7 +275,7 @@
             .audio-btn-group { position: relative; bottom: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 10px;}
             .audio-btn-group .game-btn { font-size: 14px; padding: 10px 5px; }
 
-            /* 모바일 버튼 위치 조절 (로고 피해서) */
+            /* 모바일 상단 버튼들 위치 재조정 (로고 피해서) */
             #top-system-btns { top: 15px; right: 15px; gap: 8px; flex-direction: column;}
             #bgm-btn, #roadmap-btn { font-size: 13px; padding: 6px 10px; border-width: 2px; border-radius: 8px; z-index: 2500;}
             
@@ -321,15 +331,18 @@
 </head>
 <body>
 
-    <div id="yt-player-container" style="position:absolute; width:1px; height:1px; top:-9999px; left:-9999px; overflow:hidden;">
-        <div id="yt-player-iframe"></div>
-    </div>
+    <!-- 💡 파일 없는 인터넷 무료 브금 & 효과음 연동 오디오 -->
+    <audio id="bgm-audio" loop preload="auto">
+        <source id="bgm-source" src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Kevin_MacLeod_-_Enchanted_Valley.ogg" type="audio/ogg">
+    </audio>
 
+    <!-- 💡 상단 시스템 버튼 -->
     <div id="top-system-btns">
         <button id="bgm-btn" onclick="toggleBgm()"><i class="fa-solid fa-volume-xmark"></i> BGM OFF</button>
         <button id="roadmap-btn" onclick="toggleRoadmap()"><i class="fa-solid fa-map-location-dot"></i> 스테이지 맵</button>
     </div>
 
+    <!-- 스테이지 맵 모달창 -->
     <div id="roadmap-modal" class="modal-overlay">
         <div class="modal-content" style="max-width: 700px;">
             <h3 style="margin-bottom: 20px;"><i class="fa-solid fa-map"></i> 어디로 이동할까요?</h3>
@@ -349,6 +362,7 @@
         </div>
     </div>
 
+    <!-- 정답 확인 모달창 -->
     <div id="confirm-modal" class="modal-overlay">
         <div class="modal-content">
             <h3 id="confirm-text"><span class="confirm-answer-text" id="answer-text-span">[선택한 답]</span><br>정답으로 결정할까요?</h3>
@@ -359,6 +373,7 @@
         </div>
     </div>
     
+    <!-- 낱말퀴즈 팝업형 단어 입력 모달창 -->
     <div id="cw-input-modal" class="modal-overlay" style="z-index: 2500;">
         <div class="modal-content">
             <h3 id="cw-input-title" style="color:#ffb703; font-size:40px; margin-bottom: 10px;">단어 입력</h3>
@@ -371,6 +386,7 @@
         </div>
     </div>
 
+    <!-- 메시지(알림) 모달창 -->
     <div id="message-modal" class="modal-overlay" style="z-index: 2600;">
         <div class="modal-content">
             <h3 id="message-title" style="color:#d90429; font-size:40px; margin-bottom:20px;"><i class="fa-solid fa-bell"></i> 알림</h3>
@@ -381,6 +397,7 @@
         </div>
     </div>
 
+    <!-- 아케이드 맵 이동 애니메이션 (버그 수정됨) -->
     <div id="map-transition-overlay" class="modal-overlay">
         <h2 style="color: #ffb703; font-family: 'Do Hyeon', sans-serif; margin-bottom: 20px; font-size: 65px; text-shadow: 2px 4px 0 #000; border-bottom: none;"><i class="fa-solid fa-location-dot"></i> 다음 장소로 이동 중...</h2>
         <div class="map-scroll-wrapper">
@@ -403,9 +420,11 @@
 
     <div id="toast">앗, 틀렸어요!</div>
 
+    <!-- ================= 슬라이드 시작 ================= -->
     <div id="slide-deck">
         <div id="progress-bar"></div>
 
+        <!-- 슬라이드 1: 타이틀 -->
         <div class="slide full-bg-slide active" id="slide1">
             <div class="title-logo"><img src="logo_jangseong.png" onerror="handleImgErr(this)" alt="로고"></div>
             <div class="door-click-area" onclick="enterDoor()" title="클릭해서 모험 시작!">
@@ -419,6 +438,7 @@
             </div>
         </div>
 
+        <!-- 프롤로그 (세계관) 슬라이드 -->
         <div class="slide full-bg-slide" id="slide-prologue" style="background: #081c15;">
             <div class="scene-view" style="border: none; background: transparent; flex-direction: column; justify-content: center; height: 100%;">
                 <div style="max-width: 1000px; text-align: center; padding: 20px;">
@@ -441,6 +461,7 @@
             </div>
         </div>
 
+        <!-- 슬라이드 2~3: 튜토리얼 -->
         <div class="slide" id="slide2">
             <div class="quest-header"><span class="quest-tag">튜토리얼</span> 탐험가 규칙</div>
             <div class="scene-view">
@@ -466,6 +487,7 @@
             </div>
         </div>
 
+        <!-- 1번 방 -->
         <div class="slide" id="slide4">
             <div class="quest-header"><span class="quest-tag">1번 방</span> 나무의 일기장</div>
             <div class="scene-view"><i class="fa-solid fa-circle-question floating-item icon-huge" style="color:#fff;"></i></div>
@@ -515,6 +537,7 @@
             </div>
         </div>
 
+        <!-- 2번 방 -->
         <div class="slide" id="slide8">
             <div class="quest-header"><span class="quest-tag">지식 획득</span> 숲의 신비한 투명 방패</div>
             <div class="scene-view">
@@ -550,6 +573,7 @@
             </div>
         </div>
 
+        <!-- 3번 방 -->
         <div class="slide" id="slide11">
             <div class="quest-header"><span class="quest-tag">지식 획득</span> 숲속의 농부들</div>
             <div class="scene-view">
@@ -573,9 +597,9 @@
             <div class="scene-view" style="padding-bottom: 80px;">
                 <img class="scene-bg" src="bg_forest_birds.jpg" onerror="handleImgErr(this)">
                 <div class="audio-btn-group">
-                    <button class="game-btn action-btn" onclick="playSound('sound_sparrow.mp3', '🎵 짹짹!')"><i class="fa-solid fa-volume-high"></i> 1번 소리</button>
-                    <button class="game-btn action-btn" onclick="playSound('sound_woodpecker.mp3', '🎵 따다닥!')"><i class="fa-solid fa-volume-high"></i> 2번 소리</button>
-                    <button class="game-btn action-btn" onclick="playSound('sound_cuckoo.mp3', '🎵 뻐꾹!')"><i class="fa-solid fa-volume-high"></i> 3번 소리</button>
+                    <button class="game-btn action-btn" onclick="playSound('https://actions.google.com/sounds/v1/animals/sparrow_chirping.ogg', '🎵 짹짹!')"><i class="fa-solid fa-volume-high"></i> 1번 소리</button>
+                    <button class="game-btn action-btn" onclick="playSound('https://actions.google.com/sounds/v1/animals/woodpecker.ogg', '🎵 따다닥!')"><i class="fa-solid fa-volume-high"></i> 2번 소리</button>
+                    <button class="game-btn action-btn" onclick="playSound('https://upload.wikimedia.org/wikipedia/commons/2/23/Common_cuckoo.ogg', '🎵 뻐꾹!')"><i class="fa-solid fa-volume-high"></i> 3번 소리</button>
                     <button class="game-btn stop-btn" onclick="stopSound(true)"><i class="fa-solid fa-stop"></i> 멈추기</button>
                 </div>
             </div>
@@ -593,6 +617,7 @@
             </div>
         </div>
 
+        <!-- 4번 방 -->
         <div class="slide" id="slide14">
             <div class="quest-header"><span class="quest-tag">지식 획득</span> 땅속의 인터넷</div>
             <div class="scene-view">
@@ -635,6 +660,7 @@
             </div>
         </div>
 
+        <!-- 슬라이드 17: 중간 보스 경고 -->
         <div class="slide" id="slide17">
             <div class="warning-overlay"></div>
             <div class="quest-header" style="background:#d90429;"><span class="quest-tag" style="color:#fff;">위기 발생!</span> 가뭄 몬스터의 습격!</div>
@@ -652,6 +678,7 @@
             </div>
         </div>
 
+        <!-- 슬라이드 18: 보스 퀴즈 -->
         <div class="slide" id="slide18">
             <div class="warning-overlay"></div>
             <div class="quest-header" style="background:#d90429;"><span class="quest-tag" style="color:#fff;">보스 미션</span> 메마른 땅을 구하라!</div>
@@ -670,6 +697,7 @@
             </div>
         </div>
 
+        <!-- 슬라이드 19: 보스 격파 -->
         <div class="slide success-slide" id="slide19">
             <div class="quest-header" style="background:#ffb703; color:#000;">보스 격파 완료! 보상 획득!</div>
             <div class="scene-view" style="background: linear-gradient(135deg, #74c69d, #2d6a4f);"><i class="fa-solid fa-trophy floating-item icon-huge" style="color:#ffb703;"></i></div>
@@ -678,11 +706,12 @@
                 <div class="rpg-dialogue">
                     <div class="speaker-name">포이</div>
                     <p class="dialogue-text">가뭄 몬스터를 물리쳤어! 이제 더 큰 위험에 대비해<br>우리를 지켜줄 <span class="highlight">나만의 '수호자 카드'</span>를 만들어보자!</p>
-                    <div class="btn-group"><button class="game-btn" style="width:100%; background:#4cc9f0; color:#fff;" onclick="changeBgmTo('forest'); goTo('slide20')"><i class="fa-solid fa-wand-magic-sparkles"></i> 특별 활동 안내 보기</button></div>
+                    <div class="btn-group"><button class="game-btn" style="width:100%; background:#4cc9f0; color:#fff;" onclick="changeBgmTo('normal'); goTo('slide20')"><i class="fa-solid fa-wand-magic-sparkles"></i> 특별 활동 안내 보기</button></div>
                 </div>
             </div>
         </div>
 
+        <!-- 슬라이드 20: 오프라인 미션 (자원 카드) -->
         <div class="slide full-bg-slide" id="slide20">
             <div class="quest-header">🃏 특별 미션: 나만의 숲 수호자 카드 만들기!</div>
             <div style="display:flex; flex-direction:column; align-items:center; width:95%; max-width:1400px; padding:10px; z-index:5;">
@@ -698,6 +727,7 @@
             </div>
         </div>
 
+        <!-- 5번 방 -->
         <div class="slide" id="slide21">
             <div class="quest-header"><span class="quest-tag">지식 획득</span> 물을 품는 숲, 녹색 댐</div>
             <div class="scene-view">
@@ -730,6 +760,7 @@
             <div class="rpg-ui-container"><div class="rpg-character success-char"><img src="character_fowi.png" onerror="handleImgErr(this, '50588.png')" class="anim-cheer"></div><div class="rpg-dialogue"><div class="speaker-name">포이</div><p class="dialogue-text">정답! 울창한 숲의 흙은 스펀지 같아서<br>맑은 물을 듬뿍 저장하지. 다음 방으로 고고!</p><div class="btn-group"><button class="game-btn success-btn" style="width:100%;" onclick="showMapTransition(6, 7, 'slide24')">6번 방으로 이동</button></div></div></div>
         </div>
 
+        <!-- 6번 방 -->
         <div class="slide" id="slide24">
             <div class="quest-header"><span class="quest-tag">지식 획득</span> 숲을 청소하는 마법사들</div>
             <div class="scene-view">
@@ -762,6 +793,7 @@
             <div class="rpg-ui-container"><div class="rpg-character success-char"><img src="character_fowi.png" onerror="handleImgErr(this, '50588.png')" class="anim-cheer"></div><div class="rpg-dialogue"><div class="speaker-name">포이</div><p class="dialogue-text">맞아! 지렁이는 흙 속의 위대한 농부야.<br>이제 드디어 7번 방, 마지막 위기만 남았어!</p><div class="btn-group"><button class="game-btn success-btn" style="width:100%;" onclick="showMapTransition(7, 8, 'slide27')">마지막 7번 방으로!</button></div></div></div>
         </div>
 
+        <!-- 7번 방 -->
         <div class="slide" id="slide27">
             <div class="quest-header"><span class="quest-tag">지식 획득</span> 기후위기와 숲</div>
             <div class="scene-view" style="background: linear-gradient(135deg, #adb5bd, #6c757d);">
@@ -794,12 +826,14 @@
             </div>
         </div>
         
+        <!-- 슬라이드 29: 7번 방 성공 -->
         <div class="slide success-slide" id="slide29">
             <div class="quest-header" style="background:#ffb703; color:#000;"><span class="quest-tag" style="color:#d90429;">CLEAR!</span> 몬스터 최종 제압!</div>
             <div class="scene-view" style="background: linear-gradient(135deg, #d8f3dc, #74c69d);"><i class="fa-solid fa-tree floating-item icon-huge" style="color:#1b4332;"></i></div>
             <div class="rpg-ui-container"><div class="rpg-character success-char"><img src="character_fowi.png" onerror="handleImgErr(this, '50588.png')" class="anim-cheer"></div><div class="rpg-dialogue"><div class="speaker-name">포이</div><p class="dialogue-text">해냈어! 건강한 숲이 기후위기를 막는<br>최고의 방패가 돼. 7개의 자물쇠를 모두 열었어!</p><div class="btn-group"><button class="game-btn success-btn" style="width:100%;" onclick="showMapTransition(8, 9, 'slide30')"><i class="fa-solid fa-star"></i> 오프라인 미션으로!</button></div></div></div>
         </div>
 
+        <!-- 슬라이드 30: 오프라인 미션 -->
         <div class="slide full-bg-slide" id="slide30">
             <div class="quest-header" style="position:absolute; top:30px; z-index:10;"><span class="quest-tag">오프라인 활동</span> 포이의 마지막 부탁</div>
             <div style="display:flex; flex-direction:column; align-items:center; max-width:1000px; margin: 0 auto; padding:20px; z-index:5; width:100%;">
@@ -814,6 +848,7 @@
             </div>
         </div>
 
+        <!-- === 🚀 슬라이드 31: 십자말 풀이 === -->
         <div class="slide full-bg-slide" id="slide31" style="justify-content: flex-start; padding-top: 30px;">
             <div class="quest-header"><span class="quest-tag">최종 관문</span> 숲의 암호 해독!</div>
             <div style="display:flex; flex-direction:column; align-items:center; width:100%; max-width:1400px; margin:0 auto; z-index:5; overflow-y:auto; padding-bottom: 20px;">
@@ -852,6 +887,7 @@
             </div>
         </div>
 
+        <!-- === 🚀 슬라이드 32: 정답 요약 화면 === -->
         <div class="slide full-bg-slide" id="slide32" style="justify-content: flex-start; padding-top: 40px; background-color: #fffaf1;">
             <div class="quest-header" style="background:#ffb703; color:#000;">숲의 암호 해독 완료!</div>
             <div style="display:flex; flex-direction:column; align-items:center; width:100%; max-width:1200px; margin:0 auto; z-index:5; padding-bottom: 20px;">
@@ -871,6 +907,7 @@
             </div>
         </div>
 
+        <!-- === 🚀 슬라이드 33: 마무리 엔딩 === -->
         <div class="slide full-bg-slide" id="slide33">
             <div style="position: absolute; top:0; left:0; width:100%; height:100%; z-index: 1; overflow:hidden;">
                 <img src="bg_door_opened.jpg" onerror="handleImgErr(this)" style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; z-index:1;">
@@ -892,10 +929,11 @@
 
     </div>
 
+    <!-- 스크립트 로직 -->
     <script>
         const totalSlides = 34; 
-
-        // 💡 1. 딩동댕/땡 효과음 (Web Audio API)
+        
+        // 💡 브라우저 내장 오디오 합성기로 BGM 파일 없이 딩동댕/땡 처리
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         function playSynthSound(type) {
             if(audioCtx.state === 'suspended') audioCtx.resume();
@@ -921,44 +959,7 @@
             }
         }
 
-        // 💡 2. 유튜브 활용 BGM 로직
-        let ytPlayer;
-        let isBgmPlaying = false;
-
-        function onYouTubeIframeAPIReady() {
-            ytPlayer = new YT.Player('yt-player-iframe', {
-                height: '1', width: '1', videoId: 'V95KqKIfRpg', 
-                playerVars: { 'autoplay': 0, 'controls': 0, 'loop': 1, 'playlist': 'V95KqKIfRpg' },
-                events: { 'onReady': (e) => { e.target.setVolume(30); } }
-            });
-        }
-
-        function toggleBgm() {
-            if (!ytPlayer || !ytPlayer.playVideo) return;
-            const btn = document.getElementById('bgm-btn');
-            if (isBgmPlaying) {
-                ytPlayer.pauseVideo();
-                isBgmPlaying = false;
-                if(btn) { btn.innerHTML = '<i class="fa-solid fa-volume-xmark"></i> BGM OFF'; btn.style.backgroundColor = '#d90429'; btn.style.boxShadow = '0 6px 0 #9d0208'; }
-            } else {
-                ytPlayer.playVideo();
-                isBgmPlaying = true;
-                if(btn) { btn.innerHTML = '<i class="fa-solid fa-music"></i> BGM ON'; btn.style.backgroundColor = '#74c69d'; btn.style.boxShadow = '0 6px 0 #2d6a4f'; }
-            }
-        }
-
-        function changeBgmTo(type) {
-            if (!ytPlayer || !ytPlayer.loadVideoById) return;
-            if(type === 'boss') {
-                ytPlayer.loadVideoById({videoId: 'QjP4I6p5N_o'}); 
-                ytPlayer.setVolume(50);
-            } else {
-                ytPlayer.loadVideoById({videoId: 'V95KqKIfRpg'}); 
-                ytPlayer.setVolume(30);
-            }
-        }
-
-        // === 3. 가로세로 낱말퀴즈 생성 및 팝업 입력 ===
+        // === 가로세로 낱말퀴즈 생성 및 팝업 입력 로직 ===
         const cwSolutionMap = [
             ['*', '*', '*', '*', '피', '톤', '치', '드', '*', '*'],
             ['*', '*', '*', '*', '*', '*', '*', '*', '*', '*'],
@@ -1120,18 +1121,59 @@
             }, 300); 
         }
 
-        // === 4. 화면 이동 및 공통 로직 ===
+        // === 화면 이동 및 BGM 공통 로직 ===
+        let isBgmPlaying = false;
+        let bgmAudio = null;
         
+        function initBgm() {
+            if(!bgmAudio) {
+                bgmAudio = document.getElementById('bgm-audio');
+                if(bgmAudio) bgmAudio.volume = 0.3; 
+            }
+        }
+
+        function toggleBgm() {
+            initBgm();
+            if(!bgmAudio) return;
+            const btn = document.getElementById('bgm-btn');
+            if (isBgmPlaying) {
+                bgmAudio.pause();
+                if(btn) { btn.innerHTML = '<i class="fa-solid fa-volume-xmark"></i> BGM OFF'; btn.style.backgroundColor = '#d90429'; btn.style.boxShadow = '0 6px 0 #9d0208'; }
+                isBgmPlaying = false;
+            } else {
+                bgmAudio.play().catch(e => console.log('BGM 재생 권한 에러:', e));
+                if(btn) { btn.innerHTML = '<i class="fa-solid fa-music"></i> BGM ON'; btn.style.backgroundColor = '#74c69d'; btn.style.boxShadow = '0 6px 0 #2d6a4f'; }
+                isBgmPlaying = true;
+            }
+        }
+
+        function changeBgmTo(type) {
+            initBgm();
+            if(!bgmAudio) return;
+            const wasPlaying = isBgmPlaying;
+            
+            if(type === 'boss') {
+                bgmAudio.src = 'https://upload.wikimedia.org/wikipedia/commons/4/4b/Kevin_MacLeod_-_Volatile_Reaction.ogg';
+                bgmAudio.volume = 0.5;
+            } else {
+                bgmAudio.src = 'https://upload.wikimedia.org/wikipedia/commons/b/b5/Kevin_MacLeod_-_Enchanted_Valley.ogg';
+                bgmAudio.volume = 0.3;
+            }
+            
+            if(wasPlaying) {
+                bgmAudio.play().catch(e => console.log('BGM 변경 재생 에러:', e));
+            }
+        }
+
         function enterDoor() { 
             const door = document.getElementById('main-door'); 
             if(door) door.classList.add('entering-door'); 
             
-            // 모험 시작 시 BGM 자동 재생 (사용자 클릭 이벤트에서만 허용됨)
             if(audioCtx.state === 'suspended') audioCtx.resume();
-            if(ytPlayer && !isBgmPlaying) {
+            initBgm();
+            if(bgmAudio && !isBgmPlaying) {
                 toggleBgm(); 
             }
-
             setTimeout(() => { goTo('slide-prologue'); setTimeout(() => { if(door) door.classList.remove('entering-door'); }, 500); }, 600); 
         }
         
@@ -1146,16 +1188,38 @@
         
         function showMapTransition(f, t, targetSlide) {
             stopSound(false);
-            const mapOverlay = document.getElementById('map-transition-overlay'); const fowi = document.getElementById('map-fowi');
-            for(let i=0; i<=9; i++) { const n = document.getElementById('node-'+i); if(n) { if(i<=f) n.classList.add('visited'); else n.classList.remove('visited'); } }
-            if(overlay) overlay.classList.add('show');
-            const sn = document.getElementById('node-'+f); const en = document.getElementById('node-'+t);
-            if(sn && en && fowi) {
-                fowi.style.transition = 'none'; fowi.style.left = sn.offsetLeft + (sn.offsetWidth/2) + 'px'; fowi.style.top = sn.offsetTop + 'px';
-                void fowi.offsetWidth; 
-                setTimeout(() => { fowi.style.transition = 'left 1.5s ease-in-out, top 1.5s ease-in-out'; fowi.style.left = en.offsetLeft + (en.offsetWidth/2) + 'px'; fowi.style.top = en.offsetTop + 'px'; en.classList.add('visited'); }, 100);
+            const mapOverlay = document.getElementById('map-transition-overlay'); 
+            const fowi = document.getElementById('map-fowi');
+            
+            for(let i=0; i<=9; i++) { 
+                const n = document.getElementById('node-'+i); 
+                if(n) { 
+                    if(i<=f) n.classList.add('visited'); 
+                    else n.classList.remove('visited'); 
+                } 
             }
-            setTimeout(() => { if(overlay) overlay.classList.remove('show'); goTo(targetSlide); }, 1800);
+            if(mapOverlay) mapOverlay.classList.add('show');
+            
+            const sn = document.getElementById('node-'+f); 
+            const en = document.getElementById('node-'+t);
+            
+            if(sn && en && fowi) {
+                fowi.style.transition = 'none'; 
+                fowi.style.left = sn.offsetLeft + (sn.offsetWidth/2) + 'px'; 
+                fowi.style.top = sn.offsetTop + 'px';
+                void fowi.offsetWidth; 
+                
+                setTimeout(() => { 
+                    fowi.style.transition = 'left 1.5s ease-in-out, top 1.5s ease-in-out'; 
+                    fowi.style.left = en.offsetLeft + (en.offsetWidth/2) + 'px'; 
+                    fowi.style.top = en.offsetTop + 'px'; 
+                    en.classList.add('visited'); 
+                }, 100);
+            }
+            setTimeout(() => { 
+                if(mapOverlay) mapOverlay.classList.remove('show'); 
+                goTo(targetSlide); 
+            }, 1800);
         }
 
         let pA = null; let pC = false;
@@ -1163,14 +1227,14 @@
         function proceedAnswer() { const m = document.getElementById('confirm-modal'); if(m) m.classList.remove('show'); if(pC) { playSynthSound('ding'); goTo(pA); } else { playSynthSound('wrong'); wrongAction(pA); } }
         function cancelAnswer() { const m = document.getElementById('confirm-modal'); if(m) m.classList.remove('show'); }
 
-        function wrongAction(message) {
-            const gameConsole = document.getElementById('game-console'); if(gameConsole) { gameConsole.classList.remove('shake-screen'); void gameConsole.offsetWidth; gameConsole.classList.add('shake-screen'); }
+        function wrongAction(msg) {
+            const gc = document.getElementById('game-console'); if(gc) { gc.classList.remove('shake-screen'); void gc.offsetWidth; gc.classList.add('shake-screen'); }
             const active = document.querySelector('.slide.active');
             if(active) {
                 const c = active.querySelector('.rpg-character img, .char-large img, .title-char'); if(c) { c.classList.add('anim-error'); setTimeout(() => c.classList.remove('anim-error'), 400); }
-                const d = active.querySelector('.dialogue-text'); if(d && message !== "빈칸이나 틀린 칸이 있어요!") d.innerHTML = `<span style="color:#ffb703;">앗, 틀렸어!</span><br>${message}`;
+                const d = active.querySelector('.dialogue-text'); if(d && msg !== "빈칸이나 틀린 칸이 있어요!") d.innerHTML = `<span style="color:#ffb703;">앗, 틀렸어!</span><br>${msg}`;
             }
-            showToast(`<i class="fa-solid fa-triangle-exclamation"></i> ${message}`, 'error');
+            showToast(`<i class="fa-solid fa-triangle-exclamation"></i> ${msg}`, 'error');
         }
 
         let cAu = null;
@@ -1180,7 +1244,6 @@
         function showInfo(m) { showToast(m, 'info'); }
         let tT; function showToast(m, type) { const t = document.getElementById('toast'); if(!t) return; clearTimeout(tT); t.innerHTML = m; if(type==='info') t.classList.add('info'); else t.classList.remove('info'); t.classList.add('show'); tT = setTimeout(() => t.classList.remove('show'), 4000); }
 
-        // 💡 5. 게임 초기화 로직 (다음 그룹을 위한 리셋)
         function resetGame() {
             for(let i = 1; i <= 9; i++) {
                 const node = document.getElementById('node-' + i);
@@ -1202,6 +1265,7 @@
 
             stopSound(false);
             if(isBgmPlaying) toggleBgm();
+            changeBgmTo('normal');
 
             goTo('slide1');
             showInfo('✅ 게임이 성공적으로 초기화되었습니다.');
