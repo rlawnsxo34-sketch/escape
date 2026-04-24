@@ -10,8 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Jua&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <!-- 💡 스마트 이미지 에러 핸들러 (png/jpg 자동 스위칭) -->
     <script>
+        // 💡 스마트 이미지 에러 핸들러 (png/jpg 자동 스위칭)
         function handleImgErr(img, fallbackSrc) {
             const origSrc = img.getAttribute('src');
             if (!img.dataset.retried) {
@@ -187,15 +187,6 @@
         .click-to-start { background-color: rgba(0, 0, 0, 0.8); color: #ffb703; padding: 15px 30px; border-radius: 50px; border: 3px solid #ffb703; font-size: 32px; cursor: pointer; animation: pulse-glow 1.5s infinite; margin-top: 10px; width: 100%; text-align: center; text-shadow: 0 2px 5px #000; }
         @keyframes pulse-glow { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 183, 3, 0.7); } 50% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(255, 183, 3, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 183, 3, 0); } }
 
-        .prologue-line { opacity: 0; transform: translateY(20px); animation: fadeUp 1s ease-out forwards; text-align: center;}
-        .prologue-line:nth-child(1) { animation-delay: 0.5s; }
-        .prologue-line:nth-child(2) { animation-delay: 2.5s; }
-        .prologue-line:nth-child(3) { animation-delay: 4.5s; }
-        .prologue-line:nth-child(4) { animation-delay: 6.5s; }
-        .prologue-btn { opacity: 0; animation: fadeIn 1s ease-out forwards; animation-delay: 8s; }
-        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeIn { to { opacity: 1; } }
-
         /* === 10. 특수 연출 === */
         .puzzle-word { background: rgba(255,255,255,0.95); padding: 15px 40px; border-radius: 20px; font-size: 55px; color: #1b4332; letter-spacing: 25px; border: 5px solid #ffb703; box-shadow: 0 15px 30px rgba(0,0,0,0.5); margin-bottom: 10px; }
         .maze-label { background:rgba(255,255,255,0.9); padding:10px 25px; border-radius:20px; font-size:24px; color:#1b4332; border: 3px solid #74c69d;}
@@ -275,7 +266,6 @@
             .audio-btn-group { position: relative; bottom: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 10px;}
             .audio-btn-group .game-btn { font-size: 14px; padding: 10px 5px; }
 
-            /* 모바일 상단 버튼들 위치 재조정 (로고 피해서) */
             #top-system-btns { top: 15px; right: 15px; gap: 8px; flex-direction: column;}
             #bgm-btn, #roadmap-btn { font-size: 13px; padding: 6px 10px; border-width: 2px; border-radius: 8px; z-index: 2500;}
             
@@ -331,9 +321,12 @@
 </head>
 <body>
 
-    <!-- 💡 파일 없는 인터넷 무료 브금 & 효과음 연동 오디오 -->
-    <audio id="bgm-audio" loop preload="auto">
-        <source id="bgm-source" src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Kevin_MacLeod_-_Enchanted_Valley.ogg" type="audio/ogg">
+    <!-- 💡 로컬 BGM 파일 (bgm.mp3, bgm_boss.mp3 필요) -->
+    <audio id="bgm-normal" loop preload="auto">
+        <source src="bgm.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="bgm-boss" loop preload="auto">
+        <source src="bgm_boss.mp3" type="audio/mpeg">
     </audio>
 
     <!-- 💡 상단 시스템 버튼 -->
@@ -397,7 +390,7 @@
         </div>
     </div>
 
-    <!-- 아케이드 맵 이동 애니메이션 (버그 수정됨) -->
+    <!-- 💡 아케이드 맵 이동 애니메이션 -->
     <div id="map-transition-overlay" class="modal-overlay">
         <h2 style="color: #ffb703; font-family: 'Do Hyeon', sans-serif; margin-bottom: 20px; font-size: 65px; text-shadow: 2px 4px 0 #000; border-bottom: none;"><i class="fa-solid fa-location-dot"></i> 다음 장소로 이동 중...</h2>
         <div class="map-scroll-wrapper">
@@ -573,7 +566,7 @@
             </div>
         </div>
 
-        <!-- 3번 방 -->
+        <!-- 3번 방 (💡 로컬 오디오 재생으로 원복) -->
         <div class="slide" id="slide11">
             <div class="quest-header"><span class="quest-tag">지식 획득</span> 숲속의 농부들</div>
             <div class="scene-view">
@@ -597,9 +590,9 @@
             <div class="scene-view" style="padding-bottom: 80px;">
                 <img class="scene-bg" src="bg_forest_birds.jpg" onerror="handleImgErr(this)">
                 <div class="audio-btn-group">
-                    <button class="game-btn action-btn" onclick="playSound('https://actions.google.com/sounds/v1/animals/sparrow_chirping.ogg', '🎵 짹짹!')"><i class="fa-solid fa-volume-high"></i> 1번 소리</button>
-                    <button class="game-btn action-btn" onclick="playSound('https://actions.google.com/sounds/v1/animals/woodpecker.ogg', '🎵 따다닥!')"><i class="fa-solid fa-volume-high"></i> 2번 소리</button>
-                    <button class="game-btn action-btn" onclick="playSound('https://upload.wikimedia.org/wikipedia/commons/2/23/Common_cuckoo.ogg', '🎵 뻐꾹!')"><i class="fa-solid fa-volume-high"></i> 3번 소리</button>
+                    <button class="game-btn action-btn" onclick="playSound('sound_sparrow.mp3', '🎵 짹짹!')"><i class="fa-solid fa-volume-high"></i> 1번 소리</button>
+                    <button class="game-btn action-btn" onclick="playSound('sound_woodpecker.mp3', '🎵 따다닥!')"><i class="fa-solid fa-volume-high"></i> 2번 소리</button>
+                    <button class="game-btn action-btn" onclick="playSound('sound_cuckoo.mp3', '🎵 뻐꾹!')"><i class="fa-solid fa-volume-high"></i> 3번 소리</button>
                     <button class="game-btn stop-btn" onclick="stopSound(true)"><i class="fa-solid fa-stop"></i> 멈추기</button>
                 </div>
             </div>
@@ -876,6 +869,7 @@
                 </div>
                 
                 <div class="rpg-ui-container" style="width: 100%; margin-top: 15px;">
+                    <!-- 강사님용 스킵 버튼 (캐릭터 200px 확대 적용) -->
                     <div class="rpg-character" style="width: 200px; cursor: pointer; margin-right:-25px;" onclick="goTo('slide32')" title="시간 부족 시 클릭하여 패스">
                         <img src="character_fowi.png" onerror="handleImgErr(this, '50588.png')" class="anim-think">
                     </div>
@@ -929,37 +923,19 @@
 
     </div>
 
-    <!-- 스크립트 로직 -->
     <script>
         const totalSlides = 34; 
-        
-        // 💡 브라우저 내장 오디오 합성기로 BGM 파일 없이 딩동댕/땡 처리
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        function playSynthSound(type) {
-            if(audioCtx.state === 'suspended') audioCtx.resume();
-            const osc = audioCtx.createOscillator();
-            const gainNode = audioCtx.createGain();
-            osc.connect(gainNode);
-            gainNode.connect(audioCtx.destination);
 
+        // 💡 1. 정답/오답 효과음을 실제 오디오 파일로 원복! (ding.wav, wrong.wav 필수)
+        function playSynthSound(type) {
             if(type === 'ding') {
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(880, audioCtx.currentTime); 
-                osc.frequency.exponentialRampToValueAtTime(1108.73, audioCtx.currentTime + 0.1); 
-                gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
-                osc.start(); osc.stop(audioCtx.currentTime + 0.5);
+                playSoundEffect('ding.wav');
             } else if (type === 'wrong') {
-                osc.type = 'sawtooth';
-                osc.frequency.setValueAtTime(300, audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(150, audioCtx.currentTime + 0.3);
-                gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
-                osc.start(); osc.stop(audioCtx.currentTime + 0.3);
+                playSoundEffect('wrong.wav');
             }
         }
 
-        // === 가로세로 낱말퀴즈 생성 및 팝업 입력 로직 ===
+        // === 3. 가로세로 낱말퀴즈 ===
         const cwSolutionMap = [
             ['*', '*', '*', '*', '피', '톤', '치', '드', '*', '*'],
             ['*', '*', '*', '*', '*', '*', '*', '*', '*', '*'],
@@ -1123,25 +1099,31 @@
 
         // === 화면 이동 및 BGM 공통 로직 ===
         let isBgmPlaying = false;
-        let bgmAudio = null;
-        
+        let currentBgmType = 'normal';
+
+        function getActiveBgmAudio() {
+            return currentBgmType === 'boss' ? document.getElementById('bgm-boss') : document.getElementById('bgm-normal');
+        }
+
         function initBgm() {
-            if(!bgmAudio) {
-                bgmAudio = document.getElementById('bgm-audio');
-                if(bgmAudio) bgmAudio.volume = 0.3; 
-            }
+            const normal = document.getElementById('bgm-normal');
+            const boss = document.getElementById('bgm-boss');
+            if(normal) normal.volume = 0.3;
+            if(boss) boss.volume = 0.5;
         }
 
         function toggleBgm() {
             initBgm();
-            if(!bgmAudio) return;
+            const audio = getActiveBgmAudio();
             const btn = document.getElementById('bgm-btn');
+            if(!audio) return;
+
             if (isBgmPlaying) {
-                bgmAudio.pause();
+                audio.pause();
                 if(btn) { btn.innerHTML = '<i class="fa-solid fa-volume-xmark"></i> BGM OFF'; btn.style.backgroundColor = '#d90429'; btn.style.boxShadow = '0 6px 0 #9d0208'; }
                 isBgmPlaying = false;
             } else {
-                bgmAudio.play().catch(e => console.log('BGM 재생 권한 에러:', e));
+                audio.play().catch(e => console.log('BGM 재생 권한 에러:', e));
                 if(btn) { btn.innerHTML = '<i class="fa-solid fa-music"></i> BGM ON'; btn.style.backgroundColor = '#74c69d'; btn.style.boxShadow = '0 6px 0 #2d6a4f'; }
                 isBgmPlaying = true;
             }
@@ -1149,19 +1131,16 @@
 
         function changeBgmTo(type) {
             initBgm();
-            if(!bgmAudio) return;
-            const wasPlaying = isBgmPlaying;
+            if(currentBgmType === type) return; // 동일하면 무시
             
-            if(type === 'boss') {
-                bgmAudio.src = 'https://upload.wikimedia.org/wikipedia/commons/4/4b/Kevin_MacLeod_-_Volatile_Reaction.ogg';
-                bgmAudio.volume = 0.5;
-            } else {
-                bgmAudio.src = 'https://upload.wikimedia.org/wikipedia/commons/b/b5/Kevin_MacLeod_-_Enchanted_Valley.ogg';
-                bgmAudio.volume = 0.3;
-            }
+            const oldAudio = getActiveBgmAudio();
+            if(oldAudio) { oldAudio.pause(); oldAudio.currentTime = 0; }
             
-            if(wasPlaying) {
-                bgmAudio.play().catch(e => console.log('BGM 변경 재생 에러:', e));
+            currentBgmType = type;
+            const newAudio = getActiveBgmAudio();
+            
+            if(isBgmPlaying && newAudio) {
+                newAudio.play().catch(e => console.log('BGM 변경 재생 에러:', e));
             }
         }
 
@@ -1169,11 +1148,11 @@
             const door = document.getElementById('main-door'); 
             if(door) door.classList.add('entering-door'); 
             
-            if(audioCtx.state === 'suspended') audioCtx.resume();
             initBgm();
-            if(bgmAudio && !isBgmPlaying) {
+            if(!isBgmPlaying) {
                 toggleBgm(); 
             }
+
             setTimeout(() => { goTo('slide-prologue'); setTimeout(() => { if(door) door.classList.remove('entering-door'); }, 500); }, 600); 
         }
         
@@ -1188,6 +1167,7 @@
         
         function showMapTransition(f, t, targetSlide) {
             stopSound(false);
+            
             const mapOverlay = document.getElementById('map-transition-overlay'); 
             const fowi = document.getElementById('map-fowi');
             
@@ -1240,6 +1220,8 @@
         let cAu = null;
         function playSound(f, m) { if(cAu) { cAu.pause(); cAu.currentTime = 0; } cAu = new Audio(f); cAu.play().catch(e => console.log("Audio 없음: " + f)); showInfo(m); }
         function stopSound(t = true) { if(cAu) { cAu.pause(); cAu.currentTime = 0; if(t) showInfo('🔇 소리를 멈췄습니다.'); cAu = null; } }
+
+        function playSoundEffect(filename) { let sfx = new Audio(filename); sfx.play().catch(e => console.log("SFX 없음: " + filename)); }
 
         function showInfo(m) { showToast(m, 'info'); }
         let tT; function showToast(m, type) { const t = document.getElementById('toast'); if(!t) return; clearTimeout(tT); t.innerHTML = m; if(type==='info') t.classList.add('info'); else t.classList.remove('info'); t.classList.add('show'); tT = setTimeout(() => t.classList.remove('show'), 4000); }
